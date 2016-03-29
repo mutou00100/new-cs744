@@ -68,8 +68,8 @@ div#two {
 				onClick="show(this.id)" data-toggle="modal" data-target="#userModal">Add User</button>
 			<button id="addSecurityQuestion" type="button" class="list-group-item"
 				onClick="add()" data-toggle="modal" data-target="#myModal">Add Security Question</button>
-			<button id = "Recieved Message" type="button" class="list-group-item" data-toggle="modal" data-target="#myModal2" >Recieved Message</button>
-		<button id = "blockedMessage" type="button" class="list-group-item" onclick="createTbody()" data-toggle="modal" data-target="#myModal2">Blocked Message</button>
+			<button id = "Recieved Message" type="button" class="list-group-item" data-toggle="modal" data-target="#myModal" >Recieved Message</button>
+		<button id = "blockedMessage" type="button" class="list-group-item" onclick="createTbody()" data-toggle="modal" data-target="#myModal">Blocked Message</button>
 		</div>
 		<div id="two"><%@ include file="footer.jsp"%></div>
 	</section>
