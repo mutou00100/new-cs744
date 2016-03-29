@@ -10,16 +10,17 @@
 		org.hibernate.dialect.MySQLDialect
 	</property>
 	<property name="connection.url">
-		jdbc:mysql://localhost:3306/Concentric_ring
+		jdbc:mysql://localhost:3306/cs744
 	</property>
 	<property name="connection.username">root</property>
-	<property name="connection.password">9332</property>
+	<property name="connection.password">root</property>
 	<property name="connection.driver_class">
 		com.mysql.jdbc.Driver
 	</property>
 	<property name="myeclipse.connection.profile"></property>
 	<property name="show_sql">true</property>
 	<mapping resource="com/entity/User.hbm.xml" />
+	<mapping resource="com/entity/Question.hbm.xml" />
 </session-factory>
 
 </hibernate-configuration>
