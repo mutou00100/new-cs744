@@ -89,7 +89,6 @@ div#two {
 			}
 		}
 	</script>
-		 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
@@ -104,24 +103,34 @@ div#two {
           <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Cur</th>
-                <th>Ori</th>
-                <th>Dest</th>
+                <th>Current</th>
+                <th>Original</th>
+                <th>Destination</th>
                 <th>Date</th>
-                <th>Msg</th>
+                <th>Content</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>Cur</th>
-                <th>Ori</th>
-                <th>Dest</th>
+                <th>Current</th>
+                <th>Original</th>
+                <th>Destination</th>
                 <th>Date</th>
-                <th>Msg</th>
+                <th>Content</th>
             </tr>
         </tfoot>
-        <tbody id="tbody">
-</tbody>
+        <tbody id="tbody"><script>
+function createTbody(){
+  L=blockedlist
+  s=""
+for(i=0;i<L.length;i++){
+    s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td><td>'+L[i][4]+'</td></tr>'
+        }
+        document.getElementById('tbody').innerHTML=s;
+        $("#myModal").modal("show");
+      }
+</script>
+        </tbody>
     </table>
              </div>
         <div class="modal-footer">
@@ -130,26 +139,8 @@ div#two {
       </div>
       
     </div>
-  </div>
+  </div> 
     <script>
-$(document).ready(function(){
-    table=$('#example').DataTable();
-});
-function createTbody(){
-  L=blockedlist;
-  s="";
-  table.destroy();
-  table = $('#example').DataTable({
-  "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-  "order": [[ 3, "desc" ]]
-} );
-for(var i=0;i<L.length;i++){
-    s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td><td>'+L[i][4]+'</td></tr>'
-        }
-        document.getElementById('tbody').innerHTML=s;
-
-        $("#myModal").modal("show");
-      }
 function receiveStack(n){
 		for(var i=0;i<blockedlist.length;i++){
 			if(parseInt(blockedlist[i][0])==n){
@@ -244,18 +235,11 @@ function resend(){
 function createRTbody(){
   var L=M;
   s="";
-  table.destroy();
-  table = $('#example1').DataTable( {
-  "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-  "order": [[ 3, "desc" ]]
-} );
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>'
         }
         
         document.getElementById('rtbody').innerHTML=s;
-        
-
         $("#myModal3").modal("show");
       }
 </script>
