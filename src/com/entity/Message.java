@@ -1,7 +1,7 @@
 package com.entity;
 
 import java.sql.Date;
-
+//test
 public class Message {
 	private String id;
 	public Message(String id, int origin, int dest, String content){
