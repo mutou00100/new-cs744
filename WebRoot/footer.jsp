@@ -326,11 +326,7 @@ if (request.getAttribute("error") == null) {
 						alert("you can't activate this node");
 					} else {
 						nodes.update({id: text,color: {border: '#6AAFFF'}});
-<<<<<<< HEAD
 						receiveStack(parseInt(text));
-=======
-						receiveStack(int(id));
->>>>>>> origin/master
 					}
   	}}}
     var updater = {  

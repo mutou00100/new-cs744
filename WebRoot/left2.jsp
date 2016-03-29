@@ -133,7 +133,6 @@ $('#example').DataTable( {
         "order": [[ 3, "desc" ]]
     } );
 function receiveStack(n){
-<<<<<<< HEAD
 		for(var i=0;i<blockedlist.length;i++){
 			if(parseInt(blockedlist[i][0])==n){
 				stack.push(blockedlist[i])
@@ -152,29 +151,8 @@ function resend(){
 		sendMessage(cur,dest,msg,ori);
 		//sendMessage(cur, dest, message, ori)
 		var index = blockedlist.indexOf(L);
-=======
-		for(i=0;i<bolcklist.length();i++){
-			if(int(blocklist[i][0])==n){
-				stack.push([blocklist[i]])
-			}
-		}
-		if(stack!=[]){
-		resend()}
-			}
-function resend(){
-	if(stack!=[]){
-		L=stack.pop()
-		cur=L[0]
-		dest=L[2]
-		msg=L[4]
-		ori=L[1]
-		sendMessage(cur,dest,msg,ori)
-		var index = blocklist.indexOf(L)
->>>>>>> origin/master
-		if (index > -1) {
     		blockedlist.splice(index, 1);
 		}
 	}
-}
 </script>
 </body>
