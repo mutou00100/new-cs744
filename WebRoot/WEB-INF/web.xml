@@ -60,25 +60,9 @@
     <load-on-startup>0</load-on-startup>
   </servlet>
   <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>storeMessage</servlet-name>
-    <servlet-class>com.servlet.storeMessage</servlet-class>
+    <servlet-name>addQuestion</servlet-name>
+    <servlet-class>com.servlet.addQuestion</servlet-class>
   </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>checkMessage</servlet-name>
-    <servlet-class>com.servlet.checkMessage</servlet-class>
-  </servlet>
-
-
-
-
-
-
-
-
 
   <servlet-mapping>
     <servlet-name>addConnector</servlet-name>
@@ -124,16 +108,12 @@
     <servlet-name>activateNode</servlet-name>
     <url-pattern>/activateNode</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+ <servlet-mapping>
     <servlet-name>inactivateNode</servlet-name>
     <url-pattern>/inactivateNode</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>storeMessage</servlet-name>
-    <url-pattern>/storeMessage</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>checkMessage</servlet-name>
-    <url-pattern>/checkMessage</url-pattern>
+    <servlet-name>addQuestion</servlet-name>
+    <url-pattern>/addQuestion</url-pattern>
   </servlet-mapping>
 </web-app>
