@@ -6,7 +6,6 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
@@ -132,29 +131,25 @@ div#two {
       
     </div>
   </div>
-<script src ="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js">
+    <script>
+$(document).ready(function(){
+    table=$('#example').DataTable();
+});
 function createTbody(){
   L=blockedlist;
   s="";
+  table.destroy();
+  table = $('#example').DataTable({
+  "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+  "order": [[ 3, "desc" ]]
+} );
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td><td>'+L[i][4]+'</td></tr>'
         }
         document.getElementById('tbody').innerHTML=s;
-        if (table!=undefined){
-          table.destroy();
-        }
-        table = $('#example').DataTable({
-        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-        "order": [[ 3, "desc" ]]
-    } );
 
         $("#myModal").modal("show");
       }
-
-$('#example').DataTable( {
-        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-        "order": [[ 3, "desc" ]]
-    } );
 function receiveStack(n){
 		for(var i=0;i<blockedlist.length;i++){
 			if(parseInt(blockedlist[i][0])==n){
@@ -245,21 +240,21 @@ function resend(){
 </tbody>
     </table>
              </div>
-<script>
+   <script>
 function createRTbody(){
   var L=M;
   s="";
+  table.destroy();
+  table = $('#example1').DataTable( {
+  "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+  "order": [[ 3, "desc" ]]
+} );
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>'
         }
+        
         document.getElementById('rtbody').innerHTML=s;
-        if (table!=undefined){
-          table.destroy();
-        }
-        table = $('#example1').DataTable( {
-        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-        "order": [[ 3, "desc" ]]
-    } );
+        
 
         $("#myModal3").modal("show");
       }
@@ -271,4 +266,5 @@ for(var i=0;i<L.length;i++){
       
     </div>
   </div>
+  <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 </body>
