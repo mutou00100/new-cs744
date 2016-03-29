@@ -21,6 +21,24 @@ public class MessageDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private int ri,row,rc;
+	public ArrayList<Message> getAllMessage() {
+		ArrayList<Message> result = new ArrayList<Message>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Message");
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				//String id, int origin, int dest, String content
+				result.add(new Message(rs.getString("id"),rs.getInt("content"),rs.getInt("origin"),rs.getString("destination")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
+
+	}
 	
 	public boolean addMessage(String content, int origin, int destination) {
 		boolean result = false;

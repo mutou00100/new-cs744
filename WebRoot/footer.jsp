@@ -12,7 +12,7 @@ if (request.getAttribute("error") == null) {
 <div id="mynetwork" ></div>
 <script type="text/javascript">
 	var blockedlist = [];
-	var M=[[142,143,4343,23]];
+	var M=[[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23]];
 	var inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
@@ -20,7 +20,7 @@ if (request.getAttribute("error") == null) {
 	var EDGE_LENGTH_SUB = 100; 
 	var process = 0;
 	var stack=[];
-	
+	var table;
 	function draw() {
 		nodes = new vis.DataSet();
 		edges = new vis.DataSet();

@@ -3,9 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -122,26 +122,6 @@ div#two {
             </tr>
         </tfoot>
         <tbody id="tbody">
-<script>
-table;
-function createTbody(){
-  L=blockedlist;
-  s="";
-for(var i=0;i<L.length;i++){
-    s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td><td>'+L[i][4]+'</td></tr>'
-        }
-        document.getElementById('tbody').innerHTML=s;
-        if (table!=undefined){
-          table.destroy();
-        }
-        table = $('#example').DataTable( {
-        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-        "order": [[ 3, "desc" ]]
-    } );
-
-        $("#myModal").modal("show");
-      }
-</script>
 </tbody>
     </table>
              </div>
@@ -152,7 +132,25 @@ for(var i=0;i<L.length;i++){
       
     </div>
   </div>
-<script>
+<script src ="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js">
+function createTbody(){
+  L=blockedlist;
+  s="";
+for(var i=0;i<L.length;i++){
+    s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td><td>'+L[i][4]+'</td></tr>'
+        }
+        document.getElementById('tbody').innerHTML=s;
+        if (table!=undefined){
+          table.destroy();
+        }
+        table = $('#example').DataTable({
+        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+        "order": [[ 3, "desc" ]]
+    } );
+
+        $("#myModal").modal("show");
+      }
+
 $('#example').DataTable( {
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
@@ -244,8 +242,10 @@ function resend(){
             </tr>
         </tfoot>
         <tbody id="rtbody">
+</tbody>
+    </table>
+             </div>
 <script>
-table1;
 function createRTbody(){
   var L=M;
   s="";
@@ -253,10 +253,10 @@ for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>'
         }
         document.getElementById('rtbody').innerHTML=s;
-        if (table1!=undefined){
-          table1.destroy();
+        if (table!=undefined){
+          table.destroy();
         }
-        table1 = $('#example1').DataTable( {
+        table = $('#example1').DataTable( {
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
     } );
@@ -264,9 +264,6 @@ for(var i=0;i<L.length;i++){
         $("#myModal3").modal("show");
       }
 </script>
-</tbody>
-    </table>
-             </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
