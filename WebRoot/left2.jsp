@@ -1,7 +1,5 @@
 <%@ include file="head.jsp"%>
 <head>
-  <title>Bootstrap Example</title>
- 
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -82,20 +80,20 @@ margin-left:20%;
           <table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-                <th>Current</th>
-                <th>Original</th>
-                <th>Destination</th>
+                <th>Cur</th>
+                <th>Ori</th>
+                <th>Dest</th>
                 <th>Date</th>
-                <th>Content</th>
+                <th>Msg</th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <th>Current</th>
-                <th>Original</th>
-                <th>Destination</th>
+                <th>Cur</th>
+                <th>Ori</th>
+                <th>Dest</th>
                 <th>Date</th>
-                <th>Content</th>
+                <th>Msg</th>
             </tr>
         </tfoot>
         <tbody id="tbody">
@@ -134,26 +132,29 @@ $('#example').DataTable( {
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
     } );
-stack=[]
 function receiveStack(n){
-		for(i=0;i<bolcklist.length();i++){
-			if(blocklist[i][0]==n){
-				stack.push([blocklist[i]])
+		for(var i=0;i<blockedlist.length;i++){
+			if(parseInt(blockedlist[i][0])==n){
+				stack.push(blockedlist[i])
 			}
 		}
 		if(stack!=[]){
-		resend(stack.pop())}
+		resend();}
 			}
-function resend(L){
-		cur=L[0]
-		dest=L[2]
-		msg=L[4]
-		ori=L[1]
-		sendMessage(cur,dest,msg,ori)
-		var index = blocklist.indexOf(L)
+function resend(){
+	if(stack!=[]){
+		L=stack.pop();
+		cur=L[0];
+		dest=L[2];
+		msg=L[4];
+		ori=L[1];
+		sendMessage(cur,dest,msg,ori);
+		//sendMessage(cur, dest, message, ori)
+		var index = blockedlist.indexOf(L);
 		if (index > -1) {
-    		blocklist.splice(index, 1);
+    		blockedlist.splice(index, 1);
 		}
+	}
 }
 </script>
 </body>

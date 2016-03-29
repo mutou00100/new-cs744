@@ -1,4 +1,5 @@
 <%@ include file="head_without_jsp.jsp"%>
+
 <%String error = "";
 	NodeDao nd = new NodeDao();
 	ArrayList<Integer> res = nd.getAllC();

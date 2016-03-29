@@ -18,6 +18,7 @@ if (request.getAttribute("error") == null) {
 	var EDGE_LENGTH_MAIN = 500;
 	var EDGE_LENGTH_SUB = 100; 
 	var process = 0;
+	var stack=[];
 	function draw() {
 		nodes = new vis.DataSet();
 		edges = new vis.DataSet();
@@ -79,7 +80,7 @@ if (request.getAttribute("error") == null) {
           }
         },};
 		network = new vis.Network(container, data, options);
-		//updater.poll(); 
+//		updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -102,8 +103,8 @@ if (request.getAttribute("error") == null) {
 					var path=[];
 					var arrival = parseInt(txt3[txt3.length - 2]);	
 					var oriThisTIme = parseInt(txt3[txt3.length - 1]);			
-					if (oriThisTIme == ori){
-						path.push(ori);
+					if (oriThisTIme == parseInt(ori)){
+						path.push(parseInt(ori));
 					}
 					for(var j=0;j<txt3.length-2;j++){
 						path.push(parseInt(txt3[j]));
@@ -117,29 +118,35 @@ if (request.getAttribute("error") == null) {
 	function startWalking(dest, message,path,ori,arrival, i){ 	
 		var count = 0;
 		process = 0;
-		for (; i < path.length; i++) {
-			setTime(dest, message,path,ori,arrival, i, count);
+		var j = i;
+		for (; j < path.length; j++) {
 			count++;
+			setTime(dest, message,path,ori,arrival, j, count);
 		}
 					
   	}
   	function setTime(dest, message,path,ori,arrival, i,count){
   			setTimeout(function() {
 				if (process == 0) {
-					if (inactivelist.indexOf(path[i])>0) {	
+					var temp = i;
+					var test1 = path[i];
+					var test = inactivelist.indexOf(path[i])>=0;
+					if (inactivelist.indexOf(path[i])>=0) {	
 					var d=new Date();
-					var s=String(d.getMonth()+1)+ '/' +String(d.getDate())+'/';							
+					var s=String(d.getFullYear()+'-'+d.getMonth()+1)+ '-' +String(d.getDate())+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();							
 						blockedlist.push([path[i], ori,dest,s,message]);
 						process =-1;
-						setTimeout(function() { alert("blocked at node" + path[i]);}
+						setTimeout(function() { alert("blocked at node" + path[i]);
+						resend();}
 						,1000);
 					} else {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
 							storeMessage(path[i], dest, message);
-							setTimeout(function() { alert("sent successfully");}
+							setTimeout(function() { alert("sent successfully");
+							resend();}
 						,1000);
 							process =-1;
-						} else if (arrival == -1) {
+						} else if (arrival == -1 && path[i]!==ori) {
 							// blocked, find other ways
 							process =-1;
 							//startWalking(cur, dest, message,path,ori,arrival, i){ 	
@@ -319,6 +326,7 @@ if (request.getAttribute("error") == null) {
 						alert("you can't activate this node");
 					} else {
 						nodes.update({id: text,color: {border: '#6AAFFF'}});
+						receiveStack(parseInt(text));
 					}
   	}}}
     var updater = {  

@@ -57,7 +57,6 @@ public class sendMessage extends HttpServlet {
 			}
 		} else {
 			ArrayList<Integer> temp = new ArrayList<Integer>();
-			temp.add(ori);
 			temp.add(-1);
 			temp.add(ori);
 			out.print(temp);
