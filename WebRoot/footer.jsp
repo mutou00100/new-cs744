@@ -90,7 +90,7 @@ if (request.getAttribute("error") == null) {
           }
         },};
 		network = new vis.Network(container, data, options);
-		updater.poll(); 
+	//	updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -361,7 +361,15 @@ if (request.getAttribute("error") == null) {
 				if (text == "error") {
 						alert("you can't activate this node");
 					} else {
-						nodes.update({id: text,color: {border: '#6AAFFF'}});
+						nodes.update({id: text,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',color: {border: '#6AAFFF'}});
+  							<%
+  				        	for (int i=0;i<allPatterns.size();i++){
+  				        	%>
+  							if (text==<%=allPatterns.get(i) + ""%>){
+  								nodes.update({id: text,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',color: {border: '#6AAFFF'}});
+  							}
+  							<%}
+  					    	%>
 						receiveStack(parseInt(text));
 					}
   	}}}
@@ -374,10 +382,19 @@ if (request.getAttribute("error") == null) {
                 error: updater.onError});  
     },  
     onSuccess: function(data, dataStatus){  
-        try{ 
-        	if (data!= "") 
-          	 nodes.update({id: data,color: {border: 'gray'}});
-          	 inactivelist.push(data);
+       try{ 
+        	if (data!= ""){
+        		nodes.update({id: data, image : DIR + 'inactivate.png',shape : 'circularImage'});
+    			inactivelist.push(data);
+        	<%
+        	for (int i=0;i<allPatterns.size();i++){
+        	%>
+        	if (data == <%=allPatterns.get(i) + ""%>) {
+          	 	nodes.update({id: data, image : DIR + 'inactivatedC.png',shape : 'circularImage'});
+        	}
+        <%}
+    	%>
+        	}
         }  
         catch(e){  
             updater.onError();  

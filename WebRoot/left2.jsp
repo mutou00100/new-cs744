@@ -11,10 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
 	function add() {
-		document.getElementById('myModal').style.display = 'block';
+		document.getElementById('myModal2').style.display = 'block';
 	}
 	function closediv_add() {
-		document.getElementById('myModal').style.display = 'none';
+		document.getElementById('myModal2').style.display = 'none';
 	}
 </script>
 
@@ -49,7 +49,9 @@ div#two {
 				if (request.getSession().getAttribute("firstname") == "admin"){
 			%>
 			<%
-				out.print("<li><a href=\"listUser.action\" target=\"frame3\">Check Users</a></li>");}
+				out.print("<button id=\"checkUsers\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\">Check users</button>");				
+				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
+				}
 			%>
 			<button id="addNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Add Non-Connector Node</button>
@@ -62,10 +64,6 @@ div#two {
 			<button id="activateNode" type="button" class="list-group-item" onClick="show(this.id)">Activate Node</button>
 			<button id="inactivateNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Inactivate Node</button>
-			<button id="inactivateNode" type="button" class="list-group-item"
-				onClick="show(this.id)">Check users</button>
-			<button id="addUser" type="button" class="list-group-item"
-				onClick="show(this.id)" data-toggle="modal" data-target="#userModal">Add User</button>
 			<button id="addSecurityQuestion" type="button" class="list-group-item"
 				onClick="add()" data-toggle="modal" data-target="#myModal2">Add Security Question</button>
 			<button id = "Recieved Message" type="button" class="list-group-item" data-toggle="modal" data-target="#myModal" >Recieved Message</button>
