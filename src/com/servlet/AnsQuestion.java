@@ -53,7 +53,7 @@ public class AnsQuestion extends HttpServlet {
 		if (uDao.checkSecurity(uid, qID, ans)){
 			request.setAttribute("count", count);
 			request.setAttribute("answered", null);
-			request.getRequestDispatcher("main.jsp").forward(request, response);
+			request.getRequestDispatcher("left2.jsp").forward(request, response);
 		} else {
 			request.setAttribute("currId", "error");
 			HashSet<Integer> answered;
