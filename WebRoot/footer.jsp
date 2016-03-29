@@ -19,6 +19,7 @@ if (request.getAttribute("error") == null) {
 	var EDGE_LENGTH_SUB = 100; 
 	var process = 0;
 	var stack=[];
+	
 	function draw() {
 		nodes = new vis.DataSet();
 		edges = new vis.DataSet();
@@ -26,7 +27,7 @@ if (request.getAttribute("error") == null) {
   		if(allnodes != null) { 
   			for (int i=0;i<allnodes.size();i++){%>
 	
-				<%if (allnodes.get(i).getType().equals("c")){%>
+				<%if(allnodes.get(i).getType().equals("c")){%>
 				nodes.add({id :<%=allnodes.get(i).getnID()%>, label : 'Pattern' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
 				 color: {
             	background: '#6AAFFF',
@@ -40,18 +41,27 @@ if (request.getAttribute("error") == null) {
             background: '#6AAFFF',
             border: '#6AAFFF'
           },});<%}%>
-          <%if (allnodes.get(i).getStatus()!=0){%>
+          <%if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("n")){%>
 				nodes.update({id :<%=allnodes.get(i).getnID()%>,
+				image : DIR + 'inactivate.png',shape : 'circularImage',
 				 color: {
             background: '#6AAFFF',
-            border: 'gray'
+            border: '#6AAFFF'
           }});
-          	inactivelist.push(<%=allnodes.get(i).getnID()%>);
-				<%}}}%>
+				inactivelist.push(<%=allnodes.get(i).getnID()%>);
+				<%}if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("c")){%>
+				nodes.update({id :<%=allnodes.get(i).getnID()%>,
+					image : DIR + 'inactivatedC.png',shape : 'circularImage',
+					 color: {
+	            background: '#6AAFFF',
+	            border: '#6AAFFF'
+	          }});
+				inactivelist.push(<%=allnodes.get(i).getnID()%>);
+  			<%}}}%>
 		
 	
 		<%
-  		if(edge != null) { // 有信息返
+  		if(edge != null) { // æä¿¡æ¯è¿
   			for (int i=0;i<edgeCC.size();i++){
   			%>
 			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN,dashes:true});
@@ -80,7 +90,7 @@ if (request.getAttribute("error") == null) {
           }
         },};
 		network = new vis.Network(container, data, options);
-//		updater.poll(); 
+		updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -215,6 +225,28 @@ if (request.getAttribute("error") == null) {
 		});
 		}
   	}
+  	function addQuestion(){
+		//var checkboxes= window.parent.document.getElementById('frame2').contentWindow.document.getElementsByName('checkedC');
+	var checkboxes= document.getElementById('content').value;
+	createXMLHttp() ;
+	xmlHttp.open("POST","addQuestion?content="+checkboxes) ;
+	xmlHttp.onreadystatechange = addQuestionCallback ;
+	xmlHttp.send();
+}
+	function addQuestionCallback(){
+	  	if(xmlHttp.readyState == 4){
+					if(xmlHttp.status == 200){
+						var xml = xmlHttp.responseXML;
+						//var parser = new DOMParser();
+						//var xml = parser.parseFromString(xmlHttp.responseText, "application/xml");
+						if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
+							alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
+						} else {
+							alert(xml.getElementsByTagName("success")[0].childNodes[0].nodeValue);
+	  						}		
+						}
+					}
+	  	}
   	function addConnector(){
   			//var checkboxes= window.parent.document.getElementById('frame2').contentWindow.document.getElementsByName('checkedC');
 			var checkboxes= document.getElementsByName('checkedC');
@@ -266,6 +298,10 @@ if (request.getAttribute("error") == null) {
 					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
 						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
 					} else {
+						var obj=document.getElementById('nid'); 
+						//index,要删除选项的序号，这里取当前选中选项的序号 
+						var index=obj.selectedIndex; 
+						obj.options.remove(index); 					
 						removeNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);
   						for (var i = 0; i < xml.getElementsByTagName("addEdge1").length; i++) {
   						addEdge(xml.getElementsByTagName("addEdge0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("addEdge1")[i].childNodes[0].nodeValue,
@@ -326,11 +362,7 @@ if (request.getAttribute("error") == null) {
 						alert("you can't activate this node");
 					} else {
 						nodes.update({id: text,color: {border: '#6AAFFF'}});
-<<<<<<< HEAD
 						receiveStack(parseInt(text));
-=======
-						receiveStack(int(id));
->>>>>>> origin/master
 					}
   	}}}
     var updater = {  
