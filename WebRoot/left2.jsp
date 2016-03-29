@@ -9,7 +9,6 @@
     <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
 <script>
 	function add() {
 		document.getElementById('myModal').style.display = 'block';
@@ -18,8 +17,7 @@
 		document.getElementById('myModal').style.display = 'none';
 	}
 </script>
-</head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
 .list-group {
 	margin-left: 1%;
@@ -180,13 +178,11 @@ function resend(){
 		sendMessage(cur,dest,msg,ori);
 		//sendMessage(cur, dest, message, ori)
 		var index = blockedlist.indexOf(L);
-<<<<<<< HEAD
 		if (index > -1) {
-=======
->>>>>>> origin/master
     		blockedlist.splice(index, 1);
 		}
 	}
+}
 </script>
 	<!-- Modal -->
 	<div id="myModal" class="modal fade">
