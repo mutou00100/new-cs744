@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.entity.Question" table="QUESTION">
+        <id name="id" type="java.lang.Integer">
+            <column name="qID" length="50" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="content" type="java.lang.String">
+            <column name="qContent" length="50" not-null="true">
+                <comment>名字</comment>
+            </column>
+        </property>
+     </class>
+</hibernate-mapping>
