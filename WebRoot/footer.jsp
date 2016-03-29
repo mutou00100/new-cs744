@@ -118,6 +118,9 @@ if (request.getAttribute("error") == null) {
 					if (oriThisTIme == parseInt(ori)){
 						path.push(parseInt(ori));
 					}
+					if (txt3.length == 2) {
+						path.push(parseInt(cur));
+					}
 					for(var j=0;j<txt3.length-2;j++){
 						path.push(parseInt(txt3[j]));
 					}					
@@ -148,13 +151,13 @@ if (request.getAttribute("error") == null) {
 					if (inactivelist.indexOf(path[i])>=0) {							
 						blockedlist.push([path[i], ori,dest,s,message]);
 						process =-1;
-						setTimeout(function() { alert("blocked at node" + path[i]);
+						setTimeout(function() { alert("A message is blocked at node" + path[i]);
 						resend();}
 						,1000);
 					} else {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
 							storeMessage(path[i], dest, message);
-							setTimeout(function() { alert("sent successfully");
+							setTimeout(function() { alert("A message is sent successfully");
 							M.push([ori,dest,s,message]);
 							resend();}
 						,1000);
@@ -364,6 +367,10 @@ if (request.getAttribute("error") == null) {
 				if (text == "error") {
 						alert("you can't activate this node");
 					} else {
+						var index = inactivelist.indexOf(parseInt(text));
+						if (index > -1) {
+    						inactivelist.splice(index, 1);
+						}
 						nodes.update({id: text,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',color: {border: '#6AAFFF'}});
   							<%
   				        	for (int i=0;i<allPatterns.size();i++){
