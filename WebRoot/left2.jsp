@@ -180,11 +180,13 @@ function resend(){
 		sendMessage(cur,dest,msg,ori);
 		//sendMessage(cur, dest, message, ori)
 		var index = blockedlist.indexOf(L);
+<<<<<<< HEAD
 		if (index > -1) {
+=======
+>>>>>>> origin/master
     		blockedlist.splice(index, 1);
 		}
 	}
-}
 </script>
 	<!-- Modal -->
 	<div id="myModal" class="modal fade">
