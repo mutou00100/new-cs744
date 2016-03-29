@@ -22,7 +22,7 @@
 		</action>
 		
 		<action name="addUser" class="com.servlet.AddUserAction">
-			<result name="success" type="redirect">listUser.action</result>
+			<result name="success">/left2.jsp</result>
 			<result name="input" type="dispatcher">/addUser.jsp</result>
 		</action>
 		
