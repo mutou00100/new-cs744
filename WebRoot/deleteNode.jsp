@@ -25,8 +25,17 @@
 						<tbody>
 							<tr>
 								<td class="span4">Node ID:</td>
-								<td class="span1"><input class="input-small" name="nid" id="nid"
-									size="10" type="text" value=""></input></td>
+								<td class="span2"><select name="nid" id= "nid" class="span1">
+										<%	
+											if (allnodes != null && allnodes.size() != 0) {
+												for (int i = 0; i < allnodes.size(); i++) {
+													int pattern = allnodes.get(i).getnID();
+													out.println("<option value = " +  pattern + ">" +  pattern
+															+ "</option>");
+												}
+											}
+										%>
+								</select></td>
 								<td class="span6">
 									<button class="btn btn-primary" onclick = "if(check()){deleteNode();}" type="submit">Delete</button>
 								</td>
