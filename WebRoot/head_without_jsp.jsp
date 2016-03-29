@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" import="com.entity.Edge" import="com.dao.NodeDao" import="com.entity.Node" pageEncoding="UTF-8"%>
 <%@ page import="com.entity.Message"%>
+<%@ page import="com.dao.MessageDao"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <meta name="title" content="University of Wisconsin-La Crosse"></meta>

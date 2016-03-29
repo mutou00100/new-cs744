@@ -21,22 +21,38 @@ public class MessageDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private int ri,row,rc;
-	public ArrayList<Message> getAllMessage() {
-		ArrayList<Message> result = new ArrayList<Message>();
+	public String getAllMessage() {
+		ArrayList<Message> res = new ArrayList<Message>();
 		try {
 			conn = ConnUtils.getConnection();//
 			pstmt = conn.prepareStatement("SELECT * FROM Message");
 			rs = pstmt.executeQuery();					
 			while (rs.next()){
 				//String id, int origin, int dest, String content
-				result.add(new Message(rs.getString("id"),rs.getInt("content"),rs.getInt("origin"),rs.getString("destination")));
+				//String temp = rs.getString("id");
+				//temp.replaceAll(" ", "/");
+				//temp.replaceAll(":", "/");
+				String temp = rs.getString("id");
+				String f = temp.substring(0, temp.length() - 2);
+				res.add(new Message(f,rs.getInt("origin"),rs.getInt("destination"),rs.getString("content")));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			ConnUtils.releaseConn(rs, pstmt, conn);
 		}
-		return result;
+		StringBuffer sb = new StringBuffer();
+		sb.append("[");
+		for (int i = 0; i < res.size();i++) {
+			sb.append("[");
+			sb.append(""+res.get(i).getOrigin()+",");
+			sb.append(""+res.get(i).getDestination()+",");
+			sb.append("\""+res.get(i).getId()+"\",");
+			sb.append(""+res.get(i).getContent());
+			sb.append("],");
+		}
+		sb.append("]");
+		return sb.toString();
 
 	}
 	

@@ -10,9 +10,10 @@ if (request.getAttribute("error") == null) {
 %>       
 <body onload="draw();"> 
 <div id="mynetwork" ></div>
+
 <script type="text/javascript">
 	var blockedlist = [];
-	var M=[[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23],[142,143,4343,23]];
+	var M=<%=md.getAllMessage()%>
 	var inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
@@ -142,9 +143,9 @@ if (request.getAttribute("error") == null) {
 					var temp = i;
 					var test1 = path[i];
 					var test = inactivelist.indexOf(path[i])>=0;
-					if (inactivelist.indexOf(path[i])>=0) {	
-					var d=new Date();
-					var s=String(d.getFullYear()+'-'+d.getMonth()+1)+ '-' +String(d.getDate())+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();							
+					var d=new Date();	
+					var s=String(d.getFullYear())+'-'+String(d.getMonth()+1)+ '-' +String(d.getDate())+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();	
+					if (inactivelist.indexOf(path[i])>=0) {							
 						blockedlist.push([path[i], ori,dest,s,message]);
 						process =-1;
 						setTimeout(function() { alert("blocked at node" + path[i]);
@@ -154,6 +155,7 @@ if (request.getAttribute("error") == null) {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
 							storeMessage(path[i], dest, message);
 							setTimeout(function() { alert("sent successfully");
+							M.push([ori,dest,s,message]);
 							resend();}
 						,1000);
 							process =-1;
@@ -419,4 +421,5 @@ if (request.getAttribute("error") == null) {
 			xmlHttp.open("POST","storeMessage?ori="+ori+ "&&dest=" +dest +"&&message=" + message) ;
 			xmlHttp.send() ;
   	}  
+ 	
 		</script>

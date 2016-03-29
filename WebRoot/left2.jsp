@@ -6,7 +6,6 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
@@ -132,7 +131,7 @@ div#two {
       
     </div>
   </div>
-<script src ="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js">
+<script>
 function createTbody(){
   L=blockedlist;
   s="";

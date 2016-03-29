@@ -2,6 +2,7 @@
 
 <%String error = "";
 	NodeDao nd = new NodeDao();
+	MessageDao md = new MessageDao();
 	ArrayList<Integer> res = nd.getAllC();
 	List<Node> allnodes = nd.getAllNodes();
 	List<Edge> edge = nd.getCEdges();
