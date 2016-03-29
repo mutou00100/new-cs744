@@ -67,7 +67,7 @@ div#two {
 			<button id="addUser" type="button" class="list-group-item"
 				onClick="show(this.id)" data-toggle="modal" data-target="#userModal">Add User</button>
 			<button id="addSecurityQuestion" type="button" class="list-group-item"
-				onClick="add()" data-toggle="modal" data-target="#myModal">Add Security Question</button>
+				onClick="add()" data-toggle="modal" data-target="#myModal2">Add Security Question</button>
 			<button id = "Recieved Message" type="button" class="list-group-item" data-toggle="modal" data-target="#myModal" >Recieved Message</button>
 		<button id = "blockedMessage" type="button" class="list-group-item" onclick="createTbody()" data-toggle="modal" data-target="#myModal">Blocked Message</button>
 		</div>
@@ -185,7 +185,7 @@ function resend(){
 }
 </script>
 	<!-- Modal -->
-	<div id="myModal" class="modal fade">
+	<div id="myModal2" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

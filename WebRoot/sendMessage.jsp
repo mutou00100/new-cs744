@@ -24,7 +24,7 @@ function sendMessageInMain() {
 	var ori= document.getElementById('ori').value;
 	var dest= document.getElementById('dest').value;
 	var message= document.getElementById('message').value;
-	sendMessage(ori, dest, message);
+	sendMessage(ori, dest, message, ori);
 }
 </script>
 <div class="span10" id="datacontent">
