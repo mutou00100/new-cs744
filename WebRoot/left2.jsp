@@ -137,14 +137,16 @@ $('#example').DataTable( {
 stack=[]
 function receiveStack(n){
 		for(i=0;i<bolcklist.length();i++){
-			if(blocklist[i][0]==n){
+			if(int(blocklist[i][0])==n){
 				stack.push([blocklist[i]])
 			}
 		}
 		if(stack!=[]){
-		resend(stack.pop())}
+		resend()}
 			}
-function resend(L){
+function resend(){
+	if(stack!=[]){
+		L=stack.pop()
 		cur=L[0]
 		dest=L[2]
 		msg=L[4]
@@ -154,6 +156,7 @@ function resend(L){
 		if (index > -1) {
     		blocklist.splice(index, 1);
 		}
+	}
 }
 </script>
 </body>
