@@ -48,7 +48,7 @@ public class MessageDao {
 			sb.append(""+res.get(i).getOrigin()+",");
 			sb.append(""+res.get(i).getDestination()+",");
 			sb.append("\""+res.get(i).getId()+"\",");
-			sb.append(""+res.get(i).getContent());
+			sb.append("'"+res.get(i).getContent()+"'");
 			sb.append("],");
 		}
 		sb.append("]");

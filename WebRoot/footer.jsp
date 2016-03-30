@@ -92,7 +92,7 @@ if (request.getAttribute("error") == null) {
           }
         },};
 		network = new vis.Network(container, data, options);
-	//	updater.poll(); 
+		updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -156,13 +156,13 @@ if (request.getAttribute("error") == null) {
 						,1000);
 					} else {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
-							storeMessage(path[i], dest, message);
+							storeMessage(ori, dest, message);
 							setTimeout(function() { alert("A message is sent successfully");
 							M.push([ori,dest,s,message]);
 							resend();}
 						,1000);
 							process =-1;
-						} else if (arrival == -1 && path[i]!==ori) {
+						} else if (arrival == -1 && path[i]!=ori) {
 							// blocked, find other ways
 							process =-1;
 							//startWalking(cur, dest, message,path,ori,arrival, i){ 	
@@ -395,7 +395,7 @@ if (request.getAttribute("error") == null) {
        try{ 
         	if (data!= ""){
         		nodes.update({id: data, image : DIR + 'inactivate.png',shape : 'circularImage'});
-    			inactivelist.push(data);
+    			inactivelist.push(parseInt(data));
         	<%
         	for (int i=0;i<allPatterns.size();i++){
         	%>

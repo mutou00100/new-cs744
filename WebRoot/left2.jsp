@@ -86,6 +86,8 @@ div#two {
 				$('#show').load('inactivateNode.jsp');
 			} else if (id == "addUser") {
 				$('#show').load('addUser.jsp');
+			}else if (id == "changeSecurityQuestion") {
+				$('#show').load('changeQuestion.jsp');
 			}
 		}
 	</script>
