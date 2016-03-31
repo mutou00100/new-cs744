@@ -123,20 +123,19 @@ div#two {
     </table>
              </div><script>
 function createTbody(){
+	if (table!=undefined){
+        table.destroy();
+      }
   var L=blockedlist;
   var s="";
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td><td>'+L[i][4]+'</td></tr>'
         }
         document.getElementById('tbody').innerHTML=s;
-        if (table!=undefined){
-          table.destroy();
-        }
         table = $('#example').DataTable({
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
     } );
-
         $("#myModal").modal("show");
         
       }
@@ -242,16 +241,16 @@ function resend(){
              </div>
 <script>
 function createRTbody(){
-
+	 if (table!=undefined){
+         table.destroy();
+       }
   var L=M;
   var  s="";
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>'
         }
         document.getElementById('rtbody').innerHTML=s;
-        if (table!=undefined){
-          table.destroy();
-        }
+       
         table = $('#example1').DataTable( {
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
