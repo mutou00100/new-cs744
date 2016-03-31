@@ -1,4 +1,6 @@
-<%@ include file="head_without_jsp.jsp"%>
+<%@ page language="java" import="java.util.*" import="com.entity.Edge" import="com.dao.NodeDao" import="com.entity.Node" pageEncoding="UTF-8"%>
+<%@ page import="com.entity.Message"%>
+<%@ page import="com.dao.MessageDao"%>
 
 <%String error = "";
 	NodeDao nd = new NodeDao();

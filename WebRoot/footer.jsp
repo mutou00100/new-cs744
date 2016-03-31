@@ -1,5 +1,4 @@
-<%@ include file="realhead.jsp"%>
-<% 
+<%@ include file="realhead.jsp"%><% 
 if (request.getAttribute("error") == null) {
 	} else {
 			 error = (String) request.getAttribute("error");
@@ -12,15 +11,15 @@ if (request.getAttribute("error") == null) {
 <div id="mynetwork" ></div>
 
 <script type="text/javascript">
-	var blockedlist = [];
-	var M=<%=md.getAllMessage()%>
-	var inactivelist = [];
+    var blockedlist = [];
+	M=<%=md.getAllMessage()%>;
+ 	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
-	var EDGE_LENGTH_MAIN = 500;
-	var EDGE_LENGTH_SUB = 100; 
-	var process = 0;
-	var stack=[];
+	EDGE_LENGTH_MAIN = 500;
+	EDGE_LENGTH_SUB = 100; 
+	process = 0;
+	var stack = [];
 	var table;
 	function draw() {
 		nodes = new vis.DataSet();
@@ -152,6 +151,7 @@ if (request.getAttribute("error") == null) {
 						blockedlist.push([path[i], ori,dest,s,message]);
 						process =-1;
 						setTimeout(function() { alert("A message is blocked at node" + path[i]);
+						alert(stack);
 						resend();}
 						,1000);
 					} else {
