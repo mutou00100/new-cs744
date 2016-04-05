@@ -6,14 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import com.entity.Message;
-import com.entity.Question;
 import com.utils.ConnUtils;
-import com.utils.SeparatePage;
 
 public class MessageDao {
 	private Connection conn;
@@ -48,7 +42,7 @@ public class MessageDao {
 			sb.append(""+res.get(i).getOrigin()+",");
 			sb.append(""+res.get(i).getDestination()+",");
 			sb.append("\""+res.get(i).getId()+"\",");
-			sb.append(""+res.get(i).getContent());
+			sb.append("'"+res.get(i).getContent()+"'");
 			sb.append("],");
 		}
 		sb.append("]");
@@ -81,74 +75,5 @@ public class MessageDao {
 			}
 			return result;
 		}
-	public List<Message> showMessage(int pageNo, int pageSize, Map<String, String> parameters) {
-		List<Message> result = new ArrayList<Message>();
-		int firstPos = (pageNo - 1) * pageSize;
-		String value = "";
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM Message WHERE destination = ?");
-		if (parameters != null){
-			Set keySet = parameters.keySet();
-			if (keySet != null && keySet.size() > 0){
-				for (Iterator it = keySet.iterator(); it.hasNext(); ){
-					String key = (String)it.next();
-					value =(String)parameters.get(key);
-				}
-			}
-		}
-		sql.append(" LIMIT ").append(firstPos).append(",").append(pageSize);
-		
-		try {
-			conn = ConnUtils.getConnection();//
-			pstmt = conn.prepareStatement(sql.toString());
-			pstmt.setString(1, value);
-			rs = pstmt.executeQuery();
-			
-			while (rs.next()){
-				String temp = rs.getString("id").substring(0, rs.getString("id").length() - 2);
-				Message user = new Message(temp,rs.getInt("origin"),rs.getInt("destination"),rs.getString("content"));
-				result.add(user);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			ConnUtils.releaseConn(rs, pstmt, conn);
-		}
-		return result;
-
 	}
-	public int GetMessageCount(Map parameters){
-		int result = 0;
-		String value = "";
-		if (parameters != null){
-			Set keySet = parameters.keySet();
-			if (keySet != null && keySet.size() > 0){
-				for (Iterator it = keySet.iterator(); it.hasNext(); ){
-					String key = (String)it.next();
-					value =(String)parameters.get(key);
-				}
-			}
-		}
-		try{
-		conn = ConnUtils.getConnection();//
-		pstmt = conn.prepareStatement("SELECT COUNT(*) FROM Message WHERE destination = ?");
-		pstmt.setString(1, value);
-		rs = pstmt.executeQuery();
-		if (rs.next()){
-			result = rs.getInt(1);
-		}
-		}catch (SQLException e){}
-		finally {
-			ConnUtils.releaseConn(rs, pstmt, conn);
-		}
-		return result;
-	}
-	public SeparatePage showMessageService(int pageNo, int pageSize, Map parameters) {
-		List<Message> userList = showMessage(pageNo, pageSize, parameters);
-		int totalRecord = GetMessageCount(parameters);
-		SeparatePage sp = new SeparatePage();
-		parameters.put("method", "show");
-		sp = sp.createSeparatePage("showMessage", pageNo, pageSize, totalRecord, userList, parameters);
-		return sp;
-	}}
 	

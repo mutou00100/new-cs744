@@ -1,11 +1,6 @@
+<%@ include file="head_without_jsp.jsp"%>
 <%@ include file="head.jsp"%>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
@@ -86,10 +81,13 @@ div#two {
 				$('#show').load('inactivateNode.jsp');
 			} else if (id == "addUser") {
 				$('#show').load('addUser.jsp');
+			}else if (id == "changeSecurityQuestion") {
+				$('#show').load('changeQuestion.jsp');
 			}
 		}
 	</script>
 		 <!-- Modal -->
+		 
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
@@ -123,49 +121,39 @@ div#two {
         <tbody id="tbody">
 </tbody>
     </table>
-             </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-<script>
+             </div><script>
 function createTbody(){
-  L=blockedlist;
-  s="";
+	if (table!=undefined){
+        table.destroy();
+      }
+  var L=blockedlist;
+  var s="";
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td><td>'+L[i][4]+'</td></tr>'
         }
         document.getElementById('tbody').innerHTML=s;
-        if (table!=undefined){
-          table.destroy();
-        }
         table = $('#example').DataTable({
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
     } );
-
         $("#myModal").modal("show");
+        
       }
 
-$('#example').DataTable( {
-        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-        "order": [[ 3, "desc" ]]
-    } );
 function receiveStack(n){
 		for(var i=0;i<blockedlist.length;i++){
 			if(parseInt(blockedlist[i][0])==n){
-				stack.push(blockedlist[i])
+				stack.push(blockedlist[i]);
 			}
 		}
-		if(stack!=[]){
+		if(stack.length!=0){
 		resend();}
 			}
 function resend(){
-	if(stack!=[]){
-		L=stack.pop();
+	if(stack!=undefined){
+		if(stack.length!=0){
+		var L=stack.pop();
+		alert(L[0]);
 		cur=L[0];
 		dest=L[2];
 		msg=L[4];
@@ -176,9 +164,16 @@ function resend(){
 		if (index > -1) {
     		blockedlist.splice(index, 1);
 		}
-	}
+	}}
 }
 </script>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 	<!-- Modal -->
 	<div id="myModal2" class="modal fade">
 		<div class="modal-dialog">
@@ -246,21 +241,20 @@ function resend(){
              </div>
 <script>
 function createRTbody(){
+	 if (table!=undefined){
+         table.destroy();
+       }
   var L=M;
-  s="";
+  var  s="";
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>'
         }
         document.getElementById('rtbody').innerHTML=s;
-        if (table!=undefined){
-          table.destroy();
-        }
+       
         table = $('#example1').DataTable( {
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
-    } );
-
-        $("#myModal3").modal("show");
+    } );$("#myModal3").modal("show");
       }
 </script>
         <div class="modal-footer">

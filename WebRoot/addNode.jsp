@@ -8,8 +8,8 @@ if (allnodes.size() == 0){%>
 %>
 <script type="text/javascript">
 	function check() {
-		var vn1 = document.getElementById("n1").value;
-		var vn2 = document.getElementById("n2").value;
+		var vn1 = document.getElementsByName("n1")[0].value;
+		var vn2 = document.getElementsByName("n2")[0].value;
 		var gid = document.getElementById("gid").value;
 		if ( vn1==""&& vn2 =="") {
 			return true;
@@ -24,8 +24,8 @@ if (allnodes.size() == 0){%>
 			alert("The node1 and node2 can't be the same!");
 			return false;
 		}
-		var nubmer1 = parseInt(document.getElementById("n1").value);
-		var nubmer2 = parseInt(document.getElementById("n2").value);
+		var nubmer1 = parseInt(document.getElementsByName("n1")[0].value);
+		var nubmer2 = parseInt(document.getElementsByName("n2")[0].value);
 		if (vn1 !=""&&(nubmer1<=0||!(/^\d+$/.test(nubmer1)))){
 				 alert("Please enter a Integer!");
 	     return false;
@@ -48,7 +48,8 @@ if (allnodes.size() == 0){%>
 						<tbody>
 							<tr>
 								<td>Pattern:</td>
-								<td><select name="gid" id= "gid" class="span1">
+								<td class="span2"><select name=gid" id= "gid" onChange="getCity(this,document.getElementById('city1'))">
+										<option value="0">Please select a pattern</option>
 										<%
 											if (allPatterns != null && allPatterns.size() != 0) {
 												for (int i = 0; i < allPatterns.size(); i++) {
@@ -58,13 +59,12 @@ if (allnodes.size() == 0){%>
 												}
 											}
 										%>
-								</select></td>
+								</select>
+								</td>
 								<td>NonConnector Node1:</td>
-								<td class="input"><input name="n1" id= "n1" class="input-small"
-									size="10" type="text" value=""></input></td>
+								<td><select id="city1" name="n1"></select></td>
 								<td>NonConnector Node2:</td>
-								<td class="input"><input class="input-small" id= "n2" name="n2"
-									size="10" type="text" value=""></input></td>
+								<td><select id="city2" name="n2"></select></td>
 								<td class="input"><input name="flag" id="flag" type="checkbox" value="0">Connect to Connector</input></td>
 								<td>
 									<a class="btn btn-primary" type="submit" onclick="if(check()){addNonNode();}">Add</button>

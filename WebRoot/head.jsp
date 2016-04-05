@@ -1,5 +1,4 @@
-<%@ include file="head_without_jsp.jsp"%>
- <a target="_blank" class="brand"><h1><center></>Concentric Ring Network</center></h1></a>
+ <class="brand"><h1><center></>Concentric Ring Network</center></h1>
 	<div class="navbar navbar-inverse">
 		<div class="navbar-inner">
 			<div class="container-fluid">

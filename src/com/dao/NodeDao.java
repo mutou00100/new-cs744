@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.entity.Edge;
+import com.entity.Message;
 import com.entity.Node;
 import com.utils.ConnUtils;
 

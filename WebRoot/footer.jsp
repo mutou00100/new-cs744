@@ -1,5 +1,4 @@
-<%@ include file="realhead.jsp"%>
-<% 
+<%@ include file="realhead.jsp"%><% 
 if (request.getAttribute("error") == null) {
 	} else {
 			 error = (String) request.getAttribute("error");
@@ -12,15 +11,15 @@ if (request.getAttribute("error") == null) {
 <div id="mynetwork" ></div>
 
 <script type="text/javascript">
-	var blockedlist = [];
-	var M=<%=md.getAllMessage()%>
-	var inactivelist = [];
+    var blockedlist = [];
+	M=<%=md.getAllMessage()%>;
+ 	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
-	var EDGE_LENGTH_MAIN = 500;
-	var EDGE_LENGTH_SUB = 100; 
-	var process = 0;
-	var stack=[];
+	EDGE_LENGTH_MAIN = 500;
+	EDGE_LENGTH_SUB = 100; 
+	process = 0;
+	var stack = [];
 	var table;
 	function draw() {
 		nodes = new vis.DataSet();
@@ -92,7 +91,7 @@ if (request.getAttribute("error") == null) {
           }
         },};
 		network = new vis.Network(container, data, options);
-	//	updater.poll(); 
+		updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -130,6 +129,37 @@ if (request.getAttribute("error") == null) {
 			};
 			xmlHttp.send() ;
 	}
+	function getCity(province,child){
+		var pv=province.value; 
+		createXMLHttp() ;
+		xmlHttp.open("POST","getNodes?cid="+pv) ;
+		xmlHttp.onreadystatechange = function(){
+			if(xmlHttp.readyState == 4){
+			if(xmlHttp.status == 200){
+				var txt1 = xmlHttp.responseText;
+				var txt2 = txt1.split(",");
+				child.options.length = 0;
+				var city2 = document.getElementById("city2");
+				if (city2 != null){
+					city2.options.length = 0;
+				}
+				var newArr = txt2;
+				for(var i=0; i<newArr.length; i++) 
+				{
+				var str = newArr[i];
+				var op = document.createElement('option');
+				op.text = str;
+				op.value = str;
+				child.appendChild(op); 
+				if (city2 != null){
+				city2.options.add(new Option(str,str));
+				}
+				} 
+			}					
+			}
+		};
+		xmlHttp.send(); 
+	}
 	function startWalking(dest, message,path,ori,arrival, i){ 	
 		var count = 0;
 		process = 0;
@@ -152,17 +182,18 @@ if (request.getAttribute("error") == null) {
 						blockedlist.push([path[i], ori,dest,s,message]);
 						process =-1;
 						setTimeout(function() { alert("A message is blocked at node" + path[i]);
+						alert(stack);
 						resend();}
 						,1000);
 					} else {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
-							storeMessage(path[i], dest, message);
+							storeMessage(ori, dest, message);
 							setTimeout(function() { alert("A message is sent successfully");
 							M.push([ori,dest,s,message]);
 							resend();}
 						,1000);
 							process =-1;
-						} else if (arrival == -1 && path[i]!==ori) {
+						} else if (arrival == -1 && path[i]!=ori) {
 							// blocked, find other ways
 							process =-1;
 							//startWalking(cur, dest, message,path,ori,arrival, i){ 	
@@ -206,6 +237,16 @@ if (request.getAttribute("error") == null) {
   		}
   	}
   	function addNode(node, type) {
+  		var n1 = document.getElementById("city1");
+  		var n2 = document.getElementById("city2");
+  		var op = document.createElement('option');
+  		var op2 = document.createElement('option');
+		op.text = node;
+		op.value = node;
+		op2.text = node;
+		op2.value = node;
+		n1.appendChild(op2);
+		n2.appendChild(op);
   		if (type == 'c'){
   		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
 		 borderWidth:6,
@@ -288,8 +329,11 @@ if (request.getAttribute("error") == null) {
   		nodes.remove({id :node});
   	}
   	function deleteNode(){
-  			//var nid= window.parent.document.getElementById('frame2').contentWindow.document.getElementById('nid').value;
-			var nid = document.getElementById('nid').value;
+			var nid = document.getElementsByName('nid')[0].value;
+			var gid= document.getElementById('gid').value;
+			if (!nid){
+				nid = gid;
+			}
 			createXMLHttp() ;
 			xmlHttp.open("POST","deleteNode?nid="+nid) ;
 			xmlHttp.onreadystatechange = deleteNodeCallback;
@@ -304,7 +348,7 @@ if (request.getAttribute("error") == null) {
 					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
 						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
 					} else {
-						var obj=document.getElementById('nid'); 
+						var obj=document.getElementsByName('nid')[0]; 
 						//index,要删除选项的序号，这里取当前选中选项的序号 
 						var index=obj.selectedIndex; 
 						obj.options.remove(index); 					
@@ -318,8 +362,8 @@ if (request.getAttribute("error") == null) {
   	}}
   	function addNonNode(){
   			var gid= document.getElementById('gid').value;
-  			var n1= document.getElementById('n1').value;
-  			var n2= document.getElementById('n2').value;
+  			var n1= document.getElementsByName('n1')[0].value;
+  			var n2= document.getElementsByName('n2')[0].value;
   			var f= document.getElementById('flag').checked;
   			var flag;
   			if (f == true) {
@@ -354,7 +398,11 @@ if (request.getAttribute("error") == null) {
   	}}}}
   	
   	function activateNode(){
-  			var nid= document.getElementById('nid').value;
+  			var nid= document.getElementsByName('nid')[0].value;
+  			var gid= document.getElementById('gid').value;
+  			if (!nid){
+  				nid = gid;
+  			}
 			createXMLHttp() ;
 			xmlHttp.open("POST","activateNode?nid="+nid) ;
 			xmlHttp.onreadystatechange = activateNodeCallback;
@@ -395,7 +443,7 @@ if (request.getAttribute("error") == null) {
        try{ 
         	if (data!= ""){
         		nodes.update({id: data, image : DIR + 'inactivate.png',shape : 'circularImage'});
-    			inactivelist.push(data);
+    			inactivelist.push(parseInt(data));
         	<%
         	for (int i=0;i<allPatterns.size();i++){
         	%>
