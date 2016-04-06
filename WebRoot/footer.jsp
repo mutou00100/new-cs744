@@ -261,8 +261,6 @@
   	if(xmlHttp.readyState == 4){
 				if(xmlHttp.status == 200){
 					var xml = xmlHttp.responseXML;
-					//var parser = new DOMParser();
-					//var xml = parser.parseFromString(xmlHttp.responseText, "application/xml");
 					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
 						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
 					} else {
@@ -270,7 +268,8 @@
   						for (var i = 0; i < xml.getElementsByTagName("node1").length; i++) {
   						addEdge(xml.getElementsByTagName("node0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("node1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("node2")[i].childNodes[0].nodeValue, "CC");
-  						}		
+  						}
+  						addCheckList(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);		
 					}
 				}
   	}}
