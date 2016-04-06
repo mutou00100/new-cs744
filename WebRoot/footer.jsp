@@ -472,9 +472,11 @@ if (request.getAttribute("error") == null) {
     function controlSpeed(){
   			//var nid= window.parent.document.getElementById('frame2').contentWindow.document.getElementById('nid').value;
 			var speed = document.getElementById('random').value;
-			createXMLHttp() ;
-			xmlHttp.open("POST","inactivateNode?speed="+speed) ;
-			xmlHttp.send() ;
+			if (speed != "") {
+				createXMLHttp() ;
+				xmlHttp.open("POST","inactivateNode?speed="+speed) ;
+				xmlHttp.send() ;
+			}
   	}
   	function storeMessage(ori, dest, message){
 			createXMLHttp() ;

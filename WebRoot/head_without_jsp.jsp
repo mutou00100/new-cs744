@@ -16,7 +16,6 @@
 <script src="js/googleAnalytics.js"></script>
 <script type="text/javascript" src="js/jquery-1.9.1.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/modernizr.js"></script>
-<script type="text/javascript" src="js/bootstrap-slider.min.js" charset="UTF-8"></script>
  
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
