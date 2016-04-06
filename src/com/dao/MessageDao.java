@@ -39,11 +39,7 @@ public class MessageDao {
 			sb.append(""+res.get(i).getOrigin()+",");
 			sb.append(""+res.get(i).getDestination()+",");
 			sb.append("\""+res.get(i).getId()+"\",");
-<<<<<<< HEAD
-			sb.append("'"+res.get(i).getContent()+"'");
-=======
 			sb.append("\""+res.get(i).getContent()+"\"");
->>>>>>> origin/master
 			sb.append("],");
 		}
 		sb.deleteCharAt(sb.length() - 1);

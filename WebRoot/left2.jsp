@@ -83,11 +83,8 @@ div#two {
 				$('#show').load('addUser.jsp');
 			}else if (id == "changeSecurityQuestion") {
 				$('#show').load('changeQuestion.jsp');
-<<<<<<< HEAD
-=======
 			}else if (id == "Recieved Message") {
 				$('#show').load('receivedMessage.jsp');
->>>>>>> origin/master
 			}
 		}
 	</script>
@@ -208,8 +205,6 @@ function resend(){
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-<<<<<<< HEAD
-	<!-- /.modal -->
 	
 	
 	<!-- Modal -->
@@ -268,9 +263,6 @@ for(var i=0;i<L.length;i++){
         </div>
       </div>
       
-=======
-	<!-- /.modal -->    
->>>>>>> origin/master
     </div>
   </div>
 </body>

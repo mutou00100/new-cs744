@@ -1,25 +1,10 @@
-<<<<<<< HEAD
-<%@ include file="realhead.jsp"%><% 
-if (request.getAttribute("error") == null) {
-	} else {
-			 error = (String) request.getAttribute("error");
-				%>
-   <script>
-    alert("<%=error%>");</script>
-   <% }
-%>       
-=======
+
 <%@ include file="realhead.jsp"%>      
->>>>>>> origin/master
 <body onload="draw();"> 
 <div id="mynetwork" ></div>
 
 <script type="text/javascript">
     var blockedlist = [];
-<<<<<<< HEAD
-	M=<%=md.getAllMessage()%>;
-=======
->>>>>>> origin/master
  	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
@@ -243,16 +228,6 @@ if (request.getAttribute("error") == null) {
   		}
   	}
   	function addNode(node, type) {
-  		var n1 = document.getElementById("city1");
-  		var n2 = document.getElementById("city2");
-  		var op = document.createElement('option');
-  		var op2 = document.createElement('option');
-		op.text = node;
-		op.value = node;
-		op2.text = node;
-		op2.value = node;
-		n1.appendChild(op2);
-		n2.appendChild(op);
   		if (type == 'c'){
   		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
 		 borderWidth:6,
@@ -265,6 +240,16 @@ if (request.getAttribute("error") == null) {
             useBorderWithImage:true
           }
 		});} else {
+		var n1 = document.getElementById("city1");
+  		var n2 = document.getElementById("city2");
+  		var op = document.createElement('option');
+  		var op2 = document.createElement('option');
+		op.text = node;
+		op.value = node;
+		op2.text = node;
+		op2.value = node;
+		n1.appendChild(op2);
+		n2.appendChild(op);
 			nodes.add({id :node, label : 'Node'+node,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',
 		 borderWidth:6,
 		  size:25,
