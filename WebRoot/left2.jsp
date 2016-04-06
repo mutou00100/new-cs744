@@ -60,7 +60,7 @@ div#two {
 				onClick="show(this.id)">Inactivate Node</button>
 			<button id="addSecurityQuestion" type="button" class="list-group-item"
 				onClick="add()" data-toggle="modal" data-target="#myModal2">Add Security Question</button>
-			<button id = "Recieved Message" type="button" class="list-group-item" onclick="createRTbody()" data-toggle="modal" data-target="#myModal3" >Recieved Message</button>
+			<button id = "Recieved Message" type="button" class="list-group-item" onclick="show(this.id)" >Recieved Message</button>
 		<button id = "blockedMessage" type="button" class="list-group-item" onclick="createTbody()" data-toggle="modal" data-target="#myModal">Blocked Message</button>
 		</div>
 		<div id="two"><%@ include file="footer.jsp"%></div>
@@ -83,6 +83,8 @@ div#two {
 				$('#show').load('addUser.jsp');
 			}else if (id == "changeSecurityQuestion") {
 				$('#show').load('changeQuestion.jsp');
+			}else if (id == "Recieved Message") {
+				$('#show').load('receivedMessage.jsp');
 			}
 		}
 	</script>
@@ -203,65 +205,7 @@ function resend(){
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal -->
-	
-	
-	<!-- Modal -->
-  <div class="modal fade" id="myModal3" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Received Messages list
-          </h4>
-        </div>
-        <div class="modal-body"> 
-          <table id="example1" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Ori</th>
-                <th>Dest</th>
-                <th>Date</th>
-                <th>Msg</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>Ori</th>
-                <th>Dest</th>
-                <th>Date</th>
-                <th>Msg</th>
-            </tr>
-        </tfoot>
-        <tbody id="rtbody">
-</tbody>
-    </table>
-             </div>
-<script>
-function createRTbody(){
-	 if (table!=undefined){
-         table.destroy();
-       }
-  var L=M;
-  var  s="";
-for(var i=0;i<L.length;i++){
-    s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>'
-        }
-        document.getElementById('rtbody').innerHTML=s;
-       
-        table = $('#example1').DataTable( {
-        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-        "order": [[ 3, "desc" ]]
-    } );$("#myModal3").modal("show");
-      }
-</script>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
+	<!-- /.modal -->    
     </div>
   </div>
 </body>

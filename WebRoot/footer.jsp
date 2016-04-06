@@ -12,7 +12,6 @@ if (request.getAttribute("error") == null) {
 
 <script type="text/javascript">
     var blockedlist = [];
-	M=<%=md.getAllMessage()%>;
  	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
@@ -158,7 +157,6 @@ if (request.getAttribute("error") == null) {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
 							storeMessage(ori, dest, message);
 							setTimeout(function() { alert("A message is sent successfully");
-							M.push([ori,dest,s,message]);
 							resend();}
 						,1000);
 							process =-1;
@@ -428,5 +426,18 @@ if (request.getAttribute("error") == null) {
 			xmlHttp.open("POST","storeMessage?ori="+ori+ "&&dest=" +dest +"&&message=" + message) ;
 			xmlHttp.send() ;
   	}  
- 	
+ 	function receivedMessage(){
+ 			var x= document.getElementById('messageId');
+  			var nid= document.getElementById('messageId').value;
+			createXMLHttp() ;
+			xmlHttp.open("POST","receivedMessage?nid="+nid) ;
+			xmlHttp.onreadystatechange = receivedMessageCallback;
+			xmlHttp.send() ;
+  	}
+  	function receivedMessageCallback(){
+  	if(xmlHttp.readyState == 4){
+				if(xmlHttp.status == 200){
+					var text = xmlHttp.responseText;
+					createRTbody(JSON.parse(text));
+  	}}}
 		</script>
