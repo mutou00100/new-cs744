@@ -87,11 +87,14 @@
     <servlet-name>changeQuestion</servlet-name>
     <servlet-class>com.servlet.changeQuestion</servlet-class>
   </servlet>
+<<<<<<< HEAD
   <servlet>
     <servlet-name>getNodes</servlet-name>
     <servlet-class>com.servlet.getNodes</servlet-class>
   </servlet>
 
+=======
+>>>>>>> origin/master
 
 
   <servlet-mapping>
@@ -162,8 +165,11 @@
     <servlet-name>changeQuestion</servlet-name>
     <url-pattern>/changeQuestion</url-pattern>
   </servlet-mapping>
+<<<<<<< HEAD
   <servlet-mapping>
     <servlet-name>getNodes</servlet-name>
     <url-pattern>/getNodes</url-pattern>
   </servlet-mapping>
+=======
+>>>>>>> origin/master
 </web-app>

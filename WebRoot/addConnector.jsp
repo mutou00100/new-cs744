@@ -9,6 +9,19 @@ function check() {
 	}
 	return true;
 }
+var res = <%=res%>;
+
+function addCheckList(newValue){
+var box = document.getElementById('containerForConnector');
+var checkbox = document.createElement('input');
+checkbox.type = "checkbox";
+checkbox.name = "checkedC";
+checkbox.value = newValue;
+checkbox.id = "checkedC";
+
+box.appendChild(checkbox);
+box.appendChild(document.createTextNode(newValue));
+}
 </script>
 <div class="span14" id="datacontent">
 		<table class="table">
@@ -19,7 +32,7 @@ function check() {
 						</thead>
 						<tbody>
 							<tr>
-								<td class="span10"><% 
+								<td id = "containerForConnector"class="span10"><% 
     	if (res.size() != 0) {
     	 out.println("Please choose the neighbor patterns");}
     	for (int i = 0; i < res.size(); i++) {
@@ -27,7 +40,7 @@ function check() {
     	} %></td>
 						
 								<td class="span3">
-									<a class="btn btn-primary"  onclick = "if (check()){addConnector();}" type="submit">Generate Pattern</a>
+									<a class="btn btn-primary" onclick = "if (check()){addConnector();}" type="submit">Generate Pattern</a>
 								</td>
 							</tr>
 						</tbody>

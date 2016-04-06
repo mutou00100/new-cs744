@@ -60,7 +60,7 @@ div#two {
 				onClick="show(this.id)">Inactivate Node</button>
 			<button id="addSecurityQuestion" type="button" class="list-group-item"
 				onClick="add()" data-toggle="modal" data-target="#myModal2">Add Security Question</button>
-			<button id = "Recieved Message" type="button" class="list-group-item" onclick="createRTbody()" data-toggle="modal" data-target="#myModal3" >Recieved Message</button>
+			<button id = "Recieved Message" type="button" class="list-group-item" onclick="show(this.id)" >Recieved Message</button>
 		<button id = "blockedMessage" type="button" class="list-group-item" onclick="createTbody()" data-toggle="modal" data-target="#myModal">Blocked Message</button>
 		</div>
 		<div id="two"><%@ include file="footer.jsp"%></div>
@@ -83,6 +83,11 @@ div#two {
 				$('#show').load('addUser.jsp');
 			}else if (id == "changeSecurityQuestion") {
 				$('#show').load('changeQuestion.jsp');
+<<<<<<< HEAD
+=======
+			}else if (id == "Recieved Message") {
+				$('#show').load('receivedMessage.jsp');
+>>>>>>> origin/master
 			}
 		}
 	</script>
@@ -203,6 +208,7 @@ function resend(){
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+<<<<<<< HEAD
 	<!-- /.modal -->
 	
 	
@@ -262,6 +268,9 @@ for(var i=0;i<L.length;i++){
         </div>
       </div>
       
+=======
+	<!-- /.modal -->    
+>>>>>>> origin/master
     </div>
   </div>
 </body>

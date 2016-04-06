@@ -1,4 +1,3 @@
-<%@ include file="head_without_jsp.jsp"%>
 <link href="css/bootstrap-slider.min.css" rel="stylesheet">
 			<div class="span10" id="datacontent">
 					<table class="table">

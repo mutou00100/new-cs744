@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ include file="realhead.jsp"%><% 
 if (request.getAttribute("error") == null) {
 	} else {
@@ -7,12 +8,18 @@ if (request.getAttribute("error") == null) {
     alert("<%=error%>");</script>
    <% }
 %>       
+=======
+<%@ include file="realhead.jsp"%>      
+>>>>>>> origin/master
 <body onload="draw();"> 
 <div id="mynetwork" ></div>
 
 <script type="text/javascript">
     var blockedlist = [];
+<<<<<<< HEAD
 	M=<%=md.getAllMessage()%>;
+=======
+>>>>>>> origin/master
  	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
@@ -189,7 +196,6 @@ if (request.getAttribute("error") == null) {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
 							storeMessage(ori, dest, message);
 							setTimeout(function() { alert("A message is sent successfully");
-							M.push([ori,dest,s,message]);
 							resend();}
 						,1000);
 							process =-1;
@@ -312,8 +318,6 @@ if (request.getAttribute("error") == null) {
   	if(xmlHttp.readyState == 4){
 				if(xmlHttp.status == 200){
 					var xml = xmlHttp.responseXML;
-					//var parser = new DOMParser();
-					//var xml = parser.parseFromString(xmlHttp.responseText, "application/xml");
 					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
 						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
 					} else {
@@ -321,7 +325,8 @@ if (request.getAttribute("error") == null) {
   						for (var i = 0; i < xml.getElementsByTagName("node1").length; i++) {
   						addEdge(xml.getElementsByTagName("node0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("node1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("node2")[i].childNodes[0].nodeValue, "CC");
-  						}		
+  						}
+  						addCheckList(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);		
 					}
 				}
   	}}
@@ -476,5 +481,18 @@ if (request.getAttribute("error") == null) {
 			xmlHttp.open("POST","storeMessage?ori="+ori+ "&&dest=" +dest +"&&message=" + message) ;
 			xmlHttp.send() ;
   	}  
- 	
+ 	function receivedMessage(){
+ 			var x= document.getElementById('messageId');
+  			var nid= document.getElementById('messageId').value;
+			createXMLHttp() ;
+			xmlHttp.open("POST","receivedMessage?nid="+nid) ;
+			xmlHttp.onreadystatechange = receivedMessageCallback;
+			xmlHttp.send() ;
+  	}
+  	function receivedMessageCallback(){
+  	if(xmlHttp.readyState == 4){
+				if(xmlHttp.status == 200){
+					var text = xmlHttp.responseText;
+					createRTbody(JSON.parse(text));
+  	}}}
 		</script>
