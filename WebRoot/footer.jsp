@@ -1,12 +1,4 @@
-<%@ include file="realhead.jsp"%><% 
-if (request.getAttribute("error") == null) {
-	} else {
-			 error = (String) request.getAttribute("error");
-				%>
-   <script>
-    alert("<%=error%>");</script>
-   <% }
-%>       
+<%@ include file="realhead.jsp"%>      
 <body onload="draw();"> 
 <div id="mynetwork" ></div>
 
