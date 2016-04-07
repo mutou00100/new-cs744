@@ -2,15 +2,14 @@
 <script type="text/javascript">
 function check() {
 	var len = document.querySelectorAll('input[type="checkbox"]:checked').length;
-	var x = <%=res%>.length;
-	if (x != 0 && len == 0 ) {
-		alert("You must select at least one pattern!");
+	var x = document.getElementsByName("checkedC").length;
+	if (x != 0&&len == 0 ) {
+		alert("You must select at least one domain!");
 		return false;
 	}
 	return true;
 }
-var res = <%=res%>;
-
+var resD = <%=resD%>;
 function addCheckList(newValue){
 var box = document.getElementById('containerForConnector');
 var checkbox = document.createElement('input');
@@ -27,21 +26,20 @@ box.appendChild(document.createTextNode(newValue));
 		<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Add Pattern</th>
+								<th colspan="5">Add Domain</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td id = "containerForConnector"class="span10"><% 
-    	if (res.size() != 0) {
-    	 out.println("Please choose the neighbor patterns");}
-    	for (int i = 0; i < res.size(); i++) {
-    		out.print("<input type=\"checkbox\" id = \"checkedC\" name= \"checkedC\" value= "+res.get(i)+">" + res.get(i));
+    	if (resD.size() != 0) {
+    	 out.println("Please choose the neighbor domains");}
+    	for (int i = 0; i < resD.size(); i++) {
+    		out.print("<input type=\"checkbox\" id = \"checkedC\" name= \"checkedC\" value= "+resD.get(i)+">" + resD.get(i));
     	} %></td>
-						<td class="input"><input class="input-small" id= "domainIdforPattern" name="message"
-									size="10" type="text" value="">which domain</input></td>
+						
 								<td class="span3">
-									<a class="btn btn-primary" onclick = "if (check()){addConnector();}" type="submit">Generate Pattern</a>
+									<a class="btn btn-primary" onclick = "if (check()){addDomain();}" type="submit">Generate Domain</a>
 								</td>
 							</tr>
 						</tbody>

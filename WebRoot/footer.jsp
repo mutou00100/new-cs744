@@ -8,8 +8,10 @@
  	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
-	EDGE_LENGTH_MAIN = 500;
+	EDGE_LENGTH_MAIN = 300;
 	EDGE_LENGTH_SUB = 100; 
+	EDGE_LENGTH_DD = 400; 
+	EDGE_LENGTH_CD = 200; 
 	process = 0;
 	var stack = [];
 	var table;
@@ -19,7 +21,6 @@
 <%
   		if(allnodes != null) { 
   			for (int i=0;i<allnodes.size();i++){%>
-	
 				<%if(allnodes.get(i).getType().equals("c")){%>
 				nodes.add({id :<%=allnodes.get(i).getnID()%>, label : 'Pattern' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
 				 color: {
@@ -33,7 +34,14 @@
 				nodes.add({id :<%=allnodes.get(i).getnID()%>,label : 'Node' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage', color: {
             background: '#6AAFFF',
             border: '#6AAFFF'
-          },});<%}%>
+          },});<%}
+          		if (allnodes.get(i).getType().equals("d")){%>
+				nodes.add({id :<%=allnodes.get(i).getnID()%>,label : 'Domain' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage', color: {
+            background: '#6AAFFF',
+            border: '#6AAFFF'
+          },});<%}  
+          
+          %>
           <%if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("n")){%>
 				nodes.update({id :<%=allnodes.get(i).getnID()%>,
 				image : DIR + 'inactivate.png',shape : 'circularImage',
@@ -57,7 +65,7 @@
   		if(edge != null) { // æä¿¡æ¯è¿
   			for (int i=0;i<edgeCC.size();i++){
   			%>
-			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN,dashes:true});
+			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
 			<%}
 			for (int i=0;i<edgeCN.size();i++){
   			%>	
@@ -65,6 +73,12 @@
 			<%}
 			for (int i=0;i<edgeNN.size();i++){	%>
 			edges.add({id: <%=edgeNN.get(i).geteID()%>, from :<%=edgeNN.get(i).getNode1()%>, to :<%=edgeNN.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
+			<%}
+			for (int i=0;i<edgeCD.size();i++){	%>
+			edges.add({from :<%=edgeCD.get(i).getNode1()%>, to :<%=edgeCD.get(i).getNode2()%>,smooth: {type: 'dynamic'},length :EDGE_LENGTH_CD});
+			<%}
+			for (int i=0;i<edgeDD.size();i++){	%>
+			edges.add({from :<%=edgeDD.get(i).getNode1()%>, to :<%=edgeDD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
 			<%}}
   		%>
 	// create a network
@@ -83,7 +97,7 @@
           }
         },};
 		network = new vis.Network(container, data, options);
-		updater.poll(); 
+	//	updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -219,8 +233,12 @@
 		  	xmlHttp.send() ;
 	}    	
   	function addEdge(node0, node1, node2, type){
-  		if (type == "CC"){
-  			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN,dashes:true});
+  		if (type == "DD") {
+  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_DD,dashes:true});
+  		} else if (type == "CD") {
+  			edges.add({from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_CD});
+  		} else if (type == "CC"){
+  			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
   		} else if (type == "CN"){
   			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB});
   		} else {
@@ -230,6 +248,17 @@
   	function addNode(node, type) {
   		if (type == 'c'){
   		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
+		 borderWidth:6,
+		  size:25,
+	      color: {
+            background: '#6AAFFF',
+            border: '#6AAFFF'
+          },
+          shapeProperties: {
+            useBorderWithImage:true
+          }
+		});} else if (type == 'd'){
+  		nodes.add({id :node, label : 'Domain'+node,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage',
 		 borderWidth:6,
 		  size:25,
 	      color: {
@@ -288,6 +317,7 @@
   	function addConnector(){
   			//var checkboxes= window.parent.document.getElementById('frame2').contentWindow.document.getElementsByName('checkedC');
 			var checkboxes= document.getElementsByName('checkedC');
+			var domainId = document.getElementById('domainIdforPattern').value;
 			var checkedC = [];
 			for (var i=0; i<checkboxes.length; i++) {
 			    if (checkboxes[i].checked) {
@@ -295,7 +325,7 @@
 			    }
 			}
 			createXMLHttp() ;
-			xmlHttp.open("POST","addConnector?checkedC="+checkedC) ;
+			xmlHttp.open("POST","addConnector?checkedC="+checkedC+"&&dID="+domainId) ;
 			xmlHttp.onreadystatechange = addConnectorCallback ;
 			xmlHttp.send();
   	}
@@ -311,6 +341,42 @@
   						addEdge(xml.getElementsByTagName("node0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("node1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("node2")[i].childNodes[0].nodeValue, "CC");
   						}
+						addEdge("",xml.getElementsByTagName("node00")[0].childNodes[0].nodeValue,
+  						xml.getElementsByTagName("node11")[0].childNodes[0].nodeValue, "CD");
+  						addCheckList(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);		
+					}
+				}
+  	}}
+  	function addDomain(){
+  			//var checkboxes= window.parent.document.getElementById('frame2').contentWindow.document.getElementsByName('checkedC');
+			var checkboxes= document.getElementsByName('checkedC');
+			var checkedC = [];
+			for (var i=0; i<checkboxes.length; i++) {
+			    if (checkboxes[i].checked) {
+			        checkedC.push(checkboxes[i].value);
+			    }
+			}
+			createXMLHttp() ;
+			xmlHttp.open("POST","addDomain?checkedC="+checkedC) ;
+			xmlHttp.onreadystatechange = addDomainCallback ;
+			xmlHttp.send();
+  	}
+  	function addDomainCallback(){
+  	if(xmlHttp.readyState == 4){
+				if(xmlHttp.status == 200){
+					var xml = xmlHttp.responseXML;
+					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
+						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
+					} else {
+						addNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue, "d");
+						addNode(xml.getElementsByTagName("nodeC")[0].childNodes[0].nodeValue, "c");
+  						for (var i = 0; i < xml.getElementsByTagName("node1").length; i++) {
+  						addEdge(xml.getElementsByTagName("node0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("node1")[i].childNodes[0].nodeValue,
+  						xml.getElementsByTagName("node2")[i].childNodes[0].nodeValue, "DD");
+  						}
+  						addEdge("",xml.getElementsByTagName("node11")[0].childNodes[0].nodeValue,
+  						xml.getElementsByTagName("node22")[0].childNodes[0].nodeValue, "CD");
+  						
   						addCheckList(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);		
 					}
 				}

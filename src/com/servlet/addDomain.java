@@ -2,7 +2,6 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,23 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.dao.NodeDao;
-import com.entity.Edge;
-import com.entity.Node;
 
-public class addConnector extends HttpServlet {
+public class addDomain extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		NodeDao nDao = new NodeDao();
 		String checked[] = request.getParameter("checkedC").split(",");
-		int dID = Integer.parseInt(request.getParameter("dID"));
-		nDao.addCNode();
+		nDao.addDNode();
 		int node = nDao.getLast();
 		response.setContentType("text/xml;charset=UTF-8");
 		StringBuffer sb = new StringBuffer(""); 
 		sb.append("<test>");
 		sb.append("<node>");
-		nDao.updateCNode(node, dID);
+		nDao.updateDNode(node);
 		sb.append(""+node);
 		sb.append("</node>");
 		sb.append("<edge>");  
@@ -46,9 +42,15 @@ public class addConnector extends HttpServlet {
 			}
 		}
 		sb.append("</edge>");  
+		sb.append("<nodeC>");
+		nDao.addCNode();
+		int nodeC = nDao.getLast();
+		nDao.updateCNode(nodeC, node);
+		sb.append(""+nodeC);
+		sb.append("</nodeC>");
 		sb.append("<edgeCD>"); 
-		sb.append("<node00>"+dID+"</node00>");
 		sb.append("<node11>"+node+"</node11>");
+		sb.append("<node22>"+nodeC+"</node22>");
 		sb.append("</edgeCD>"); 
 		sb.append("</test>");
 		PrintWriter out = response.getWriter() ;
@@ -70,3 +72,4 @@ public class addConnector extends HttpServlet {
 		this.doGet(request, response);
 
 }}
+

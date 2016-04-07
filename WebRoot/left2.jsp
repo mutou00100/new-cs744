@@ -47,10 +47,12 @@ div#two {
 				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
 				}
 			%>
-			<button id="addNode" type="button" class="list-group-item"
-				onClick="show(this.id)">Add Non-Connector Node</button>
+			<button id="addDomain" type="button" class="list-group-item"
+				onClick="show(this.id)">Add Domain</button>
 			<button id="addPattern" type="button" class="list-group-item"
 				onClick="show(this.id)">Add Pattern</button>
+			<button id="addNode" type="button" class="list-group-item"
+				onClick="show(this.id)">Add Non-Connector Node</button>
 			<button id="deleteNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Delete Node</button>
 			<button id="sendMessage" type="button" class="list-group-item"
@@ -85,6 +87,8 @@ div#two {
 				$('#show').load('changeQuestion.jsp');
 			}else if (id == "Recieved Message") {
 				$('#show').load('receivedMessage.jsp');
+			} else if (id == "addDomain") {
+				$('#show').load('addDomain.jsp');
 			}
 		}
 	</script>

@@ -3,14 +3,18 @@
 <%@ page import="com.dao.MessageDao"%>
 
 <%String error = "";
-	NodeDao nd = new NodeDao();
+	NodeDao  nd = new NodeDao();
 	MessageDao md = new MessageDao();
 	ArrayList<Integer> res = nd.getAllC();
+	ArrayList<Integer> resD = nd.getAllD();
 	List<Node> allnodes = nd.getAllNodes();
 	List<Edge> edge = nd.getCEdges();
 	List<Edge> edgeCC = nd.getEdgesForC();
 	List<Edge> edgeNN = nd.getEdgesForN();
+	List<Edge> edgeDD = nd.getEdgesForD();
 	List<Edge> edgeCN = nd.getCEdges();
+	List<Edge> edgeCD = nd.getDEdges();
+	//List<Edge> edgeDD = nd.getDEdges();
 	edge.addAll(nd.getNEdges());
 	List<Integer> allPatterns = nd.getAllC();
 	ArrayList<Integer> pathNode = new ArrayList<Integer>();
