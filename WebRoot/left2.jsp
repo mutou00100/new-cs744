@@ -53,8 +53,16 @@ div#two {
 				onClick="show(this.id)">Add Pattern</button>
 			<button id="addNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Add Non-Connector Node</button>
+			<button id="addEdgeForDomain" type="button" class="list-group-item"
+				onClick="show(this.id)">Add Edge Between Domain</button>
+			<button id="addEdgeForPattern" type="button" class="list-group-item"
+				onClick="show(this.id)">Add Edge Between Pattern</button>
 			<button id="deleteNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Delete Node</button>
+			<button id="deleteEdgeForDomain" type="button" class="list-group-item"
+				onClick="show(this.id)">Delete Edge Between Domain</button>
+			<button id="deleteEdgeForPattern" type="button" class="list-group-item"
+				onClick="show(this.id)">Delete Edge Between Pattern</button>
 			<button id="sendMessage" type="button" class="list-group-item"
 				onClick="show(this.id)">Send Message</button>
 			<button id="activateNode" type="button" class="list-group-item" onClick="show(this.id)">Activate Node</button>
@@ -89,6 +97,14 @@ div#two {
 				$('#show').load('receivedMessage.jsp');
 			} else if (id == "addDomain") {
 				$('#show').load('addDomain.jsp');
+			}else if (id == "addEdgeForPattern") {
+				$('#show').load('addEdgeForPattern.jsp');
+			}else if (id == "addEdgeForDomain") {
+				$('#show').load('addEdgeForDomain.jsp');
+			}else if (id == "deleteEdgeForPattern") {
+				$('#show').load('deleteEdgeForPattern.jsp');
+			}else if (id == "deleteEdgeForDomain") {
+				$('#show').load('deleteEdgeForDomain.jsp');
 			}
 		}
 	</script>
