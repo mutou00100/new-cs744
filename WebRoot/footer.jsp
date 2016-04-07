@@ -428,7 +428,7 @@
   				flag = -1;
   			}
 			createXMLHttp() ;
-			xmlHttp.open("POST","addNode?gid="+gid+"&&n1="+n1+"&&n2="+n2+"&&flag="+flag) ;
+			xmlHttp.open("POST","addNode?gid="+gid+"&&n1="+n1+"&&n2="+n2+"&&flag="+flag+"&&did="+did) ;
 			xmlHttp.onreadystatechange = addNonNodeCallback;
 			xmlHttp.send() ;
   	}

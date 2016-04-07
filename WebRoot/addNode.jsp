@@ -47,6 +47,8 @@ if (allnodes.size() == 0){%>
 						</thead>
 						<tbody>
 							<tr>
+								<td class="input"><input class="input-small" id= "domainIdforNode" name="message"
+									size="10" type="text" value="">which domain</input></td>
 								<td>Pattern:</td>
 								<td class="span2"><select name=gid" id= "gid" onChange="getCity(this,document.getElementById('city1'))">
 										<option value="0">Please select a pattern</option>
