@@ -4,15 +4,23 @@
 $(document).ready(function() {
 $('#dID1').change(function() {
     var node = $('#dID1').val();
-    var res=<%=res1%>;
-    var index = res.indexOf(parseInt(node));
-	if (index > -1) {
-	    res.splice(index, 1);
-	}
-    $("#dID2").html("<option disabled selected value> -- select an Pattern -- </option>");
-	for(i=0;i<res.length;i++){
-	$("#dID2").append("<option value='" + res[i] + "'>" + res[i] + "</option>");
-	}
+    var type="DD";
+    var data={"type":type,"node":node}
+	var mydata=JSON.stringify(data)
+	$.ajax({
+        type : "POST",
+        url : "searchConnectedNode",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var dNeighbour=obj['dNeighbour'];
+        	$("#dID2").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	for(i=0;i<dNeighbour.length;i++){
+        	$("#dID2").append("<option value='" + dNeighbour[i] + "'>" + dNeighbour[i] + "</option>");
+        	}
+        }
+	});
 });
 });
 </script>

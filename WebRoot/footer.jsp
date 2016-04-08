@@ -571,7 +571,6 @@
 	        data: mydata,
 	        contentType: 'application/json;charset=UTF-8',
 	        success: function(result){
-	        	alert(result);
 	        	var obj=JSON.parse(result);
 	        	var eid=obj['eid'];
 	        	var b = String(eid);
