@@ -23,40 +23,24 @@
   			for (int i=0;i<allnodes.size();i++){%>
 				<%if(allnodes.get(i).getType().equals("c")){%>
 				nodes.add({id :<%=allnodes.get(i).getnID()%>, label : 'Pattern' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
-				 color: {
-            	background: '#6AAFFF',
-            	border: '#6AAFFF'
-         		},
-				});
-				
+				});			
 				<%}
 				if (allnodes.get(i).getType().equals("n")){%>
 				nodes.add({id :<%=allnodes.get(i).getnID()%>,label : 'Node' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage', color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
           },});<%}
           		if (allnodes.get(i).getType().equals("d")){%>
 				nodes.add({id :<%=allnodes.get(i).getnID()%>,label : 'Domain' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage', color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
           },});<%}  
           
           %>
           <%if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("n")){%>
 				nodes.update({id :<%=allnodes.get(i).getnID()%>,
-				image : DIR + 'inactivate.png',shape : 'circularImage',
-				 color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          }});
+				image : DIR + 'inactivate.png',shape : 'circularImage',});
 				inactivelist.push(<%=allnodes.get(i).getnID()%>);
 				<%}if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("c")){%>
 				nodes.update({id :<%=allnodes.get(i).getnID()%>,
 					image : DIR + 'inactivatedC.png',shape : 'circularImage',
-					 color: {
-	            background: '#6AAFFF',
-	            border: '#6AAFFF'
-	          }});
+					});
 				inactivelist.push(<%=allnodes.get(i).getnID()%>);
   			<%}}}%>
 		
@@ -89,14 +73,15 @@
 		};
 		var options ={
 		layout:{randomSeed:1},
-		 nodes: {
-		 borderWidth:6,
-		  size:25,
-          shapeProperties: {
-            useBorderWithImage:true
-          }
-        },};
+		nodes: {color: 'royalblue'},
+		edges: {color: 'royalblue'}};
 		network = new vis.Network(container, data, options);
+		<% String id = (String) session.getAttribute("blockedlist");
+		if(id!=null)
+		{%>
+		var temp = <%=(String) session.getAttribute("blockedlist")%>
+        blockedlist=temp["blockedlist"];
+		<%}%>	
 	//	updater.poll(); 
 		}
 		
@@ -186,7 +171,7 @@
 					var s=String(d.getFullYear())+'-'+String(d.getMonth()+1)+ '-' +String(d.getDate())+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();	
 					if (inactivelist.indexOf(path[i])>=0) {							
 						blockedlist.push([String(path[i]), ori,dest,s,message]);
-						blockedSession();
+						updateSession.update();
 						process =-1;
 						setTimeout(function() { alert("A message is blocked at node" + path[i]);
 						alert(stack);
@@ -205,9 +190,9 @@
 							//startWalking(cur, dest, message,path,ori,arrival, i){ 	
 							checkMessage(dest, message,path, ori, i+1);
 						}
-						nodes.update({id: path[i],color: {border: 'green'}});
+						nodes.update({id: path[i],color: 'green'});
 						setTimeout(function() {
-						nodes.update({id: path[i],color: {border: '#6AAFFF'}});}
+						nodes.update({id: path[i],color: 'royalblue'});}
 					,1000);
 					}
 					}
@@ -249,37 +234,13 @@
   	function addNode(node, type) {
   		if (type == 'c'){
   		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
-		 borderWidth:6,
-		  size:25,
-	      color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          },
-          shapeProperties: {
-            useBorderWithImage:true
-          }
+		color: 'royalblue'
 		});} else if (type == 'd'){
   		nodes.add({id :node, label : 'Domain'+node,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage',
-		 borderWidth:6,
-		  size:25,
-	      color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          },
-          shapeProperties: {
-            useBorderWithImage:true
-          }
+		color: 'royalblue'
 		});} else {
 			nodes.add({id :node, label : 'Node'+node,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',
-		 borderWidth:6,
-		  size:25,
-	      color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          },
-          shapeProperties: {
-            useBorderWithImage:true
-          }
+		color: 'royalblue'
 		});
 		}
   	}
@@ -521,6 +482,25 @@
         console.log("Poll error;");  
     }  
 };
+ var updateSession = {  
+update:function() {
+    var data={"blockedlist":blockedlist};
+	var mydata=JSON.stringify(data);
+	$.ajax({
+        type : "POST",
+        url : "blockedSession",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	obj=JSON.parse(result);
+        	belongC=obj['belongC'];
+        	var s =''
+        	for(i=0;i<belongC.length;i++){
+        		s+='<input type="checkbox" id = "checkedC" name= "checkedC" value=' + belongC[i] +'>'+belongC[i]
+        	}
+            document.getElementById('containerForConnector').innerHTML=s
+        	}
+        });}}
     function controlSpeed(){
   			//var nid= window.parent.document.getElementById('frame2').contentWindow.document.getElementById('nid').value;
 			var speed = document.getElementById('random').value;
@@ -551,12 +531,4 @@
   				}
   		}
   	}
- 	function blockedSession(){
-		createXMLHttp() ;
-		var k = blockedlist;
-		var s = ""+blockedlist;
-		var o = "blockedSession?blockedlist="+blockedlist;
-		xmlHttp.open("POST","blockedSession?blockedlist="+blockedlist) ;
-		xmlHttp.send() ;
-  	}  
 		</script>
