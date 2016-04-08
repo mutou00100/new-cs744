@@ -98,7 +98,6 @@
         },};
 		network = new vis.Network(container, data, options);
 	//	updater.poll(); 
-		blockedlist = <%=request.getSession().getAttribute("blockedlist")%>;
 		}
 		
 		function createXMLHttp(){
@@ -186,8 +185,8 @@
 					var d=new Date();	
 					var s=String(d.getFullYear())+'-'+String(d.getMonth()+1)+ '-' +String(d.getDate())+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();	
 					if (inactivelist.indexOf(path[i])>=0) {							
-						blockedlist.push([path[i], ori,dest,s,message]);
-						blockedSession(blockedlist);
+						blockedlist.push([String(path[i]), ori,dest,s,message]);
+						blockedSession();
 						process =-1;
 						setTimeout(function() { alert("A message is blocked at node" + path[i]);
 						alert(stack);
@@ -271,16 +270,6 @@
             useBorderWithImage:true
           }
 		});} else {
-		var n1 = document.getElementById("city1");
-  		var n2 = document.getElementById("city2");
-  		var op = document.createElement('option');
-  		var op2 = document.createElement('option');
-		op.text = node;
-		op.value = node;
-		op2.text = node;
-		op2.value = node;
-		n1.appendChild(op2);
-		n2.appendChild(op);
 			nodes.add({id :node, label : 'Node'+node,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',
 		 borderWidth:6,
 		  size:25,
@@ -419,12 +408,19 @@
 				}
   	}}
   	function addNonNode(){
-  			var gid= document.getElementById('gid').value;
-  			var n1= document.getElementsByName('n1')[0].value;
-  			var n2= document.getElementsByName('n2')[0].value;
-  			var f= document.getElementById('flag').checked;
+  		var n1 = $('#nID1').val();
+  		var n2 = $('#nID2').val();
+  		var gid = $('#cID').val();
+  		alert(gid);
+  		if(n1==null){
+  			n1=""
+  		}
+  		if(n2==null){
+  			n2=""
+  		}
+  			var f= document.getElementsByName('connectToC');
   			var flag;
-  			if (f == true) {
+  			if (f[0].checked) {
   				flag = 0; 
   			} else {
   				flag = -1;
@@ -453,6 +449,9 @@
   						for (var i = 0; i < xml.getElementsByTagName("edgeDelete").length; i++) {
   						edges.remove(xml.getElementsByTagName("edgeDelete")[i].childNodes[0].nodeValue);	
 					}
+					var node=xml.getElementsByTagName("node")[0].childNodes[0].nodeValue;
+  						$("#nID1").append("<option value='" + node + "'>" + node + "</option>");
+  						$("#nID2").append("<option value='" + node + "'>" + node + "</option>");
   	}}}}
   	
   	function activateNode(){
@@ -552,9 +551,12 @@
   				}
   		}
   	}
- 	function blockedSession(list){
+ 	function blockedSession(){
 		createXMLHttp() ;
-		xmlHttp.open("POST","blockedSession?blockedlist="+list) ;
+		var k = blockedlist;
+		var s = ""+blockedlist;
+		var o = "blockedSession?blockedlist="+blockedlist;
+		xmlHttp.open("POST","blockedSession?blockedlist="+blockedlist) ;
 		xmlHttp.send() ;
   	}  
 		</script>

@@ -18,7 +18,7 @@ public class blockedSession extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		 HttpSession session = request.getSession();
-		 String blocked = (String)request.getAttribute("blockedlist");
+		 String blocked = (String)request.getParameter("blockedlist");
 		 session.setAttribute("blockedlist", blocked);
 	}
 }

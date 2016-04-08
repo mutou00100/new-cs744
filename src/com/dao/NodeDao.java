@@ -19,6 +19,40 @@ public class NodeDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private int ri, row, rc;
+	public ArrayList<Integer> getAllNforC(int cid) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE cid = ? AND nID !=cID");
+			pstmt.setInt(1, cid);
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
+	public ArrayList<Integer> getAllCforDomain(int dID){
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE dID = ? AND nID !=dID");
+			pstmt.setInt(1, dID);
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
 	public void updateNodeToInactive(int nid){
 		try {
 			conn = ConnUtils.getConnection();

@@ -103,6 +103,20 @@
     <servlet-name>blockedSession</servlet-name>
     <servlet-class>com.servlet.blockedSession</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>showCforD</servlet-name>
+    <servlet-class>com.servlet.showCforD</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>showNforC</servlet-name>
+    <servlet-class>com.servlet.showNforC</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -186,5 +200,13 @@
   <servlet-mapping>
     <servlet-name>blockedSession</servlet-name>
     <url-pattern>/blockedSession</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>showCforD</servlet-name>
+    <url-pattern>/showCforD</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>showNforC</servlet-name>
+    <url-pattern>/showNforC</url-pattern>
   </servlet-mapping>
 </web-app>

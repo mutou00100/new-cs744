@@ -6,6 +6,7 @@
 	NodeDao  nd = new NodeDao();
 	MessageDao md = new MessageDao();
 	ArrayList<Integer> res = nd.getAllC();
+	ArrayList<Integer> res1 = nd.getAllD();
 	ArrayList<Integer> resD = nd.getAllD();
 	List<Node> allnodes = nd.getAllNodes();
 	List<Edge> edge = nd.getCEdges();

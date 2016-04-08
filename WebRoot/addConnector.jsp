@@ -22,6 +22,26 @@ checkbox.id = "checkedC";
 box.appendChild(checkbox);
 box.appendChild(document.createTextNode(newValue));
 }
+$('#domainIdforPattern').change(function() {
+    var dNode = $('#domainIdforPattern').val();
+    var data={"dNode":dNode}
+	var mydata=JSON.stringify(data)
+	$.ajax({
+        type : "POST",
+        url : "showCforD",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	obj=JSON.parse(result);
+        	belongC=obj['belongC'];
+        	var s =''
+        	for(i=0;i<belongC.length;i++){
+        		s+='<input type="checkbox" id = "belongC" name= "belongC" value=' + belongC[i] +'>'+belongC[i]
+        	}
+            document.getElementById('containerForConnector').innerHTML=s
+        	}
+        });
+});
 </script>
 <div class="span14" id="datacontent">
 		<table class="table">
@@ -31,14 +51,20 @@ box.appendChild(document.createTextNode(newValue));
 							</tr>
 						</thead>
 						<tbody>
-							<tr><td class="input"><input class="input-small" id= "domainIdforPattern" name="message"
-									size="10" type="text" value="">which domain</input></td>
-								<td id = "containerForConnector"class="span10"><% 
-    	if (res.size() != 0) {
-    	 out.println("Please choose the neighbor patterns");}
-    	for (int i = 0; i < res.size(); i++) {
-    		out.print("<input type=\"checkbox\" id = \"checkedC\" name= \"checkedC\" value= "+res.get(i)+">" + res.get(i));
-    	} %></td>
+							<tr>
+							<td><select name="dID" id= "domainIdforPattern" class="span1">
+										<%
+											if (res1 != null && res1.size() != 0) {
+												out.println("<option disabled selected value> -- select an Domain -- </option>");
+												for (int i = 0; i < res1.size(); i++) {
+													int domain = res1.get(i);
+													out.println("<option value = " +  domain + ">" +  domain
+															+ "</option>");
+												}
+											}
+										%>
+								</select></td>
+								<td id = "containerForConnector"class="span10"></td>
 								<td class="span3">
 									<a class="btn btn-primary" onclick = "if (check()){addConnector();}" type="submit">Generate Pattern</a>
 								</td>
