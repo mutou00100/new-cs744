@@ -530,7 +530,7 @@ update:function() {
 					createRTbody(JSON.parse(text));
   				}
   		}
-  	}  
+}
  	function deleteDD(){
 		var d1 = $('#dID1').val();
 		var d2 = $('#dID2').val();
