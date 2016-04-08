@@ -134,6 +134,23 @@ public class NodeDao {
 		}
 		return result;
 	}
+	public int whichDomain(int nid) {
+		int result = 0;
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE nid = ?");
+			pstmt.setInt(1, nid);
+			rs = pstmt.executeQuery();					
+			if (rs.next()){
+				result = rs.getInt("dID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
+	}
 	public ArrayList<Integer> getAllC() {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		try {
@@ -208,6 +225,23 @@ public class NodeDao {
 			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE nID = ? AND type = ?");
 			pstmt.setInt(1, nid);
 			pstmt.setString(2, "c");
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return false;
+	}
+	public boolean whetherD(int nid) {
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE nID = ? AND type = ?");
+			pstmt.setInt(1, nid);
+			pstmt.setString(2, "d");
 			rs = pstmt.executeQuery();					
 			while (rs.next()){
 				return true;

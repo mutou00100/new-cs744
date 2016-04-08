@@ -74,10 +74,15 @@ public class sendMessage extends HttpServlet {
 		}
 		ArrayList<Integer> neighbors = new ArrayList<Integer>();
 		neighbors.addAll(nd.searchNeighborNode(cur));
-		if (nd.whetherConnectedToPattern(cur)) {
-			neighbors.add(nd.whichPattern(cur));
-		} else if (nd.whetherC(cur)) {
-			neighbors.addAll(nd.getAllNforPattern(cur));
+		if (nd.whetherConnectedToPattern(cur)) {//("SELECT * FROM Node WHERE nID = ? AND flag = ?");
+			neighbors.add(nd.whichPattern(cur));//("SELECT * FROM Node WHERE nid = ?"diff
+		} 
+		if (nd.whetherC(cur)) {
+			neighbors.addAll(nd.getAllNforPattern(cur));//"SELECT * FROM Node WHERE flag = 0 AND cid = ?"
+			neighbors.add(nd.whichDomain(cur));
+		}
+		if (nd.whetherD(cur)) {
+			neighbors.addAll(nd.getAllCforDomain(cur));
 		}
 		for (int i = 0; i < neighbors.size(); i++) {
 			int temp = neighbors.get(i);
@@ -101,12 +106,18 @@ public class sendMessage extends HttpServlet {
 			return;
 		}
 		ArrayList<Integer> neighbors = new ArrayList<Integer>();
-		neighbors.addAll(nd.searchNeighborNode(cur));
-		if (nd.whetherConnectedToPattern(cur)) {
-			neighbors.add(nd.whichPattern(cur));
-		} else if (nd.whetherC(cur)) {
-			neighbors.addAll(nd.getAllNforPattern(cur));
+		neighbors.addAll(nd.searchNeighborNode(cur));//"SELECT * FROM NodeEdge Where nID1 = ? or nID2 = ?", same
+		if (nd.whetherConnectedToPattern(cur)) {//("SELECT * FROM Node WHERE nID = ? AND flag = ?");
+			neighbors.add(nd.whichPattern(cur));//("SELECT * FROM Node WHERE nid = ?"diff
+		} 
+		if (nd.whetherC(cur)) {
+			neighbors.addAll(nd.getAllNforPattern(cur));//"SELECT * FROM Node WHERE flag = 0 AND cid = ?"
+			neighbors.add(nd.whichDomain(cur));
 		}
+		if (nd.whetherD(cur)) {
+			neighbors.addAll(nd.getAllCforDomain(cur));
+		}
+		
 		for (int i = 0; i < neighbors.size(); i++) {
 			int temp = neighbors.get(i);
 			if (!hs.contains(temp)) {
