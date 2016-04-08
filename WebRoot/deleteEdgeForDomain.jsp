@@ -1,52 +1,57 @@
 <%@ include file="realhead.jsp"%>
-<script type="text/javascript">
-	function check() {
-		var vn1 = document.getElementsByName("n1")[0].value;
-		var vn2 = document.getElementsByName("n2")[0].value;
-		var gid = document.getElementById("gid").value;
-		if ( vn1==""&& vn2 =="") {
-			return true;
-		}
-		if (gid == vn1) {
-			alert("The node1 can't be the connector!");
-			return false;
-		}if (gid == vn2) {
-			alert("The node2 can't be the connector!");
-			return false;
-		}if (vn1 == vn2 && vn1 != "" && vn2 != "") {
-			alert("The node1 and node2 can't be the same!");
-			return false;
-		}
-		var nubmer1 = parseInt(document.getElementsByName("n1")[0].value);
-		var nubmer2 = parseInt(document.getElementsByName("n2")[0].value);
-		if (vn1 !=""&&(nubmer1<=0||!(/^\d+$/.test(nubmer1)))){
-				 alert("Please enter a Integer!");
-	     return false;
-			}
-			if (vn2 !=""&&(nubmer2<=0||!(/^\d+$/.test(nubmer2)))){
-				alert("Please enter a Integer!");
-				return false;
-			}
-		return true;
-	}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
+<script type="text/javascript" >
+$(document).ready(function() {
+$('#dID1').change(function() {
+    var node = $('#dID1').val();
+    var type="DD";
+    var data={"type":type,"node":node}
+	var mydata=JSON.stringify(data)
+	$.ajax({
+        type : "POST",
+        url : "searchConnectedNode",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var dNeighbour=obj['dNeighbour'];
+        	$("#dID2").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	for(i=0;i<dNeighbour.length;i++){
+        	$("#dID2").append("<option value='" + dNeighbour[i] + "'>" + dNeighbour[i] + "</option>");
+        	}
+        }
+	});
+});
+});
 </script>
 			<div class="span12" id="datacontent">
 
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Delete Edge Between Domain</th>
+								<th colspan="5">Delete Edge For Domain</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td class="input"><input class="input-small" id= "domainId1" name="message"
-									size="10" type="text" value="">domain 1</input></td>
-								<td class="input"><input class="input-small" id= "domainId2" name="message"
-									size="10" type="text" value="">domain 2</input></td>
-								<td>
-									<a class="btn btn-primary" type="submit" onclick="if(check()){addNonNode();}">Add</button>
-								</td>
+								<td><select name="dID1" id= "dID1" class="span1">
+										<%
+											if (res1 != null && res1.size() != 0) {
+												out.println("<option disabled selected value> -- select an Domain -- </option>");
+												for (int i = 0; i < res1.size(); i++) {
+													int domain = res1.get(i);
+													out.println("<option value = " +  domain + ">" +  domain
+															+ "</option>");
+												}
+											}
+										%>
+								</select></td>
+								<td id="ctd"><select id="dID2">  
+                <option disabled selected value> -- select an Domain -- </option>
+            </select> 
+            </td>
+            <td><a class="btn btn-primary"  onclick = "deleteDD()" type="submit">Delete</a></td>
 							</tr>
 						</tbody>
 					</table>
+			</div>
