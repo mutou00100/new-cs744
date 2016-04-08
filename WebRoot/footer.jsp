@@ -62,7 +62,7 @@
 		
 	
 		<%
-  		if(edge != null) { // æä¿¡æ¯è¿
+  		if(edge != null) { //
   			for (int i=0;i<edgeCC.size();i++){
   			%>
 			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
@@ -98,6 +98,7 @@
         },};
 		network = new vis.Network(container, data, options);
 	//	updater.poll(); 
+		blockedlist = <%=request.getSession().getAttribute("blockedlist")%>;
 		}
 		
 		function createXMLHttp(){
@@ -186,6 +187,7 @@
 					var s=String(d.getFullYear())+'-'+String(d.getMonth()+1)+ '-' +String(d.getDate())+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();	
 					if (inactivelist.indexOf(path[i])>=0) {							
 						blockedlist.push([path[i], ori,dest,s,message]);
+						blockedSession(blockedlist);
 						process =-1;
 						setTimeout(function() { alert("A message is blocked at node" + path[i]);
 						alert(stack);
@@ -547,5 +549,12 @@
 				if(xmlHttp.status == 200){
 					var text = xmlHttp.responseText;
 					createRTbody(JSON.parse(text));
-  	}}}
+  				}
+  		}
+  	}
+ 	function blockedSession(list){
+		createXMLHttp() ;
+		xmlHttp.open("POST","blockedSession?blockedlist="+list) ;
+		xmlHttp.send() ;
+  	}  
 		</script>
