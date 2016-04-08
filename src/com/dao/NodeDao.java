@@ -653,6 +653,29 @@ public class NodeDao {
 			return result; //
 			// 
 	}
+	public boolean deleteEdgeById(int eid) {
+		boolean result = false;
+
+		try {
+			conn = ConnUtils.getConnection();
+
+			String deleteCat = "DELETE FROM NodeEdge WHERE eid = ?";
+
+			pstmt = conn.prepareStatement(deleteCat);
+			// 
+			pstmt.setInt(1, eid);
+			//
+			ri = pstmt.executeUpdate();
+			if (ri > 0) {
+				result = true;
+			}} catch (SQLException e) {
+				result = false; // 
+			} finally {
+				ConnUtils.releaseConn(rs, pstmt, conn);
+			}
+			return result; //
+			// 
+	}
 	public int searchEdge(int n1, int n2) {
 		try {
 			conn = ConnUtils.getConnection();
@@ -935,6 +958,25 @@ public class NodeDao {
 			ConnUtils.releaseConn(rs, pstmt, conn);
 		}
 		return res;
+	}
+	public boolean validDeleteDD(int node, int eid) {
+		try {
+			conn = ConnUtils.getConnection();//
+			//rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("SELECT * FROM NodeEdge WHERE eid!=? and (nID1 = ? or nID2 = ?) ");
+			pstmt.setInt(1, eid);
+			pstmt.setInt(2, node);
+			pstmt.setInt(3, node);
+			rs = pstmt.executeQuery();					
+			if (rs.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return false;
 	}
 }
 	

@@ -559,4 +559,27 @@
 		xmlHttp.open("POST","blockedSession?blockedlist="+blockedlist) ;
 		xmlHttp.send() ;
   	}  
+ 	function deleteDD(){
+		var d1 = $('#dID1').val();
+		var d2 = $('#dID2').val();
+		var type="DD"
+		var data={"type":type,"node1":d1,"node2":d2}
+		var mydata=JSON.stringify(data)
+		$.ajax({
+	        type : "POST",
+	        url : "deleteEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	alert(result);
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+        		edges.remove(a);
+	        	if(a==-1){
+	        	alert("Each domain must connect to at least one domain!")}	
+	        }
+    	});
+	}
 		</script>

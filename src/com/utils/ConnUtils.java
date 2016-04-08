@@ -10,7 +10,7 @@ public class ConnUtils {
 
 	private static String url = "jdbc:mysql://localhost:3306/Concentric_ring"; 
 	private static String user = "root"; 
-	private static String password = "9332"; 
+	private static String password = "1234"; 
 	private static Connection conn = null; 
 	
 	static {
