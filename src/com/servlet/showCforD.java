@@ -65,7 +65,7 @@ public class showCforD extends HttpServlet {
         response.setHeader("Access-Control-Max-Age", "86400");
         JSONObject result = new JSONObject();
         try {
-			result.put("checkedC", new JSONArray(res));
+			result.put("belongC", new JSONArray(res));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -36,7 +36,7 @@ $('#domainIdforPattern').change(function() {
         	belongC=obj['belongC'];
         	var s =''
         	for(i=0;i<belongC.length;i++){
-        		s+='<input type="checkbox" id = "belongC" name= "belongC" value=' + belongC[i] +'>'+belongC[i]
+        		s+='<input type="checkbox" id = "checkedC" name= "checkedC" value=' + belongC[i] +'>'+belongC[i]
         	}
             document.getElementById('containerForConnector').innerHTML=s
         	}
