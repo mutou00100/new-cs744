@@ -5,9 +5,13 @@
 <%String error = "";
 	NodeDao  nd = new NodeDao();
 	MessageDao md = new MessageDao();
+	ArrayList<Integer> resN = nd.getAllN();
 	ArrayList<Integer> res = nd.getAllC();
 	ArrayList<Integer> res1 = nd.getAllD();
 	ArrayList<Integer> resD = nd.getAllD();
+	ArrayList<Integer> allNonDnodes = new ArrayList<Integer>();
+	allNonDnodes.addAll(resN);
+	allNonDnodes.addAll(res);
 	List<Node> allnodes = nd.getAllNodes();
 	List<Edge> edge = nd.getCEdges();
 	List<Edge> edgeCC = nd.getEdgesForC();

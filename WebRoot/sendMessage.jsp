@@ -2,8 +2,14 @@
 <script type="text/javascript">
 function check() {
 	var message = document.getElementById("message").value;
+	var ori = document.getElementById("ori").value;
+	var dest = document.getElementById("dest").value;
+	if (ori == 0 || dest == 0) {
+		alert("Please chooose both sender and receiver node!");
+		return false
+	}
 	if ( message == null ||message == "") {
-		alert("Message can be null");
+		alert("Message can be null!");
 		return false;
 	}
 	return true;
@@ -12,14 +18,6 @@ function sendMessageInMain() {
 	var ori= document.getElementsByName('ori')[0].value;
 	var dest= document.getElementsByName('dest')[0].value;
 	var message= document.getElementById('message').value;
-	var oid = document.getElementById('oid').value;
-	var did = document.getElementById('did').value;
-	if (!ori){
-		ori = oid;
-	}
-	if (!dest){
-		dest = did;
-	}
 	sendMessage(ori, dest, message, ori);
 }
 </script>
@@ -33,37 +31,33 @@ function sendMessageInMain() {
 						</thead>
 						<tbody>
 							<tr>
-								<td>sender:</td>
-								<td class="span2"><select name="oid" id= "oid" onChange="getCity(this, document.getElementById('city1'))">
-										<option value="0">Please select a pattern</option>
+								<td class="span2"><select name="ori" id= "ori">
+										<option value="0">Sender</option>
 										<%
-											if (allPatterns != null && allPatterns.size() != 0) {
-												for (int i = 0; i < allPatterns.size(); i++) {
-													int pattern = allPatterns.get(i);
-													out.println("<option value = " +  pattern + ">" +  pattern
+											if (allPatterns != null && allNonDnodes.size() != 0) {
+												for (int i = 0; i < allNonDnodes.size(); i++) {
+													int node = allNonDnodes.get(i);
+													out.println("<option value = " +  node + ">" +  node
 															+ "</option>");
 												}
 											}
 										%>
 								</select>
-								<select id="city1" name="ori"></select></td>
-								<td>receiver:</td>
-								<td class="span2"><select name="did" id= "did" onChange="getCity(this, document.getElementById('city2'))">
-										<option value="0">Please select a pattern</option>
+								<td class="span2"><select name="dest" id= "dest">
+										<option value="0">Receiver</option>
 										<%
-											if (allPatterns != null && allPatterns.size() != 0) {
-												for (int i = 0; i < allPatterns.size(); i++) {
-													int pattern = allPatterns.get(i);
-													out.println("<option value = " +  pattern + ">" +  pattern
+											if (allPatterns != null && allNonDnodes.size() != 0) {
+												for (int i = 0; i < allNonDnodes.size(); i++) {
+													int node = allNonDnodes.get(i);
+													out.println("<option value = " +  node + ">" +  node
 															+ "</option>");
 												}
 											}
 										%>
 								</select>
-								<select id="city2" name="dest"></select></td>
 								<td>message:</td>
 								<td class="input"><input class="input-small" id= "message" name="message"
-									size="10" type="text" value=""></input></td>
+									size="10" type="text" value="" maxlength="50"></input></td>
 								<td>
 									<button class="btn btn-primary" type="submit"
 									 onclick = "if(check()){sendMessageInMain();}">Send</button>

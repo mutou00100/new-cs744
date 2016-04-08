@@ -531,16 +531,6 @@ update:function() {
   				}
   		}
   	}
-<<<<<<< HEAD
-=======
- 	function blockedSession(){
-		createXMLHttp() ;
-		var k = blockedlist;
-		var s = ""+blockedlist;
-		var o = "blockedSession?blockedlist="+blockedlist;
-		xmlHttp.open("POST","blockedSession?blockedlist="+blockedlist) ;
-		xmlHttp.send() ;
-  	}  
  	function deleteDD(){
 		var d1 = $('#dID1').val();
 		var d2 = $('#dID2').val();
@@ -563,5 +553,4 @@ update:function() {
 	        }
     	});
 	}
->>>>>>> origin/master
 		</script>
