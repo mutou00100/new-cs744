@@ -58,6 +58,18 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
 			eid=-1;
 		}
 	}
+	if(type.equals("CC")){
+		eid = nDao.searchEdge(node1, node2);
+		if(eid==-1){
+			eid = nDao.searchEdge(node2, node1);
+		}
+		if((nDao.validDeleteDD(node1, eid))&&(nDao.validDeleteDD(node2, eid))){
+			nDao.deleteEdgeById(eid);
+		}
+		else{
+			eid=-1;
+		}
+	}
 	PrintWriter out = response.getWriter();
     response.setContentType("text/html");
     response.setHeader("Cache-control", "no-cache, no-store");

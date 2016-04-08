@@ -45,6 +45,9 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     if(type.equals("DD")){
     	res=nDao.searchNeighborNode(n);
     }
+    if(type.equals("CC")){
+    	res=nDao.searchNeighborNode(n);
+    }
 	PrintWriter out = response.getWriter();
     response.setContentType("text/html");
     response.setHeader("Cache-control", "no-cache, no-store");
@@ -57,7 +60,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     response.setHeader("Access-Control-Max-Age", "86400");
     JSONObject result = new JSONObject();
     try {
-		result.put("dNeighbour", new JSONArray(res));
+		result.put("neighbour", new JSONArray(res));
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

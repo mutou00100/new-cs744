@@ -14,8 +14,8 @@ $('#dID1').change(function() {
         contentType: 'application/json;charset=UTF-8',
         success: function(result){
         	var obj=JSON.parse(result);
-        	var dNeighbour=obj['dNeighbour'];
-        	$("#dID2").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	var dNeighbour=obj['neighbour'];
+        	$("#dID2").html("<option disabled selected value> -- select an Domain -- </option>");
         	for(i=0;i<dNeighbour.length;i++){
         	$("#dID2").append("<option value='" + dNeighbour[i] + "'>" + dNeighbour[i] + "</option>");
         	}
