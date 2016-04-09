@@ -22,14 +22,14 @@ $('#dID1').change(function() {
         }
 	});
 });
-});
+}); 
 </script>
 			<div class="span12" id="datacontent">
 
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Delete Edge For Domain</th>
+								<th colspan="5">Delete Edge Between Domain</th>
 							</tr>
 						</thead>
 						<tbody>

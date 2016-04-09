@@ -8,7 +8,7 @@
  	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
-	EDGE_LENGTH_MAIN = 300;
+	EDGE_LENGTH_MAIN = 400;
 	EDGE_LENGTH_SUB = 100; 
 	EDGE_LENGTH_DD = 400; 
 	EDGE_LENGTH_CD = 200; 
@@ -49,7 +49,7 @@
   		if(edge != null) { //
   			for (int i=0;i<edgeCC.size();i++){
   			%>
-			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
+			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_MAIN});
 			<%}
 			for (int i=0;i<edgeCN.size();i++){
   			%>	
@@ -59,7 +59,7 @@
 			edges.add({id: <%=edgeNN.get(i).geteID()%>, from :<%=edgeNN.get(i).getNode1()%>, to :<%=edgeNN.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
 			<%}
 			for (int i=0;i<edgeCD.size();i++){	%>
-			edges.add({from :<%=edgeCD.get(i).getNode1()%>, to :<%=edgeCD.get(i).getNode2()%>,smooth: {type: 'dynamic'},length :EDGE_LENGTH_CD});
+			edges.add({from :<%=edgeCD.get(i).getNode1()%>, to :<%=edgeCD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_CD});
 			<%}
 			for (int i=0;i<edgeDD.size();i++){	%>
 			edges.add({from :<%=edgeDD.get(i).getNode1()%>, to :<%=edgeDD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
@@ -222,9 +222,9 @@
   		if (type == "DD") {
   			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_DD,dashes:true});
   		} else if (type == "CD") {
-  			edges.add({from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_CD});
+  			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_CD});
   		} else if (type == "CC"){
-  			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
+  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_MAIN});
   		} else if (type == "CN"){
   			edges.add({id:node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB});
   		} else {
