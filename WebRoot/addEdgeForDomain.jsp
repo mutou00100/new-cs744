@@ -2,9 +2,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
 <script type="text/javascript" > 
 function check() {
-	if ($('#dID1').val()== 0 ||$('#dID2').val()== 0) {
+	if ($('#dID1').val()== null ||$('#dID2').val()== null) {
 		alert("Please chooose two nodes to connect!");
-		return false
+		return false;
 	}
 	return true;
 }
@@ -34,7 +34,7 @@ $('#dID1').change(function() {
 						<tbody>
 							<tr>
 								<td><select name="dID1" id= "dID1" class="span1">
-										<option value="0">-- select an Domain --</option>
+										<option disabled selected value>-- select an Domain --</option>
 										<%
 											if (res1 != null && res1.size() != 0) {
 												for (int i = 0; i < res1.size(); i++) {
@@ -46,7 +46,7 @@ $('#dID1').change(function() {
 										%>
 								</select></td>
 								<td id="ctd"><select id="dID2">  
-                <option value="0"> -- select an Domain -- </option>
+                <option disabled selected value> -- select an Domain -- </option>
             </select> 
             </td>
             <td><a class="btn btn-primary"  onclick = "if (check()){addDD();}" type="submit">Delete</a></td>

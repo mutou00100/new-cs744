@@ -3,7 +3,7 @@
 <script type="text/javascript" >
 var belongC;
 function check() {
-	if ($('#dID').val()== 0 ||$('#cID1').val()== 0||$('#cID2').val()== 0) {
+	if ($('#dID').val()== null ||$('#cID1').val()== null||$('#cID2').val()== null) {
 		alert("Please chooose two nodes to connect!");
 		return false
 	}
@@ -53,7 +53,7 @@ $('#cID1').change(function(){
 						<tbody>
 							<tr>
 								<td class="input"><select name="dID" id= "dID" class="span1">
-								<option value="0">-- select an Domain --</option>
+								<option disabled selected value>-- select an Domain --</option>
 										<%
 											if (res1 != null && res1.size() != 0) {
 												for (int i = 0; i < res1.size(); i++) {
@@ -66,12 +66,12 @@ $('#cID1').change(function(){
 								</select></td>
 								<td class="span2">
 								<select id="cID1">  
-                <option value="0">-- select an Pattern --</option>
+                <option disabled selected value>-- select an Pattern --</option>
             </select>
 								</td>
 							
 								<td class="span2"><select id="cID2">  
-                 <option value="0">-- select an Pattern --</option>
+                <option disabled selected value>-- select an Pattern --</option>
             </select>
 								</td>
 								<td>

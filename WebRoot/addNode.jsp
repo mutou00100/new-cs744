@@ -8,6 +8,13 @@ if (allnodes.size() == 0){%>
 %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript" >
+function check() {
+	if ($('#dID').val()== null ||$('#cID').val()== null) {
+		alert("Please chooose a pattern!");
+		return false;
+	}
+	return true;
+}
 $(document).ready(function() {
 $('#dID').change(function() {
     var dNode = $('#dID').val();
@@ -101,7 +108,7 @@ $('#nID1').change(function(){
                 <option disabled selected value> -- select an Node -- </option> 
             </select>  </td>
             <td><input type="checkbox" name="connectToC" value="yes">Connect To Connector Node</td>
-            <td><a class="btn btn-primary"  onclick = "addNonNode()" type="submit">Generate Node</a></td>
+            <td><a class="btn btn-primary"  onclick = "if (check()){addNonNode();}" type="submit">Generate Node</a></td>
 							</tr>
 						</tbody>
 					</table>

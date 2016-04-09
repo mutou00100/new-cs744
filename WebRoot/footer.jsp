@@ -372,12 +372,11 @@
   		var n1 = $('#nID1').val();
   		var n2 = $('#nID2').val();
   		var gid = $('#cID').val();
-  		alert(gid);
   		if(n1==null){
-  			n1=""
+  			n1="";
   		}
   		if(n2==null){
-  			n2=""
+  			n2="";
   		}
   			var f= document.getElementsByName('connectToC');
   			var flag;
