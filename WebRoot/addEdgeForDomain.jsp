@@ -49,7 +49,7 @@ $('#dID1').change(function() {
                 <option disabled selected value> -- select an Domain -- </option>
             </select> 
             </td>
-            <td><a class="btn btn-primary"  onclick = "if (check()){addDD();}" type="submit">Delete</a></td>
+            <td><a class="btn btn-primary"  onclick = "if (check()){addDD();}" type="submit">Add</a></td>
 							</tr>
 						</tbody>
 					</table>
