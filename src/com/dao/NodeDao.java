@@ -19,6 +19,22 @@ public class NodeDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private int ri, row, rc;
+	public ArrayList<Integer> getAllActiveNode() {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE status = 0");
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
 	public ArrayList<Integer> getNonConectedForPattern(int cid) {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		try {

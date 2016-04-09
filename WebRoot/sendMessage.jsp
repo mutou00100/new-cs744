@@ -1,10 +1,10 @@
 <%@ include file="realhead.jsp"%>
 <script type="text/javascript">
-function check() {
 	var message = document.getElementById("message").value;
 	var ori = document.getElementById("ori").value;
 	var dest = document.getElementById("dest").value;
-	if (ori == 0 || dest == 0) {
+function check() {
+	if (ori == null || dest == null) {
 		alert("Please chooose both sender and receiver node!");
 		return false
 	}
@@ -15,11 +15,26 @@ function check() {
 	return true;
 }
 function sendMessageInMain() {
-	var ori= document.getElementsByName('ori')[0].value;
-	var dest= document.getElementsByName('dest')[0].value;
-	var message= document.getElementById('message').value;
 	sendMessage(ori, dest, message, ori);
 }
+
+var updateActivelist = {
+update:function(){
+	$.ajax({
+        type : "POST",
+        url : "getAllActiveNodes",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var curlist=obj['activelist'];
+        	$("#ori").html("<option disabled selected value> -- sender -- </option>");
+        	for(var i=0;i<curlist.length;i++){
+        	$("#ori").append("<option value='" + curlist[i] + "'>" + curlist[i] + "</option>");
+        	}}
+        });
+}
+};
 </script>
 <div class="span10" id="datacontent">
 					
@@ -32,11 +47,11 @@ function sendMessageInMain() {
 						<tbody>
 							<tr>
 								<td class="span2"><select name="ori" id= "ori">
-										<option value="0">Sender</option>
+										<option disabled selected value> -- sender -- </option>
 										<%
-											if (allPatterns != null && allNonDnodes.size() != 0) {
-												for (int i = 0; i < allNonDnodes.size(); i++) {
-													int node = allNonDnodes.get(i);
+											if (inactivelist != null && inactivelist.size() != 0) {
+												for (int i = 0; i < inactivelist.size(); i++) {
+													int node = inactivelist.get(i);
 													out.println("<option value = " +  node + ">" +  node
 															+ "</option>");
 												}
@@ -44,7 +59,7 @@ function sendMessageInMain() {
 										%>
 								</select>
 								<td class="span2"><select name="dest" id= "dest">
-										<option value="0">Receiver</option>
+										<option disabled selected value> -- receiver -- </option>
 										<%
 											if (allPatterns != null && allNonDnodes.size() != 0) {
 												for (int i = 0; i < allNonDnodes.size(); i++) {

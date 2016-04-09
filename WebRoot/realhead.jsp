@@ -10,6 +10,7 @@
 	ArrayList<Integer> res1 = nd.getAllD();
 	ArrayList<Integer> resD = nd.getAllD();
 	ArrayList<Integer> allNonDnodes = new ArrayList<Integer>();
+	ArrayList<Integer> inactivelist = nd.getAllActiveNode();
 	allNonDnodes.addAll(resN);
 	allNonDnodes.addAll(res);
 	List<Node> allnodes = nd.getAllNodes();

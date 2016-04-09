@@ -82,7 +82,7 @@
 		var temp = <%=(String) session.getAttribute("blockedlist")%>
         blockedlist=temp["blockedlist"];
 		<%}%>	
-	//	updater.poll(); 
+		updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -458,14 +458,19 @@
         	if (data!= ""){
         		nodes.update({id: data, image : DIR + 'inactivate.png',shape : 'circularImage'});
     			inactivelist.push(parseInt(data));
+    			var x = document.getElementById("ori");
+    			if (x!= null){
+    				updateActivelist.update();
+    			}
         	<%
         	for (int i=0;i<allPatterns.size();i++){
         	%>
         	if (data == <%=allPatterns.get(i) + ""%>) {
           	 	nodes.update({id: data, image : DIR + 'inactivatedC.png',shape : 'circularImage'});
+          	 	
         	}
         <%}
-    	%>
+    	%>	
         	}
         }  
         catch(e){  
