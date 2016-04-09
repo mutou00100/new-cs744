@@ -43,6 +43,11 @@
 					image : DIR + 'inactivatedC.png',shape : 'circularImage',
 					});
 				inactivelist.push(<%=allnodes.get(i).getnID()%>);
+  			<%}if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("d")){%>
+				nodes.update({id :<%=allnodes.get(i).getnID()%>,
+					image : DIR + 'Network-Domain-inactive.png',shape : 'circularImage',
+					});
+				inactivelist.push(<%=allnodes.get(i).getnID()%>);		
   			<%}}}%>
 		
 	
@@ -440,12 +445,20 @@
 						if (index > -1) {
     						inactivelist.splice(index, 1);
 						}
-						nodes.update({id: text,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',color: {border: '#6AAFFF'}});
+						nodes.update({id: text,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage'});
   							<%
   				        	for (int i=0;i<allPatterns.size();i++){
   				        	%>
   							if (text==<%=allPatterns.get(i) + ""%>){
-  								nodes.update({id: text,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',color: {border: '#6AAFFF'}});
+  								nodes.update({id: text,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage'});
+  							}
+  							<%}
+  					    	%>
+  					    	<%
+  				        	for (int i=0;i<resD.size();i++){
+  				        	%>
+  							if (text==<%=resD.get(i) + ""%>){
+  								nodes.update({id: text,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage'});
   							}
   							<%}
   					    	%>
@@ -470,10 +483,16 @@
         	%>
         	if (data == <%=allPatterns.get(i) + ""%>) {
           	 	nodes.update({id: data, image : DIR + 'inactivatedC.png',shape : 'circularImage'});
-          	 	
         	}
         <%}
-    	%>	
+    	%><%
+        	for (int i=0;i<resD.size();i++){
+        	%>
+        	if (data == <%=resD.get(i) + ""%>) {
+          	 	nodes.update({id: data, image : DIR + 'Network-Domain-inactive.png',shape : 'circularImage'});
+        	}
+        <%}
+    	%>		
         	}
         }  
         catch(e){  
