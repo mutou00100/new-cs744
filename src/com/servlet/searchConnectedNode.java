@@ -48,6 +48,9 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     if(type.equals("CC")){
     	res=nDao.searchNeighborNode(n);
     }
+    if(type.equals("CN")){
+    	res=nDao.getNodeConnectedtoPattern(n);
+    }
 	PrintWriter out = response.getWriter();
     response.setContentType("text/html");
     response.setHeader("Cache-control", "no-cache, no-store");

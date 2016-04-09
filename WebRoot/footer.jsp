@@ -575,4 +575,26 @@ update:function() {
 	        }
     	});
 	}
+ 	function deleteCN(){
+		var cNode = $('#cID').val();
+		var nNode = $('#nID').val();
+		var type="CN"
+		var data={"type":type,"node1":cNode,"node2":nNode}
+		var mydata=JSON.stringify(data)
+		$.ajax({
+	        type : "POST",
+	        url : "deleteEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+        		edges.remove(a);
+	        	if(a==-1){
+	        	alert("Each pattern must connect to at least one pattern!")}	
+	        }
+    	});
+	}
 		</script>

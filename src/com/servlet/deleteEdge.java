@@ -70,6 +70,9 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
 			eid=-1;
 		}
 	}
+	if(type.equals("CN")){
+		
+	}
 	PrintWriter out = response.getWriter();
     response.setContentType("text/html");
     response.setHeader("Cache-control", "no-cache, no-store");
