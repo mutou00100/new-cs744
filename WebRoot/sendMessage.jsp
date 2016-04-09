@@ -1,40 +1,29 @@
 <%@ include file="realhead.jsp"%>
 <script type="text/javascript">
+function check() {
 	var message = document.getElementById("message").value;
 	var ori = document.getElementById("ori").value;
 	var dest = document.getElementById("dest").value;
-function check() {
 	if (ori == null || dest == null) {
 		alert("Please chooose both sender and receiver node!");
-		return false
+		return false;
 	}
 	if ( message == null ||message == "") {
 		alert("Message can be null!");
 		return false;
 	}
+	if (inactivelist.indexOf(parseInt(ori))>=0) {	
+		alert("You can't send message from inactive node!");
+		return false;
+	}
 	return true;
 }
 function sendMessageInMain() {
+	var message = document.getElementById("message").value;
+	var ori = document.getElementById("ori").value;
+	var dest = document.getElementById("dest").value;
 	sendMessage(ori, dest, message, ori);
 }
-
-var updateActivelist = {
-update:function(){
-	$.ajax({
-        type : "POST",
-        url : "getAllActiveNodes",
-        data: mydata,
-        contentType: 'application/json;charset=UTF-8',
-        success: function(result){
-        	var obj=JSON.parse(result);
-        	var curlist=obj['activelist'];
-        	$("#ori").html("<option disabled selected value> -- sender -- </option>");
-        	for(var i=0;i<curlist.length;i++){
-        	$("#ori").append("<option value='" + curlist[i] + "'>" + curlist[i] + "</option>");
-        	}}
-        });
-}
-};
 </script>
 <div class="span10" id="datacontent">
 					
@@ -49,9 +38,9 @@ update:function(){
 								<td class="span2"><select name="ori" id= "ori">
 										<option disabled selected value> -- sender -- </option>
 										<%
-											if (inactivelist != null && inactivelist.size() != 0) {
-												for (int i = 0; i < inactivelist.size(); i++) {
-													int node = inactivelist.get(i);
+											if (allNonDnodes != null && allNonDnodes.size() != 0) {
+												for (int i = 0; i < allNonDnodes.size(); i++) {
+													int node = allNonDnodes.get(i);
 													out.println("<option value = " +  node + ">" +  node
 															+ "</option>");
 												}
@@ -61,7 +50,7 @@ update:function(){
 								<td class="span2"><select name="dest" id= "dest">
 										<option disabled selected value> -- receiver -- </option>
 										<%
-											if (allPatterns != null && allNonDnodes.size() != 0) {
+											if (allNonDnodes != null && allNonDnodes.size() != 0) {
 												for (int i = 0; i < allNonDnodes.size(); i++) {
 													int node = allNonDnodes.get(i);
 													out.println("<option value = " +  node + ">" +  node

@@ -465,10 +465,6 @@
         	if (data!= ""){
         		nodes.update({id: data, image : DIR + 'inactivate.png',shape : 'circularImage'});
     			inactivelist.push(parseInt(data));
-    			var x = document.getElementById("ori");
-    			if (x!= null){
-    				updateActivelist.update();
-    			}
         	<%
         	for (int i=0;i<allPatterns.size();i++){
         	%>
