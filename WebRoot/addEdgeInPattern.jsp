@@ -76,7 +76,7 @@ $('#cID').change(function(){
                 <option disabled selected value> -- select an Non-connector node -- </option>
             </select></td>
 								<td>
-									<a class="btn btn-primary" type="submit" onclick="if(check()){deleteCN();}">Add</button>
+									<a class="btn btn-primary" type="submit" onclick="if(check()){addCN();}">Add</button>
 								</td>
 							</tr>
 						</tbody>
