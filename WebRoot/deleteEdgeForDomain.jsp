@@ -1,6 +1,13 @@
 <%@ include file="realhead.jsp"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
 <script type="text/javascript" >
+function check() {
+	if ($('#dID1').val()== null ||$('#dID2').val()== null) {
+		alert("Please chooose a connection!");
+		return false;
+	}
+	return true;
+}
 $(document).ready(function() {
 $('#dID1').change(function() {
     var node = $('#dID1').val();
@@ -50,7 +57,7 @@ $('#dID1').change(function() {
                 <option disabled selected value> -- select an Domain -- </option>
             </select> 
             </td>
-            <td><a class="btn btn-primary"  onclick = "deleteDD()" type="submit">Delete</a></td>
+            <td><a class="btn btn-primary"  onclick = "if(check()){deleteDD();}" type="submit">Delete</a></td>
 							</tr>
 						</tbody>
 					</table>

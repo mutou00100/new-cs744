@@ -1,6 +1,13 @@
 <%@ include file="realhead.jsp"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript" >
+function check() {
+	if ($('#dID').val()== null ||$('#cID1').val()== null||$('#cID2').val()== null) {
+		alert("Please chooose a connection!");
+		return false;
+	}
+	return true;
+}
 $(document).ready(function() {
 $('#dID').change(function() {
     var dNode = $('#dID').val();
@@ -74,7 +81,7 @@ $('#cID1').change(function(){
             </select>
 								</td>
 								<td>
-									<a class="btn btn-primary" type="submit" onclick="deleteCC()">Delete</button></a>
+									<a class="btn btn-primary" type="submit" onclick="if (check()){deleteCC();}">Delete</button></a>
 								</td>
 							</tr>
 						</tbody>

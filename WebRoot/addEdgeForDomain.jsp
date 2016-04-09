@@ -28,7 +28,7 @@ $('#dID1').change(function() {
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Add Edge Between Domain</th>
+								<th colspan="5">Add Connection Between Domain</th>
 							</tr>
 						</thead>
 						<tbody>

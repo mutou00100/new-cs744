@@ -193,6 +193,7 @@ function resend(){
 		var index = blockedlist.indexOf(L);
 		if (index > -1) {
     		blockedlist.splice(index, 1);
+    		updateSession.update();
 		}
 	}}
 }

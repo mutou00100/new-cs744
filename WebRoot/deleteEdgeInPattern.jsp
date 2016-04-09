@@ -3,8 +3,8 @@
 <script type="text/javascript" >
 function check() {
 	if ($('#dID').val()== null ||$('#cID').val()== null||$('#nID').val()== null) {
-		alert("Please chooose two nodes to connect!");
-		return false
+		alert("Please chooose a connection!");
+		return false;
 	}
 	return true;
 }
@@ -76,7 +76,7 @@ $('#cID').change(function(){
                 <option disabled selected value> -- select an Non-connector node -- </option>
             </select></td>
 								<td>
-									<a class="btn btn-primary" type="submit" onclick="deleteCN()">Delete</button>
+									<a class="btn btn-primary" type="submit" onclick="if (check()){deleteCN();}">Delete</button>
 								</td>
 							</tr>
 						</tbody>

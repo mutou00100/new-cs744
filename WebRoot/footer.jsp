@@ -416,11 +416,7 @@
   	}}}}
   	
   	function activateNode(){
-  			var nid= document.getElementsByName('nid')[0].value;
-  			var gid= document.getElementById('gid').value;
-  			if (!nid){
-  				nid = gid;
-  			}
+  			var nid= document.getElementById('nid').value;
 			createXMLHttp() ;
 			xmlHttp.open("POST","activateNode?nid="+nid) ;
 			xmlHttp.onreadystatechange = activateNodeCallback;
@@ -594,7 +590,9 @@ update:function() {
         		edges.remove(a);
 	        	if(a==-1){
 	        	alert("Each pattern must have at least one non-conector node connect to connector node if the pattern is not empty!")	
-	        }
+	        	}else{
+	        		$("#nID option:selected").remove();
+	        	}
 	        }
     	});
 	}
