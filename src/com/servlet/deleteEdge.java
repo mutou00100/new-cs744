@@ -71,7 +71,14 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
 		}
 	}
 	if(type.equals("CN")){
-		
+		ArrayList<Integer> L=nDao.getAllNforPattern(node1);
+		if(L.size()>1){
+			nDao.updateCNNode(node2);
+			eid=node2*1000;
+		}
+		else{
+			eid=-1;
+		}
 	}
 	PrintWriter out = response.getWriter();
     response.setContentType("text/html");

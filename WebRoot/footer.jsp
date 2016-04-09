@@ -53,7 +53,7 @@
 			<%}
 			for (int i=0;i<edgeCN.size();i++){
   			%>	
-			edges.add({from :<%=edgeCN.get(i).getNode1()%>, to :<%=edgeCN.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_SUB});
+			edges.add({id: <%=edgeCN.get(i).getNode1()*1000%>,from :<%=edgeCN.get(i).getNode1()%>, to :<%=edgeCN.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_SUB});
 			<%}
 			for (int i=0;i<edgeNN.size();i++){	%>
 			edges.add({id: <%=edgeNN.get(i).geteID()%>, from :<%=edgeNN.get(i).getNode1()%>, to :<%=edgeNN.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
@@ -226,7 +226,7 @@
   		} else if (type == "CC"){
   			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
   		} else if (type == "CN"){
-  			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB});
+  			edges.add({id:node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB});
   		} else {
   			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
   		}
@@ -400,7 +400,8 @@
 					} else {
 						addNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue,"n");
   						for (var i = 0; i < xml.getElementsByTagName("edgeCN1").length; i++) {
-  						addEdge("",xml.getElementsByTagName("edgeCN1")[i].childNodes[0].nodeValue,
+  						var	n=xml.getElementsByTagName("node")[0].childNodes[0].nodeValue;
+  						addEdge(n*1000,xml.getElementsByTagName("edgeCN1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("edgeCN2")[i].childNodes[0].nodeValue, "CN");
   						}		
   						for (var i = 0; i < xml.getElementsByTagName("edgeNN0").length; i++) {
@@ -593,7 +594,8 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("Each pattern must connect to at least one pattern!")}	
+	        	alert("Each pattern must have at least one non-conector node connect to connector node if the pattern is not empty!")	
+	        }
 	        }
     	});
 	}

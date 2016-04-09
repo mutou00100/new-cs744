@@ -97,6 +97,20 @@ public class NodeDao {
 			ConnUtils.releaseConn(rs, pstmt, conn);
 		}
 	}
+	public void updateCNNode(int nid){
+		try {
+			conn = ConnUtils.getConnection();
+			String sql = "UPDATE Node set flag = ? WHERE nID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, -1);
+			pstmt.setInt(2, nid);
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+	}
 	public boolean checkstatus(int nid) {
 		try {
 			conn = ConnUtils.getConnection();//
