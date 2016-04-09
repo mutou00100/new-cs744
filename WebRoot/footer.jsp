@@ -15,6 +15,7 @@
 	process = 0;
 	var stack = [];
 	var table;
+	var speed = 0;
 	function draw() {
 		nodes = new vis.DataSet();
 		edges = new vis.DataSet();
@@ -76,11 +77,17 @@
 		nodes: {color: 'royalblue'},
 		edges: {color: 'royalblue'}};
 		network = new vis.Network(container, data, options);
-		<% String id = (String) session.getAttribute("blockedlist");
-		if(id!=null)
+		<% if((String) session.getAttribute("blockedlist")!=null)
 		{%>
-		var temp = <%=(String) session.getAttribute("blockedlist")%>
-        blockedlist=temp["blockedlist"];
+		var blocktemp = <%=(String) session.getAttribute("blockedlist")%>
+        blockedlist=blocktemp["blockedlist"];
+		<%}%>	
+		
+		<%
+		if((String) session.getAttribute("speed")!=null)
+		{%>
+			var speedtemp = <%=(String) session.getAttribute("speed")%>
+        	speed=speedtemp["speed"];
 		<%}%>	
 		updater.poll(); 
 		}
@@ -492,25 +499,7 @@ update:function() {
         url : "blockedSession",
         data: mydata,
         contentType: 'application/json;charset=UTF-8',
-        success: function(result){
-        	obj=JSON.parse(result);
-        	belongC=obj['belongC'];
-        	var s =''
-        	for(i=0;i<belongC.length;i++){
-        		s+='<input type="checkbox" id = "checkedC" name= "checkedC" value=' + belongC[i] +'>'+belongC[i]
-        	}
-            document.getElementById('containerForConnector').innerHTML=s
-        	}
-        });}}
-    function controlSpeed(){
-  			//var nid= window.parent.document.getElementById('frame2').contentWindow.document.getElementById('nid').value;
-			var speed = document.getElementById('random').value;
-			if (speed != "") {
-				createXMLHttp() ;
-				xmlHttp.open("POST","inactivateNode?speed="+speed) ;
-				xmlHttp.send() ;
-			}
-  	}
+        });}};
   	function storeMessage(ori, dest, message){
 			createXMLHttp() ;
 			xmlHttp.open("POST","storeMessage?ori="+ori+ "&&dest=" +dest +"&&message=" + message) ;
