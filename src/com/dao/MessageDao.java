@@ -73,5 +73,22 @@ public class MessageDao {
 			}
 			return result;
 		}
+	public boolean deleteMessage(int destination) {
+		boolean result = false;
+			try {
+				conn = ConnUtils.getConnection();//
+				pstmt = conn.prepareStatement("DELETE FROM Message WHERE destination = ?");			
+				pstmt.setInt(1, destination);
+				row = pstmt.executeUpdate();
+				if (row > 0){
+				    result =true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				ConnUtils.releaseConn(rs, pstmt, conn);
+			}
+			return result;
+		}
 	}
 	

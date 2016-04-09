@@ -19,6 +19,7 @@ public class NodeDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private int ri, row, rc;
+	MessageDao md = new MessageDao();
 	public ArrayList<Integer> getAllActiveNode() {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		try {
@@ -264,6 +265,7 @@ public class NodeDao {
 			} finally {
 				ConnUtils.releaseConn(rs, pstmt, conn);
 			}
+			md.deleteMessage(nid);
 			return result; //
 	}
 	public boolean whetherC(int nid) {
@@ -337,6 +339,7 @@ public class NodeDao {
 			} finally {
 				ConnUtils.releaseConn(rs, pstmt, conn);
 			}
+			md.deleteMessage(nid);
 			return result; //
 			// 
 		}
