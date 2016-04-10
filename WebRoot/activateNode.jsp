@@ -1,5 +1,5 @@
 <%@ include file="realhead.jsp"%>
-<<script type="text/javascript">
+<script type="text/javascript">
 
 function check() {
 	if ($('#nid').val()== null) {
