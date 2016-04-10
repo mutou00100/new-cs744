@@ -59,13 +59,13 @@
 			<%}
 			for (int i=0;i<edgeCN.size();i++){
   			%>	
-			edges.add({id: <%=edgeCN.get(i).getNode1()*1000%>,from :<%=edgeCN.get(i).getNode1()%>, to :<%=edgeCN.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_SUB});
+			edges.add({id: <%=edgeCN.get(i).getNode1()*1000%>,from :<%=edgeCN.get(i).getNode1()%>, to :<%=edgeCN.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_SUB,dashes:true});
 			<%}
 			for (int i=0;i<edgeNN.size();i++){	%>
 			edges.add({id: <%=edgeNN.get(i).geteID()%>, from :<%=edgeNN.get(i).getNode1()%>, to :<%=edgeNN.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
 			<%}
 			for (int i=0;i<edgeCD.size();i++){	%>
-			edges.add({from :<%=edgeCD.get(i).getNode1()%>, to :<%=edgeCD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_CD});
+			edges.add({from :<%=edgeCD.get(i).getNode1()%>, to :<%=edgeCD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_CD,dashes:true});
 			<%}
 			for (int i=0;i<edgeDD.size();i++){	%>
 			edges.add({from :<%=edgeDD.get(i).getNode1()%>, to :<%=edgeDD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
@@ -232,13 +232,13 @@
 	}    	
   	function addEdge(node0, node1, node2, type){
   		if (type == "DD") {
-  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_DD,dashes:true});
+  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_DD});
   		} else if (type == "CD") {
-  			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_CD});
+  			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_CD, dashes:true});
   		} else if (type == "CC"){
   			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_MAIN});
   		} else if (type == "CN"){
-  			edges.add({id:node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB});
+  			edges.add({id:node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB, dashes:true});
   		} else {
   			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
   		}

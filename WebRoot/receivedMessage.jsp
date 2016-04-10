@@ -1,8 +1,8 @@
 <%@ include file="realhead.jsp"%>
 <script type="text/javascript" >
 function check() {
-	if ($('#dID').val()== null ||$('#cID').val()== null) {
-		alert("Please chooose a pattern!");
+	if ($('#dID').val()== null ||$('#cID').val()== null||$('#nID').val()== null) {
+		alert("Please chooose a node!");
 		return false;
 	}
 	return true;
@@ -37,7 +37,7 @@ $('#cID').change(function(){
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
   	        	var belongN=obj['belongN'];
-  	        	$("#nID").html("<option selected value> -- select an Node -- </option>");
+  	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
   	        	$("#nID").append("<option value='" + cNode + "'>" + cNode + "</option>");
   	        	for(i=0;i<belongN.length;i++){
   	        	$("#nID").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
@@ -45,6 +45,11 @@ $('#cID').change(function(){
   	        });
   	    });
 });
+$('#messageTemp').click(function() {
+	if (check())
+	{receivedMessage();
+	document.getElementById('messageTemp').setAttribute("data-target","#myModal3");
+}});
 </script>
 			<div class="span12" id="datacontent">
 
@@ -59,7 +64,7 @@ $('#cID').change(function(){
 								<td><select name="dID" id= "dID" class="span1">
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option selected value> -- select an Domain -- </option>");
+												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain
@@ -76,7 +81,7 @@ $('#cID').change(function(){
                 <option disabled selected value> -- select an Node -- </option> 
             </select>  </td>
             <td>
-           <button class="btn btn-primary"  type="button" onclick="receivedMessage()" data-toggle="modal" data-target="#myModal3" >Recieved Message</button>
+           <button class="btn btn-primary" id = "messageTemp"type="button" data-toggle="modal" >Recieved Message</button>
 							</td>
 						</tbody>
 					</table>
