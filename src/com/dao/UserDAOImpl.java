@@ -8,7 +8,6 @@ import com.entity.User;
 
 public class UserDAOImpl implements UserDAO{
 
-	@Override
 	public void save(User user) {
 		Session session = HibernateSessionFactory.getSession();
 		Transaction t = session.beginTransaction();
@@ -42,7 +41,6 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 
-	@Override
 	public void delete(User user) {
 		Session session = HibernateSessionFactory.getSession();
 		Transaction t = session.beginTransaction();
@@ -57,7 +55,6 @@ public class UserDAOImpl implements UserDAO{
 		}	
 	}
 
-	@Override
 	public User findUserByID(String uID) {
 		User user = null;
 		Session session = HibernateSessionFactory.getSession();

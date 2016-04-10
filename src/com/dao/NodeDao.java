@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.entity.Edge;
+import com.entity.Message;
 import com.entity.Node;
 import com.utils.ConnUtils;
 
@@ -18,6 +19,74 @@ public class NodeDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private int ri, row, rc;
+	MessageDao md = new MessageDao();
+	public ArrayList<Integer> getAllActiveNode() {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE status = 0");
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
+	public ArrayList<Integer> getNonConectedForPattern(int cid) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE cID = ? AND nID !=cID AND flag = -1");
+			pstmt.setInt(1, cid);
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
+	public ArrayList<Integer> getAllNforC(int cid) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE cid = ? AND nID !=cID");
+			pstmt.setInt(1, cid);
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
+	public ArrayList<Integer> getAllCforDomain(int dID){
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE dID = ? AND nID !=dID");
+			pstmt.setInt(1, dID);
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
 	public void updateNodeToInactive(int nid){
 		try {
 			conn = ConnUtils.getConnection();
@@ -52,6 +121,34 @@ public class NodeDao {
 		try {
 			conn = ConnUtils.getConnection();
 			String sql = "UPDATE Node set status = ? WHERE nID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 0);
+			pstmt.setInt(2, nid);
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+	}
+	public void updateCNNode(int nid){
+		try {
+			conn = ConnUtils.getConnection();
+			String sql = "UPDATE Node set flag = ? WHERE nID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, -1);
+			pstmt.setInt(2, nid);
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+	}
+	public void updateCNedge(int nid){
+		try {
+			conn = ConnUtils.getConnection();
+			String sql = "UPDATE Node set flag = ? WHERE nID = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, 0);
 			pstmt.setInt(2, nid);
@@ -99,12 +196,46 @@ public class NodeDao {
 		}
 		return result;
 	}
+	public int whichDomain(int nid) {
+		int result = 0;
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE nid = ?");
+			pstmt.setInt(1, nid);
+			rs = pstmt.executeQuery();					
+			if (rs.next()){
+				result = rs.getInt("dID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
+	}
 	public ArrayList<Integer> getAllC() {
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		try {
 			conn = ConnUtils.getConnection();//
 			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE type = ?");
 			pstmt.setString(1, "c");
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				res.add(rs.getInt("nID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return res;
+	}
+	public ArrayList<Integer> getAllD() {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE type = ?");
+			pstmt.setString(1, "d");
 			rs = pstmt.executeQuery();					
 			while (rs.next()){
 				res.add(rs.getInt("nID"));
@@ -148,6 +279,7 @@ public class NodeDao {
 			} finally {
 				ConnUtils.releaseConn(rs, pstmt, conn);
 			}
+			md.deleteMessage(nid);
 			return result; //
 	}
 	public boolean whetherC(int nid) {
@@ -156,6 +288,23 @@ public class NodeDao {
 			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE nID = ? AND type = ?");
 			pstmt.setInt(1, nid);
 			pstmt.setString(2, "c");
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return false;
+	}
+	public boolean whetherD(int nid) {
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE nID = ? AND type = ?");
+			pstmt.setInt(1, nid);
+			pstmt.setString(2, "d");
 			rs = pstmt.executeQuery();					
 			while (rs.next()){
 				return true;
@@ -204,6 +353,7 @@ public class NodeDao {
 			} finally {
 				ConnUtils.releaseConn(rs, pstmt, conn);
 			}
+			md.deleteMessage(nid);
 			return result; //
 			// 
 		}
@@ -308,10 +458,31 @@ public class NodeDao {
 		}
 		return result;
 	}
-	
+
 	public ArrayList<Edge> getEdgesForC(){
 		ArrayList<Edge> result = new ArrayList<Edge>();
 		ArrayList<Integer> nodes = this.getAllC();
+		try {
+			conn = ConnUtils.getConnection();
+			for (int i = 0; i < nodes.size(); i++) {
+				pstmt = conn.prepareStatement("SELECT * FROM NodeEdge WHERE nID1 = ?");
+				pstmt.setInt(1, nodes.get(i));
+				rs = pstmt.executeQuery();					
+					while (rs.next()){
+						Edge e = new Edge(rs.getInt("eID"),rs.getInt("nID1"), rs.getInt("nID2"));
+						result.add(e);
+					}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
+	}
+	public ArrayList<Edge> getEdgesForD(){
+		ArrayList<Edge> result = new ArrayList<Edge>();
+		ArrayList<Integer> nodes = this.getAllD();
 		try {
 			conn = ConnUtils.getConnection();
 			for (int i = 0; i < nodes.size(); i++) {
@@ -391,6 +562,25 @@ public class NodeDao {
 		}
 		return result;
 	}
+	public ArrayList<Edge> getDEdges(){
+		ArrayList<Edge> result = new ArrayList<Edge>();
+		try {
+			conn = ConnUtils.getConnection();//
+			//rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("SELECT * FROM Node Where type = ?");
+			pstmt.setString(1, "c");
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				Edge e = new Edge(rs.getInt("nID"), rs.getInt("dID"));
+				result.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
+	}
 	
 	public boolean addCNode() {
 		boolean result = false;
@@ -412,7 +602,29 @@ public class NodeDao {
 			ConnUtils.releaseConn(rs, pstmt, conn);
 		}
 		return result;
+	}	
+	public boolean addDNode() {
+		boolean result = false;
+		try {
+			conn = ConnUtils.getConnection();
+			String sql = "INSERT INTO Node(status,type,flag)"
+					+ "VALUES(?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 0);
+			pstmt.setString(2, "d");
+			pstmt.setInt(3, 1);
+			ri = pstmt.executeUpdate();
+			if (ri > 0) {
+				result = true;
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
 	}		
+	
 	public int getLast() {
 		int result = 0;
 		try {
@@ -449,11 +661,32 @@ public class NodeDao {
 		}
 		return result;
 	}		
-	public boolean updateCNode(int nid) {
+	public boolean updateCNode(int nid, int did) {
 		boolean result = false;
 		try {
 			conn = ConnUtils.getConnection();
-			String sql = "UPDATE Node set cID = ? WHERE nID = ?";
+			String sql = "UPDATE Node set cID = ?,dID = ? WHERE nID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, nid);
+			pstmt.setInt(2, did);
+			pstmt.setInt(3, nid);
+			ri=pstmt.executeUpdate();
+			if(ri>0){
+				result=true;
+				return result;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
+	}	
+	public boolean updateDNode(int nid) {
+		boolean result = false;
+		try {
+			conn = ConnUtils.getConnection();
+			String sql = "UPDATE Node set dID = ? WHERE nID = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, nid);
 			pstmt.setInt(2, nid);
@@ -506,6 +739,29 @@ public class NodeDao {
 			// 
 			pstmt.setInt(1, n1);
 			pstmt.setInt(2, n2);
+			//
+			ri = pstmt.executeUpdate();
+			if (ri > 0) {
+				result = true;
+			}} catch (SQLException e) {
+				result = false; // 
+			} finally {
+				ConnUtils.releaseConn(rs, pstmt, conn);
+			}
+			return result; //
+			// 
+	}
+	public boolean deleteEdgeById(int eid) {
+		boolean result = false;
+
+		try {
+			conn = ConnUtils.getConnection();
+
+			String deleteCat = "DELETE FROM NodeEdge WHERE eid = ?";
+
+			pstmt = conn.prepareStatement(deleteCat);
+			// 
+			pstmt.setInt(1, eid);
 			//
 			ri = pstmt.executeUpdate();
 			if (ri > 0) {
@@ -638,6 +894,26 @@ public class NodeDao {
 			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE cID = ? AND flag = ? ");
 			pstmt.setInt(1, cId);
 			pstmt.setInt(2, 0);
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return count;
+	}
+	
+	public int countD(int dId) {
+		int count = 0;
+		try {
+			conn = ConnUtils.getConnection();//
+			//rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE dID = ? AND flag = ? ");
+			pstmt.setInt(1, dId);
+			pstmt.setInt(2, -1);
 			rs = pstmt.executeQuery();					
 			while (rs.next()){
 				count++;
@@ -800,6 +1076,42 @@ public class NodeDao {
 			ConnUtils.releaseConn(rs, pstmt, conn);
 		}
 		return res;
+	}
+	public boolean validDeleteDD(int node, int eid) {
+		try {
+			conn = ConnUtils.getConnection();//
+			//rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("SELECT * FROM NodeEdge WHERE eid!=? and (nID1 = ? or nID2 = ?) ");
+			pstmt.setInt(1, eid);
+			pstmt.setInt(2, node);
+			pstmt.setInt(3, node);
+			rs = pstmt.executeQuery();					
+			if (rs.next()){
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return false;
+	}
+	public boolean deleteDomain(int dId) {
+		boolean result = false;
+		try {
+			conn = ConnUtils.getConnection();
+			String deleteNode = "DELETE FROM Node WHERE dID= ?";
+			pstmt = conn.prepareStatement(deleteNode);
+			pstmt.setInt(1, dId);
+			ri = pstmt.executeUpdate();
+			if (ri > 0) {
+				result = true;
+			}} catch (SQLException e) {
+				result = false; // 
+			} finally {
+				ConnUtils.releaseConn(rs, pstmt, conn);
+			}
+			return result;
 	}
 }
 	

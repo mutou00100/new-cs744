@@ -42,11 +42,15 @@ public class checkMessage extends HttpServlet {
 		}
 		if (nd.getNodeById(cur).getStatus()== 0) {
 			ArrayList<Integer> neighbors = new ArrayList<Integer>();
-			neighbors.addAll(nd.searchNeighborNode(cur));
-			if (nd.whetherConnectedToPattern(cur)) {
-				neighbors.add(nd.whichPattern(cur));
-			} else if (nd.whetherC(cur)) {
-				neighbors.addAll(nd.getAllNforPattern(cur));
+			if (nd.whetherConnectedToPattern(cur)) {//("SELECT * FROM Node WHERE nID = ? AND flag = ?");
+				neighbors.add(nd.whichPattern(cur));//("SELECT * FROM Node WHERE nid = ?"diff
+			} 
+			if (nd.whetherC(cur)) {
+				neighbors.addAll(nd.getAllNforPattern(cur));//"SELECT * FROM Node WHERE flag = 0 AND cid = ?"
+				neighbors.add(nd.whichDomain(cur));
+			}
+			if (nd.whetherD(cur)) {
+				neighbors.addAll(nd.getAllCforDomain(cur));
 			}
 			for (int i = 0; i < neighbors.size(); i++) {
 				int temp = neighbors.get(i);

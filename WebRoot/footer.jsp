@@ -1,79 +1,74 @@
-<%@ include file="realhead.jsp"%>
-<% 
-if (request.getAttribute("error") == null) {
-	} else {
-			 error = (String) request.getAttribute("error");
-				%>
-   <script>
-    alert("<%=error%>");</script>
-   <% }
-%>       
+
+<%@ include file="realhead.jsp"%>      
 <body onload="draw();"> 
 <div id="mynetwork" ></div>
 
 <script type="text/javascript">
-	var blockedlist = [];
-	var M=<%=md.getAllMessage()%>
-	var inactivelist = [];
+    var blockedlist = [];
+ 	inactivelist = [];
    	var nodes, edges, network;
     var DIR = 'img/';
-	var EDGE_LENGTH_MAIN = 500;
-	var EDGE_LENGTH_SUB = 100; 
-	var process = 0;
-	var stack=[];
+	EDGE_LENGTH_MAIN = 400;
+	EDGE_LENGTH_SUB = 100; 
+	EDGE_LENGTH_DD = 400; 
+	EDGE_LENGTH_CD = 200; 
+	process = 0;
+	var stack = [];
 	var table;
+	var speed = 0;
 	function draw() {
 		nodes = new vis.DataSet();
 		edges = new vis.DataSet();
 <%
   		if(allnodes != null) { 
   			for (int i=0;i<allnodes.size();i++){%>
-	
 				<%if(allnodes.get(i).getType().equals("c")){%>
 				nodes.add({id :<%=allnodes.get(i).getnID()%>, label : 'Pattern' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
-				 color: {
-            	background: '#6AAFFF',
-            	border: '#6AAFFF'
-         		},
-				});
-				
+				});			
 				<%}
 				if (allnodes.get(i).getType().equals("n")){%>
 				nodes.add({id :<%=allnodes.get(i).getnID()%>,label : 'Node' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage', color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          },});<%}%>
+          },});<%}
+          		if (allnodes.get(i).getType().equals("d")){%>
+				nodes.add({id :<%=allnodes.get(i).getnID()%>,label : 'Domain' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage', color: {
+          },});<%}  
+          
+          %>
           <%if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("n")){%>
 				nodes.update({id :<%=allnodes.get(i).getnID()%>,
-				image : DIR + 'inactivate.png',shape : 'circularImage',
-				 color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          }});
+				image : DIR + 'inactivate.png',shape : 'circularImage',});
 				inactivelist.push(<%=allnodes.get(i).getnID()%>);
 				<%}if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("c")){%>
 				nodes.update({id :<%=allnodes.get(i).getnID()%>,
 					image : DIR + 'inactivatedC.png',shape : 'circularImage',
-					 color: {
-	            background: '#6AAFFF',
-	            border: '#6AAFFF'
-	          }});
+					});
 				inactivelist.push(<%=allnodes.get(i).getnID()%>);
+  			<%}if (allnodes.get(i).getStatus()!=0 && allnodes.get(i).getType().equals("d")){%>
+				nodes.update({id :<%=allnodes.get(i).getnID()%>,
+					image : DIR + 'Network-Domain-inactive.png',shape : 'circularImage',
+					});
+				inactivelist.push(<%=allnodes.get(i).getnID()%>);		
   			<%}}}%>
 		
 	
 		<%
-  		if(edge != null) { // æä¿¡æ¯è¿
+  		if(edge != null) { //
   			for (int i=0;i<edgeCC.size();i++){
   			%>
-			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN,dashes:true});
+			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_MAIN});
 			<%}
 			for (int i=0;i<edgeCN.size();i++){
   			%>	
-			edges.add({from :<%=edgeCN.get(i).getNode1()%>, to :<%=edgeCN.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_SUB});
+			edges.add({id: <%=edgeCN.get(i).getNode1()*1000%>,from :<%=edgeCN.get(i).getNode1()%>, to :<%=edgeCN.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_SUB});
 			<%}
 			for (int i=0;i<edgeNN.size();i++){	%>
 			edges.add({id: <%=edgeNN.get(i).geteID()%>, from :<%=edgeNN.get(i).getNode1()%>, to :<%=edgeNN.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
+			<%}
+			for (int i=0;i<edgeCD.size();i++){	%>
+			edges.add({from :<%=edgeCD.get(i).getNode1()%>, to :<%=edgeCD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_CD});
+			<%}
+			for (int i=0;i<edgeDD.size();i++){	%>
+			edges.add({from :<%=edgeDD.get(i).getNode1()%>, to :<%=edgeDD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
 			<%}}
   		%>
 	// create a network
@@ -84,15 +79,22 @@ if (request.getAttribute("error") == null) {
 		};
 		var options ={
 		layout:{randomSeed:1},
-		 nodes: {
-		 borderWidth:6,
-		  size:25,
-          shapeProperties: {
-            useBorderWithImage:true
-          }
-        },};
+		nodes: {color: 'royalblue'},
+		edges: {color: 'royalblue'}};
 		network = new vis.Network(container, data, options);
-	//	updater.poll(); 
+		<% if((String) session.getAttribute("blockedlist")!=null)
+		{%>
+		var blocktemp = <%=(String) session.getAttribute("blockedlist")%>
+        blockedlist=blocktemp["blockedlist"];
+		<%}%>	
+		
+		<%
+		if((String) session.getAttribute("speed")!=null)
+		{%>
+			var speedtemp = <%=(String) session.getAttribute("speed")%>
+        	speed=speedtemp["speed"];
+		<%}%>	
+		updater.poll(); 
 		}
 		
 		function createXMLHttp(){
@@ -130,6 +132,37 @@ if (request.getAttribute("error") == null) {
 			};
 			xmlHttp.send() ;
 	}
+	function getCity(province,child){
+		var pv=province.value; 
+		createXMLHttp() ;
+		xmlHttp.open("POST","getNodes?cid="+pv) ;
+		xmlHttp.onreadystatechange = function(){
+			if(xmlHttp.readyState == 4){
+			if(xmlHttp.status == 200){
+				var txt1 = xmlHttp.responseText;
+				var txt2 = txt1.split(",");
+				child.options.length = 0;
+				var city2 = document.getElementById("city2");
+				if (city2 != null){
+					city2.options.length = 0;
+				}
+				var newArr = txt2;
+				for(var i=0; i<newArr.length; i++) 
+				{
+				var str = newArr[i];
+				var op = document.createElement('option');
+				op.text = str;
+				op.value = str;
+				child.appendChild(op); 
+				if (city2 != null){
+				city2.options.add(new Option(str,str));
+				}
+				} 
+			}					
+			}
+		};
+		xmlHttp.send(); 
+	}
 	function startWalking(dest, message,path,ori,arrival, i){ 	
 		var count = 0;
 		process = 0;
@@ -149,28 +182,29 @@ if (request.getAttribute("error") == null) {
 					var d=new Date();	
 					var s=String(d.getFullYear())+'-'+String(d.getMonth()+1)+ '-' +String(d.getDate())+' '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();	
 					if (inactivelist.indexOf(path[i])>=0) {							
-						blockedlist.push([path[i], ori,dest,s,message]);
+						blockedlist.push([String(path[i]), ori,dest,s,message]);
+						updateSession.update();
 						process =-1;
 						setTimeout(function() { alert("A message is blocked at node" + path[i]);
+						alert(stack);
 						resend();}
 						,1000);
 					} else {
 						if ((path[i] == dest) &&inactivelist.indexOf(path[i])<0) {
-							storeMessage(path[i], dest, message);
+							storeMessage(ori, dest, message);
 							setTimeout(function() { alert("A message is sent successfully");
-							M.push([ori,dest,s,message]);
 							resend();}
 						,1000);
 							process =-1;
-						} else if (arrival == -1 && path[i]!==ori) {
+						} else if (arrival == -1 && path[i]!=ori) {
 							// blocked, find other ways
 							process =-1;
 							//startWalking(cur, dest, message,path,ori,arrival, i){ 	
 							checkMessage(dest, message,path, ori, i+1);
 						}
-						nodes.update({id: path[i],color: {border: 'green'}});
+						nodes.update({id: path[i],color: 'green'});
 						setTimeout(function() {
-						nodes.update({id: path[i],color: {border: '#6AAFFF'}});}
+						nodes.update({id: path[i],color: 'royalblue'});}
 					,1000);
 					}
 					}
@@ -197,10 +231,14 @@ if (request.getAttribute("error") == null) {
 		  	xmlHttp.send() ;
 	}    	
   	function addEdge(node0, node1, node2, type){
-  		if (type == "CC"){
-  			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN,dashes:true});
+  		if (type == "DD") {
+  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_DD,dashes:true});
+  		} else if (type == "CD") {
+  			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_CD});
+  		} else if (type == "CC"){
+  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_MAIN});
   		} else if (type == "CN"){
-  			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB});
+  			edges.add({id:node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB});
   		} else {
   			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_SUB});
   		}
@@ -208,26 +246,13 @@ if (request.getAttribute("error") == null) {
   	function addNode(node, type) {
   		if (type == 'c'){
   		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
-		 borderWidth:6,
-		  size:25,
-	      color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          },
-          shapeProperties: {
-            useBorderWithImage:true
-          }
+		color: 'royalblue'
+		});} else if (type == 'd'){
+  		nodes.add({id :node, label : 'Domain'+node,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage',
+		color: 'royalblue'
 		});} else {
 			nodes.add({id :node, label : 'Node'+node,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',
-		 borderWidth:6,
-		  size:25,
-	      color: {
-            background: '#6AAFFF',
-            border: '#6AAFFF'
-          },
-          shapeProperties: {
-            useBorderWithImage:true
-          }
+		color: 'royalblue'
 		});
 		}
   	}
@@ -256,6 +281,7 @@ if (request.getAttribute("error") == null) {
   	function addConnector(){
   			//var checkboxes= window.parent.document.getElementById('frame2').contentWindow.document.getElementsByName('checkedC');
 			var checkboxes= document.getElementsByName('checkedC');
+			var domainId = document.getElementById('domainIdforPattern').value;
 			var checkedC = [];
 			for (var i=0; i<checkboxes.length; i++) {
 			    if (checkboxes[i].checked) {
@@ -263,7 +289,7 @@ if (request.getAttribute("error") == null) {
 			    }
 			}
 			createXMLHttp() ;
-			xmlHttp.open("POST","addConnector?checkedC="+checkedC) ;
+			xmlHttp.open("POST","addConnector?checkedC="+checkedC+"&&dID="+domainId) ;
 			xmlHttp.onreadystatechange = addConnectorCallback ;
 			xmlHttp.send();
   	}
@@ -271,8 +297,6 @@ if (request.getAttribute("error") == null) {
   	if(xmlHttp.readyState == 4){
 				if(xmlHttp.status == 200){
 					var xml = xmlHttp.responseXML;
-					//var parser = new DOMParser();
-					//var xml = parser.parseFromString(xmlHttp.responseText, "application/xml");
 					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
 						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
 					} else {
@@ -280,7 +304,44 @@ if (request.getAttribute("error") == null) {
   						for (var i = 0; i < xml.getElementsByTagName("node1").length; i++) {
   						addEdge(xml.getElementsByTagName("node0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("node1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("node2")[i].childNodes[0].nodeValue, "CC");
-  						}		
+  						}
+						addEdge("",xml.getElementsByTagName("node00")[0].childNodes[0].nodeValue,
+  						xml.getElementsByTagName("node11")[0].childNodes[0].nodeValue, "CD");
+  						addCheckList(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);		
+					}
+				}
+  	}}
+  	function addDomain(){
+  			//var checkboxes= window.parent.document.getElementById('frame2').contentWindow.document.getElementsByName('checkedC');
+			var checkboxes= document.getElementsByName('checkedC');
+			var checkedC = [];
+			for (var i=0; i<checkboxes.length; i++) {
+			    if (checkboxes[i].checked) {
+			        checkedC.push(checkboxes[i].value);
+			    }
+			}
+			createXMLHttp() ;
+			xmlHttp.open("POST","addDomain?checkedC="+checkedC) ;
+			xmlHttp.onreadystatechange = addDomainCallback ;
+			xmlHttp.send();
+  	}
+  	function addDomainCallback(){
+  	if(xmlHttp.readyState == 4){
+				if(xmlHttp.status == 200){
+					var xml = xmlHttp.responseXML;
+					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
+						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
+					} else {
+						addNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue, "d");
+						addNode(xml.getElementsByTagName("nodeC")[0].childNodes[0].nodeValue, "c");
+  						for (var i = 0; i < xml.getElementsByTagName("node1").length; i++) {
+  						addEdge(xml.getElementsByTagName("node0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("node1")[i].childNodes[0].nodeValue,
+  						xml.getElementsByTagName("node2")[i].childNodes[0].nodeValue, "DD");
+  						}
+  						addEdge("",xml.getElementsByTagName("node11")[0].childNodes[0].nodeValue,
+  						xml.getElementsByTagName("node22")[0].childNodes[0].nodeValue, "CD");
+  						
+  						addCheckList(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);		
 					}
 				}
   	}}
@@ -288,10 +349,14 @@ if (request.getAttribute("error") == null) {
   		nodes.remove({id :node});
   	}
   	function deleteNode(){
-  			//var nid= window.parent.document.getElementById('frame2').contentWindow.document.getElementById('nid').value;
-			var nid = document.getElementById('nid').value;
+			var nid = document.getElementById('nID').value;
+			var did= document.getElementById('dID').value;
+			var gid= document.getElementById('cID').value;
+			if (!nid){
+				nid = gid;
+			}
 			createXMLHttp() ;
-			xmlHttp.open("POST","deleteNode?nid="+nid) ;
+			xmlHttp.open("POST","deleteNode?nid="+nid+"&&did="+did) ;
 			xmlHttp.onreadystatechange = deleteNodeCallback;
 			xmlHttp.send() ;
   	}
@@ -304,11 +369,23 @@ if (request.getAttribute("error") == null) {
 					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
 						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
 					} else {
-						var obj=document.getElementById('nid'); 
-						//index,要删除选项的序号，这里取当前选中选项的序号 
-						var index=obj.selectedIndex; 
-						obj.options.remove(index); 					
-						removeNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);
+						var nID =document.getElementById('nID'); 
+						var cID = document.getElementById('cID');
+						var dID = document.getElementById('dID');
+						var index1=nID.selectedIndex; 
+						var index2=cID.selectedIndex;
+						var index3=dID.selectedIndex;
+						if (index1 == 0){ 
+							removeNode(cID.options[index2].text);
+							cID.options.remove(index2);
+							if (cID.options.length==1){
+							removeNode(dID.options[index3].text);
+							dID.options.remove(index3);
+							}
+						}else{
+							nID.options.remove(index1); 		
+							removeNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);
+						}
   						for (var i = 0; i < xml.getElementsByTagName("addEdge1").length; i++) {
   						addEdge(xml.getElementsByTagName("addEdge0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("addEdge1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("addEdge2")[i].childNodes[0].nodeValue, "NN");
@@ -317,12 +394,18 @@ if (request.getAttribute("error") == null) {
 				}
   	}}
   	function addNonNode(){
-  			var gid= document.getElementById('gid').value;
-  			var n1= document.getElementById('n1').value;
-  			var n2= document.getElementById('n2').value;
-  			var f= document.getElementById('flag').checked;
+  		var n1 = $('#nID1').val();
+  		var n2 = $('#nID2').val();
+  		var gid = $('#cID').val();
+  		if(n1==null){
+  			n1="";
+  		}
+  		if(n2==null){
+  			n2="";
+  		}
+  			var f= document.getElementsByName('connectToC');
   			var flag;
-  			if (f == true) {
+  			if (f[0].checked) {
   				flag = 0; 
   			} else {
   				flag = -1;
@@ -341,7 +424,8 @@ if (request.getAttribute("error") == null) {
 					} else {
 						addNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue,"n");
   						for (var i = 0; i < xml.getElementsByTagName("edgeCN1").length; i++) {
-  						addEdge("",xml.getElementsByTagName("edgeCN1")[i].childNodes[0].nodeValue,
+  						var	n=xml.getElementsByTagName("node")[0].childNodes[0].nodeValue;
+  						addEdge(n*1000,xml.getElementsByTagName("edgeCN1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("edgeCN2")[i].childNodes[0].nodeValue, "CN");
   						}		
   						for (var i = 0; i < xml.getElementsByTagName("edgeNN0").length; i++) {
@@ -351,6 +435,9 @@ if (request.getAttribute("error") == null) {
   						for (var i = 0; i < xml.getElementsByTagName("edgeDelete").length; i++) {
   						edges.remove(xml.getElementsByTagName("edgeDelete")[i].childNodes[0].nodeValue);	
 					}
+					var node=xml.getElementsByTagName("node")[0].childNodes[0].nodeValue;
+  						$("#nID1").append("<option value='" + node + "'>" + node + "</option>");
+  						$("#nID2").append("<option value='" + node + "'>" + node + "</option>");
   	}}}}
   	
   	function activateNode(){
@@ -371,12 +458,20 @@ if (request.getAttribute("error") == null) {
 						if (index > -1) {
     						inactivelist.splice(index, 1);
 						}
-						nodes.update({id: text,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',color: {border: '#6AAFFF'}});
+						nodes.update({id: text,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage'});
   							<%
   				        	for (int i=0;i<allPatterns.size();i++){
   				        	%>
   							if (text==<%=allPatterns.get(i) + ""%>){
-  								nodes.update({id: text,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',color: {border: '#6AAFFF'}});
+  								nodes.update({id: text,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage'});
+  							}
+  							<%}
+  					    	%>
+  					    	<%
+  				        	for (int i=0;i<resD.size();i++){
+  				        	%>
+  							if (text==<%=resD.get(i) + ""%>){
+  								nodes.update({id: text,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage'});
   							}
   							<%}
   					    	%>
@@ -395,7 +490,7 @@ if (request.getAttribute("error") == null) {
        try{ 
         	if (data!= ""){
         		nodes.update({id: data, image : DIR + 'inactivate.png',shape : 'circularImage'});
-    			inactivelist.push(data);
+    			inactivelist.push(parseInt(data));
         	<%
         	for (int i=0;i<allPatterns.size();i++){
         	%>
@@ -403,7 +498,14 @@ if (request.getAttribute("error") == null) {
           	 	nodes.update({id: data, image : DIR + 'inactivatedC.png',shape : 'circularImage'});
         	}
         <%}
-    	%>
+    	%><%
+        	for (int i=0;i<resD.size();i++){
+        	%>
+        	if (data == <%=resD.get(i) + ""%>) {
+          	 	nodes.update({id: data, image : DIR + 'Network-Domain-inactive.png',shape : 'circularImage'});
+        	}
+        <%}
+    	%>		
         	}
         }  
         catch(e){  
@@ -416,17 +518,178 @@ if (request.getAttribute("error") == null) {
         console.log("Poll error;");  
     }  
 };
-    function controlSpeed(){
-  			//var nid= window.parent.document.getElementById('frame2').contentWindow.document.getElementById('nid').value;
-			var speed = document.getElementById('random').value;
-			createXMLHttp() ;
-			xmlHttp.open("POST","inactivateNode?speed="+speed) ;
-			xmlHttp.send() ;
-  	}
+ var updateSession = {  
+update:function() {
+    var data={"blockedlist":blockedlist};
+	var mydata=JSON.stringify(data);
+	$.ajax({
+        type : "POST",
+        url : "blockedSession",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        });}};
   	function storeMessage(ori, dest, message){
 			createXMLHttp() ;
 			xmlHttp.open("POST","storeMessage?ori="+ori+ "&&dest=" +dest +"&&message=" + message) ;
 			xmlHttp.send() ;
   	}  
- 	
+ 	function receivedMessage(){
+ 			var x= document.getElementById('messageId');
+  			var nid= document.getElementById('messageId').value;
+			createXMLHttp() ;
+			xmlHttp.open("POST","receivedMessage?nid="+nid) ;
+			xmlHttp.onreadystatechange = receivedMessageCallback;
+			xmlHttp.send() ;
+  	}
+  	function receivedMessageCallback(){
+  	if(xmlHttp.readyState == 4){
+				if(xmlHttp.status == 200){
+					var text = xmlHttp.responseText;
+					createRTbody(JSON.parse(text));
+  				}
+  		}
+}
+  	function addDD(){
+  		var d1 = $('#dID1').val();
+		var d2 = $('#dID2').val();
+		var type="DD";
+		var data={"type":type,"node1":d1,"node2":d2};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "addEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+	        	if (a==-1){
+	        		alert("The edge has existed!");
+	        	}else {
+        			edges.add({id: a, from :d1, to :d2,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
+	        	}
+	        }
+    	});
+  	}
+	function addCC(){
+		var c1 = $('#cID1').val();
+		var c2 = $('#cID2').val();
+		var type="CC";
+		var data={"type":type,"node1":c1,"node2":c2};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "addEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+	        	if (a==-1){
+	        		alert("The edge has existed!");
+	        	}else {
+        			edges.add({id: a, from :c1, to :c2,smooth:false,length : EDGE_LENGTH_MAIN});
+	        	}
+	        }
+    	});
+  	}
+	function addCN(){
+		var cNode = $('#cID').val();
+		var nNode = $('#nID').val();
+		var type="CN";
+		var data={"type":type,"node1":cNode,"node2":nNode};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "addEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+	        	if (a!=-1 && a != -2 ){
+	        		edges.add({id: a, from :cNode, to :nNode,smooth:false,length : EDGE_LENGTH_SUB});
+	        	}else if (a == -1){
+	        		alert("The edge has existed!");
+	        	}else if (a== -2){
+	        		alert("The number of edges in one pattern can't over 3!");
+	        	}
+	        }
+    	});
+  	}
+ 	function deleteDD(){
+		var d1 = $('#dID1').val();
+		var d2 = $('#dID2').val();
+		var type="DD"
+		var data={"type":type,"node1":d1,"node2":d2}
+		var mydata=JSON.stringify(data)
+		$.ajax({
+	        type : "POST",
+	        url : "deleteEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+        		edges.remove(a);
+	        	if(a==-1){
+	        	alert("Each domain must connect to at least one domain!")}	
+	        }
+    	});
+	}
+ 	function deleteCC(){
+		var c1 = $('#cID1').val();
+		var c2 = $('#cID2').val();
+		var type="CC"
+		var data={"type":type,"node1":c1,"node2":c2}
+		var mydata=JSON.stringify(data)
+		$.ajax({
+	        type : "POST",
+	        url : "deleteEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+        		edges.remove(a);
+	        	if(a==-1){
+	        	alert("Each pattern must connect to at least one pattern!")}	
+	        }
+    	});
+	}
+ 	function deleteCN(){
+		var cNode = $('#cID').val();
+		var nNode = $('#nID').val();
+		var type="CN"
+		var data={"type":type,"node1":cNode,"node2":nNode}
+		var mydata=JSON.stringify(data)
+		$.ajax({
+	        type : "POST",
+	        url : "deleteEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+        		edges.remove(a);
+	        	if(a==-1){
+	        	alert("Each pattern must have at least one non-conector node connect to connector node if the pattern is not empty!")	
+	        	}else{
+	        		$("#nID option:selected").remove();
+	        	}
+	        }
+    	});
+	}
 		</script>

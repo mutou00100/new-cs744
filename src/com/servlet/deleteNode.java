@@ -22,96 +22,109 @@ public class deleteNode extends HttpServlet {
 			throws ServletException, IOException {
 		NodeDao nDao = new NodeDao();
 		int nid = Integer.parseInt(request.getParameter("nid"));
+		int dId = Integer.parseInt(request.getParameter("did"));
 		// the node to be deleted
 		response.setContentType("text/xml;charset=UTF-8");
-		StringBuffer sb = new StringBuffer(""); 
+		StringBuffer sb = new StringBuffer("");
 		sb.append("<test>");
 		if (!nDao.contains(nid)) {
 			sb.append("<error>");
 			sb.append("the node doesn't exist");
 			sb.append("</error>");
 		} else if (nDao.whetherC(nid)) {
-			if (nDao.countG(nid) != 0) {
+			if (nDao.countD(dId) > 1) {
+				
+					ArrayList<Edge> neighbors = nDao.searchNeighbors(nid);
+					ArrayList<Integer> patterns = new ArrayList<Integer>();
+					for (int i = 0; i < neighbors.size(); i++) {
+						int node1 = neighbors.get(i).getNode1();
+						int node2 = neighbors.get(i).getNode2();
+						if (node1 != nid) {
+							patterns.add(node1);
+						}
+						if (node2 != nid) {
+							patterns.add(node2);
+						}
+					}
+					int bad = 0;
+					// get all the patterns that would be effected
+					for (int i = 0; i < patterns.size(); i++) {
+						if (nDao.countN(patterns.get(i)) == 1) {
+							bad++;
+						}
+					}
+					if (bad == 0) {
+						sb.append("<node>");
+						sb.append("" + nid);
+						sb.append("</node>");
+						nDao.deleteInNodeEdge(nid); // delete connections with
+													// other connectors
+						nDao.deletePattern(nid); // delete connections with
+													// other connectors
+					}
+			} else {
+					ArrayList<Edge> neighbors = nDao.searchNeighbors(dId);
+					if (neighbors.size()==1){
+						sb.append("<node>");
+						sb.append("" + nid);
+						sb.append("</node>");
+						nDao.deleteInNodeEdge(dId); // delete connections with other domains.
+						nDao.deletePattern(nid);	// Delete the only one pattern.
+						nDao.deleteDomain(dId);		// Delete the only one domain.
+					}
+				}
+		} else {
+			ArrayList<Edge> neighbors = nDao.searchNeighbors(nid);
+			if (neighbors.size() == 0) {
+				nDao.deleteInNode(nid);
+				sb.append("<node>");
+				sb.append("" + nid);
+				sb.append("</node>");
+			} else if (nDao.patternConnected(nid)
+					&& nDao.countConnector(nDao.whichPattern(nid)) == 1) {
 				sb.append("<error>");
-				sb.append("connector node cannot be deleted if there is at least one other node in the pattern");
+				sb.append("It should still be a ring after delete operation");
 				sb.append("</error>");
 			} else {
-			ArrayList<Edge> neighbors = nDao.searchNeighbors(nid);	
-			ArrayList<Integer> patterns = new ArrayList<Integer>();
-			for (int i = 0; i < neighbors.size(); i++) {
-				int node1 = neighbors.get(i).getNode1();
-				int node2 = neighbors.get(i).getNode2();
-				if (node1 != nid) {
-					patterns.add(node1);
+				ArrayList<Integer> effected = new ArrayList<Integer>();
+				for (int i = 0; i < neighbors.size(); i++) {
+					int node1 = neighbors.get(i).getNode1();
+					int node2 = neighbors.get(i).getNode2();
+					if (node1 != nid) {
+						effected.add(node1);
+					}
+					if (node2 != nid) {
+						effected.add(node2);
+					}
 				}
-				if (node2 != nid) {
-					patterns.add(node2);
-				}
-			}
-			int bad = 0;
-			// get all the patterns that would be effected
-			for (int i = 0; i < patterns.size(); i++) {
-				if (nDao.countN(patterns.get(i)) == 1) {
-					 bad++;
-				}
-			}
-			if (bad==0) {
 				sb.append("<node>");
-				sb.append(""+nid);
+				sb.append("" + nid);
 				sb.append("</node>");
-				nDao.deleteInNodeEdge(nid); // delete connections with other connectors
-				nDao.deletePattern(nid); // delete connections with other connectors	
-			}
-		}} else {	
-		ArrayList<Edge> neighbors = nDao.searchNeighbors(nid);
-		if (neighbors.size() == 0) {
-			nDao.deleteInNode(nid);
-			sb.append("<node>");
-			sb.append(""+nid);
-			sb.append("</node>");
-		} else if(nDao.patternConnected(nid)&&nDao.countConnector(nDao.whichPattern(nid)) == 1) {
-			sb.append("<error>");
-			sb.append("It should still be a ring after delete operation");
-			sb.append("</error>");
-		} else {			
-			ArrayList<Integer> effected = new ArrayList<Integer>();
-			for (int i = 0; i < neighbors.size(); i++) {
-				int node1 = neighbors.get(i).getNode1();
-				int node2 = neighbors.get(i).getNode2();
-				if (node1 != nid) {
-					effected.add(node1);
+				sb.append("<node>");
+				if (effected.size() == 2) {
+					int n1 = effected.get(0);
+					int n2 = effected.get(1);
+					if (!nDao.containEdge(n1, n2) && !nDao.containEdge(n2, n1)) {
+						nDao.addEdge(n1, n2);
+						int eid = nDao.getLastEdge();
+						sb.append("<addEdge0>");
+						sb.append("" + eid);
+						sb.append("</addEdge0>");
+						sb.append("<addEdge1>");
+						sb.append("" + n1);
+						sb.append("</addEdge1>");
+						sb.append("<addEdge2>");
+						sb.append("" + n2);
+						sb.append("</addEdge2>");
+					}
 				}
-				if (node2 != nid) {
-					effected.add(node2);
-				}	
+				sb.append("</node>");
+				nDao.deleteInNode(nid);
+				nDao.deleteInNodeEdge(nid);
 			}
-			sb.append("<node>");
-			sb.append(""+nid);
-			sb.append("</node>");
-			sb.append("<node>");
-			if (effected.size() == 2){
-				int n1 = effected.get(0);
-				int n2 = effected.get(1);
-				if (!nDao.containEdge(n1, n2)&&!nDao.containEdge(n2, n1)) {
-					nDao.addEdge(n1,n2);
-					int eid = nDao.getLastEdge();
-					sb.append("<addEdge0>");
-					sb.append(""+eid);
-					sb.append("</addEdge0>");
-					sb.append("<addEdge1>");
-					sb.append(""+n1);
-					sb.append("</addEdge1>");
-					sb.append("<addEdge2>");
-					sb.append(""+n2);
-					sb.append("</addEdge2>");
-			}}
-			sb.append("</node>");
-			nDao.deleteInNode(nid);
-			nDao.deleteInNodeEdge(nid);
-		}
 		}
 		sb.append("</test>");
-		PrintWriter out = response.getWriter() ;
+		PrintWriter out = response.getWriter();
 		out.print(sb);
 	}
 

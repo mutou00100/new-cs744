@@ -1,6 +1,3 @@
-<%@ page language="java" import="java.util.*" import="com.entity.Edge" import="com.dao.NodeDao" import="com.entity.Node" pageEncoding="UTF-8"%>
-<%@ page import="com.entity.Message"%>
-<%@ page import="com.dao.MessageDao"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
 <meta name="title" content="University of Wisconsin-La Crosse"></meta>
@@ -15,10 +12,16 @@
 <link type="text/css" rel="stylesheet" href="css/table.css" />
 <script type="text/javascript" src="js/exampleUtil.js"></script>
 <script type="text/javascript" src="js/vis.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <link href="js/vis.css" rel="stylesheet" type="text/css" />
 <script src="js/googleAnalytics.js"></script>
 <script type="text/javascript" src="js/jquery-1.9.1.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/modernizr.js"></script>
-<script type="text/javascript" src="js/bootstrap-slider.min.js" charset="UTF-8"></script>
+ 
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+   <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
   

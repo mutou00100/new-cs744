@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
 		if (uid.equals("admin") && password.equals("admin")) {
 			session.setAttribute("firstname", "admin");
 			session.setAttribute("role", "admin");
-			req.getRequestDispatcher("left2.jsp").forward(req, resp);
+			req.getRequestDispatcher("main.jsp").forward(req, resp);
 		} else if (userdao.checkUser(uid, encrypt(password))) {
 			String first_name = userdao.getFristNamebyId(uid);
 			session.setAttribute("firstname", first_name);

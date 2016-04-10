@@ -1,21 +1,54 @@
 <%@ include file="realhead.jsp"%>
-<script type="text/javascript">
-	//考虑到当pattern中只有一个点的情况，故并不一定需要左右节点，当pattern节点大于2时才需要，交由后台判断并返回错误信息。
-	function check() {
-		var x =  document.getElementById("nid").value;
-		if (x == null || x == "") {
-			alert("The node can't be the null!");
-			return false;
-		}
-		var nubmer1 = parseInt(document.getElementById("nid").value);
-		if (nubmer1<=0||!(/^\d+$/.test(nubmer1))){
-			 alert("Please enter a Integer!");
-		     return false;
-		} 
-			return true;
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" >
+function check() {
+	if ($('#dID').val()== null && $('#cID').val()== null && $('#nID').val()== null) {
+		alert("Please select one node!");
+		return false;
 	}
+	return true;
+}
+$(document).ready(function() {
+$('#dID').change(function() {
+    var dNode = $('#dID').val();
+    var data={"dNode":dNode};
+	var mydata=JSON.stringify(data);
+	$.ajax({
+        type : "POST",
+        url : "showCforD",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var belongC=obj['belongC'];
+        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	for(var i=0;i<belongC.length;i++){
+        	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
+        	}}
+        });
+});
+$('#cID').change(function(){
+	 var cNode = $('#cID').val();
+	 var type="CN";
+ 	  var data={"node":cNode,"type":type};
+	var mydata=JSON.stringify(data);
+	$.ajax({
+	        type : "POST",
+	        url : "searchConnectedNode",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	       	success: function(result){obj=JSON.parse(result);
+ 	        	var connectedN=obj['neighbour'];
+ 	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
+ 	        	for(var i=0;i<connectedN.length;i++){
+ 	        	$("#nID").append("<option value='" +connectedN[i] + "'>" + connectedN[i] + "</option>");
+ 	        	}}
+ 	        });
+ 	    });
+});
 </script>
-			<div class="span10" id="datacontent">
+			<div class="span12" id="datacontent">
+
 					<table class="table">
 						<thead>
 							<tr>
@@ -24,21 +57,28 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="span4">Node ID:</td>
-								<td class="span2"><select name="nid" id= "nid" class="span1">
-										<%	
-											if (allnodes != null && allnodes.size() != 0) {
-												for (int i = 0; i < allnodes.size(); i++) {
-													int pattern = allnodes.get(i).getnID();
-													out.println("<option value = " +  pattern + ">" +  pattern
+								<td class="input"><select name="dID" id= "dID" class="span1">
+										<%
+											if (res1 != null && res1.size() != 0) {
+												out.println("<option disabled selected value> -- select an Domain -- </option>");
+												for (int i = 0; i < res1.size(); i++) {
+													int domain = res1.get(i);
+													out.println("<option value = " +  domain + ">" +  domain
 															+ "</option>");
 												}
 											}
 										%>
 								</select></td>
-								<td class="span6">
-									<button class="btn btn-primary" onclick = "if(check()){deleteNode();}" type="submit">Delete</button>
+								<td class="input"><select id="cID">  
+                <option disabled selected value> -- select an Pattern -- </option>
+            </select></td>
+								<td class="input"><select id="nID">  
+                <option disabled selected value> -- select an Non-connector node -- </option>
+            </select></td>
+								<td>
+									<a class="btn btn-primary" type="submit" onclick="if (check()){deleteNode();}">Delete</a>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+				</div>

@@ -1,7 +1,7 @@
 package com.entity;
 
 public class Node {
-	private int nID, status,group,flag;
+	private int nID, status,group,flag,dID;
 	public Node(int nID, int status, String type,int group, int flag){
 		this.nID = nID;
 		this.status = status;
@@ -39,6 +39,12 @@ public class Node {
 	}
 	public void setFlag(int flag) {
 		this.flag = flag;
+	}
+	public int getdID() {
+		return dID;
+	}
+	public void setdID(int dID) {
+		this.dID = dID;
 	}
 	
 	

@@ -19,16 +19,16 @@ public class addConnector extends HttpServlet {
 			throws ServletException, IOException {
 		NodeDao nDao = new NodeDao();
 		String checked[] = request.getParameter("checkedC").split(",");
+		int dID = Integer.parseInt(request.getParameter("dID"));
 		nDao.addCNode();
 		int node = nDao.getLast();
 		response.setContentType("text/xml;charset=UTF-8");
 		StringBuffer sb = new StringBuffer(""); 
 		sb.append("<test>");
 		sb.append("<node>");
-		nDao.updateCNode(node);
+		nDao.updateCNode(node, dID);
 		sb.append(""+node);
 		sb.append("</node>");
-		sb.append("<node>");
 		sb.append("<edge>");  
 		if (checked == null || checked.length == 0 ||(checked.length == 1 && checked[0] == "")) {
 			
@@ -46,7 +46,10 @@ public class addConnector extends HttpServlet {
 			}
 		}
 		sb.append("</edge>");  
-		sb.append("</node>");
+		sb.append("<edgeCD>"); 
+		sb.append("<node00>"+dID+"</node00>");
+		sb.append("<node11>"+node+"</node11>");
+		sb.append("</edgeCD>"); 
 		sb.append("</test>");
 		PrintWriter out = response.getWriter() ;
 		out.print(sb);
