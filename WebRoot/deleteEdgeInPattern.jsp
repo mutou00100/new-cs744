@@ -52,7 +52,7 @@ $('#cID').change(function(){
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Delete Edge Between Connector node and Non-Connector node</th>
+								<th colspan="5">Delete Connection Between Connector node and Non-Connector node</th>
 							</tr>
 						</thead>
 						<tbody>

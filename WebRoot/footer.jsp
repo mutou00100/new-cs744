@@ -521,8 +521,8 @@ update:function() {
 			xmlHttp.send() ;
   	}  
  	function receivedMessage(){
- 			var x= document.getElementById('messageId');
-  			var nid= document.getElementById('messageId').value;
+ 			var x= document.getElementById('nID');
+  			var nid= document.getElementById('nID').value;
 			createXMLHttp() ;
 			xmlHttp.open("POST","receivedMessage?nid="+nid) ;
 			xmlHttp.onreadystatechange = receivedMessageCallback;

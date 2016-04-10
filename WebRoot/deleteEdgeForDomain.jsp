@@ -36,7 +36,7 @@ $('#dID1').change(function() {
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Delete Edge Between Domain</th>
+								<th colspan="5">Delete Connection Between Domain</th>
 							</tr>
 						</thead>
 						<tbody>
