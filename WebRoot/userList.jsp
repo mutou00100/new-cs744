@@ -1,52 +1,74 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib uri="/struts-tags" prefix="s"%>
-<%@ include file="realhead.jsp"%>
-<script type="text/javascript">
-	function del() {
-		if (confirm("Are you sure you want to delete that student?")) {
-			return true;
-		}
-		return false;
-	}
-</script>
-			<div class="span10" id="datacontent">
-				<ul class="breadcrumb">
-					<li><a href="/cs744/jsp/addUser.jsp">Add a User</a><span
-						class="divider">/</span></li>
-					<li class="active">All Users</li>
-				</ul>
-				<ul class="nav nav-tabs">
-					<li class="active"><a>The list of users</a></li>
-				</ul>
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>First Name</th>
-							<th>Last Name</th>
-							<th>Operation</th>
-						</tr>
-					</thead>
-					<s:iterator value="#request.ulist" id="user">
+<div class="span10" id="datacontent">	
+<table class="table">
+						<thead>
+							<tr>
+								<th colspan="5">Search By User ID:</th>
+							</tr>
+						</thead>
 						<tbody>
 							<tr>
-								<td><s:property value="#user.uid" /></td>
-								<td><s:property value="#user.firstName" /></td>
-								<td><s:property value="#user.lastName" /></td>
-								<td>
-									<div>
-										<s:a href="deleteUser.action?uid=%{#user.uid}"
-											onclick="return del();">
-											<span class="btn btn-danger"><i class="icon-trash"></i>Delete</span>
-										</s:a>
-									</div>
+								<td class="span4">User ID:</td>
+								<td class="span1"><input type="text" id = "uId" name="destination" /></td>
+								<td class="span6">
+								<button type="button" onclick="checkUsers()" data-toggle="modal" data-target="#myModal3" >Recieved Message</button>
 								</td>
 							</tr>
-						</tbody>
-					</s:iterator>
-				</table>
-			</div>
-		</div>
-	</div>
+						</tbody>		
+					</table>
+</div>
+
+	<!-- Modal -->
+  <div class="modal fade" id="myModal5" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">User list
+          </h4>
+        </div>
+        <div class="modal-body"> 
+          <table id="example1" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </tfoot>
+        <tbody id="rtbody">
+</tbody>
+    </table>
+             </div>
+<script>
+function createRTbody(L){
+	 if (table!=undefined){
+         table.destroy();
+       }
+  var  s="";
+  //[[137,142,'2016-04-01 14:09:16','123']]"
+for(var i=0;i<L.length;i++){
+    s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>';
+        }
+        document.getElementById('rtbody').innerHTML=s;
+       
+        table = $('#example1').DataTable( {
+        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+        "order": [[ 3, "desc" ]]
+    } );$("#myModal5").modal("show");
+      }
+</script>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div></div></div>
 </body>
 </html>

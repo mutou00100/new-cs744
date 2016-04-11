@@ -1,5 +1,51 @@
 <%@ include file="realhead.jsp"%>
-			<div class="span10" id="datacontent">
+<script type="text/javascript" >
+function check() {
+	if ($('#dID').val()== null && $('#cID').val()== null && $('#nID').val()== null) {
+		alert("Please select one node!");
+		return false;
+	}
+	return true;
+}
+$(document).ready(function() {
+$('#dID').change(function() {
+    var dNode = $('#dID').val();
+    var data={"dNode":dNode};
+	var mydata=JSON.stringify(data);
+	$.ajax({
+        type : "POST",
+        url : "showCforD",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var belongC=obj['belongC'];
+        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	for(var i=0;i<belongC.length;i++){
+        	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
+        	}}
+        });
+});
+$('#cID').change(function(){
+	 var cNode = $('#cID').val();
+ 	  var data={"cNode":cNode};
+	var mydata=JSON.stringify(data);
+	$.ajax({
+	        type : "POST",
+	        url : "showNforC",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	       	success: function(result){obj=JSON.parse(result);
+ 	        	var belongN=obj['belongN'];
+ 	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
+ 	        	for(var i=0;i<belongN.length;i++){
+ 	        	$("#nID").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
+ 	        	}}
+ 	        });
+ 	    });
+});
+</script>
+			<div class="span12" id="datacontent">
 					<table class="table">
 						<thead>
 							<tr>
@@ -8,24 +54,31 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="span2">Pattern:</td>
-								<td class="span2"><select name="gid" id= "gid" onChange="getCity(this,document.getElementById('city'))">
-										<option value="0">Please select a pattern</option>
+								<td>Domain:</td>
+								<td class="input"><select name="dID" id= "dID" class="span1">
 										<%
-											if (allPatterns != null && allPatterns.size() != 0) {
-												for (int i = 0; i < allPatterns.size(); i++) {
-													int pattern = allPatterns.get(i);
-													out.println("<option value = " +  pattern + ">" +  pattern
+											if (res1 != null && res1.size() != 0) {
+												out.println("<option disabled selected value> -- select an Domain -- </option>");
+												for (int i = 0; i < res1.size(); i++) {
+													int domain = res1.get(i);
+													out.println("<option value = " +  domain + ">" +  domain
 															+ "</option>");
 												}
 											}
 										%>
 								</select></td>
-								<td class="span2">Node ID:</td>
-								<td class="span3"><select id="city" name="nid"></select></td>
-								<td class="span4">
-									<button class="btn btn-primary" onclick = "deleteNode();" type="submit">Delete</button>
+								<td>Pattern:</td>
+								<td class="input"><select id="cID">  
+                <option disabled selected value> -- select an Pattern -- </option>
+            </select></td>
+            <td>Node:</td>
+								<td class="input"><select id="nID">  
+                <option disabled selected value> -- select an Non-connector node -- </option>
+            </select></td>
+								<td>
+									<a class="btn btn-primary" type="submit" onclick="if (check()){deleteNode();}">Delete</a>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+				</div>

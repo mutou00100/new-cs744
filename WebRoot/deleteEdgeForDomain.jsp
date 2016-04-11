@@ -36,7 +36,7 @@ $('#dID1').change(function() {
 						<thead>
 							<tr>
 								<th colspan="5">Delete Connection Between Domain</th>
-							</tr>
+	</tr>
 						</thead>
 						<tbody>
 							<tr>

@@ -10,8 +10,8 @@ function check() {
 $(document).ready(function() {
 $('#dID').change(function() {
     var dNode = $('#dID').val();
-    var data={"dNode":dNode}
-	var mydata=JSON.stringify(data)
+    var data={"dNode":dNode};
+	var mydata=JSON.stringify(data);
 	$.ajax({
         type : "POST",
         url : "showCforD",
@@ -21,7 +21,7 @@ $('#dID').change(function() {
         	var obj=JSON.parse(result);
         	var belongC=obj['belongC'];
         	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
-        	for(i=0;i<belongC.length;i++){
+        	for(var i=0;i<belongC.length;i++){
         	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}
         });
@@ -39,7 +39,7 @@ $('#cID').change(function(){
 	       	success: function(result){obj=JSON.parse(result);
  	        	var connectedN=obj['neighbour'];
  	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
- 	        	for(i=0;i<connectedN.length;i++){
+ 	        	for(var i=0;i<connectedN.length;i++){
  	        	$("#nID").append("<option value='" +connectedN[i] + "'>" + connectedN[i] + "</option>");
  	        	}}
  	        });
@@ -56,6 +56,7 @@ $('#cID').change(function(){
 						</thead>
 						<tbody>
 							<tr>
+								<td>Domain:</td>
 								<td class="input"><select name="dID" id= "dID" class="span1">
 										<%
 											if (res1 != null && res1.size() != 0) {
@@ -68,15 +69,18 @@ $('#cID').change(function(){
 											}
 										%>
 								</select></td>
+					<td>Pattern:</td>
 								<td class="input"><select id="cID">  
                 <option disabled selected value> -- select an Pattern -- </option>
             </select></td>
+            					<td>Node:</td>
 								<td class="input"><select id="nID">  
                 <option disabled selected value> -- select an Non-connector node -- </option>
             </select></td>
 								<td>
-									<a class="btn btn-primary" type="submit" onclick="if (check()){deleteCN();}">Delete</button>
+									<a class="btn btn-primary" type="submit" onclick="if (check()){deleteCN();}">Delete</a>
 								</td>
 							</tr>
 						</tbody>
 					</table>
+				</div>

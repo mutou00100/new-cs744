@@ -148,6 +148,10 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>addEdge</servlet-name>
+    <servlet-class>com.servlet.addEdge</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>searchNonConnectedNode</servlet-name>
     <servlet-class>com.servlet.searchNonConnectedNode</servlet-class>
   </servlet>
@@ -277,6 +281,10 @@
   <servlet-mapping>
     <servlet-name>speedSession</servlet-name>
     <url-pattern>/speedSession</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addEdge</servlet-name>
+    <url-pattern>/addEdge</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>searchNonConnectedNode</servlet-name>

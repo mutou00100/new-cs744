@@ -1,4 +1,5 @@
 <%@ include file="realhead.jsp"%>
+
 <script type="text/javascript">
 
 function check() {

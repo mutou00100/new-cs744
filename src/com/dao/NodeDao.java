@@ -145,6 +145,20 @@ public class NodeDao {
 			ConnUtils.releaseConn(rs, pstmt, conn);
 		}
 	}
+	public void updateCNedge(int nid){
+		try {
+			conn = ConnUtils.getConnection();
+			String sql = "UPDATE Node set flag = ? WHERE nID = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 0);
+			pstmt.setInt(2, nid);
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+	}
 	public boolean checkstatus(int nid) {
 		try {
 			conn = ConnUtils.getConnection();//
@@ -892,6 +906,26 @@ public class NodeDao {
 		return count;
 	}
 	
+	public int countD(int dId) {
+		int count = 0;
+		try {
+			conn = ConnUtils.getConnection();//
+			//rs = pstmt.executeQuery();
+			pstmt = conn.prepareStatement("SELECT * FROM Node WHERE dID = ? AND flag = ? ");
+			pstmt.setInt(1, dId);
+			pstmt.setInt(2, -1);
+			rs = pstmt.executeQuery();					
+			while (rs.next()){
+				count++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return count;
+	}
+	
 	public boolean belong(int nId, int cId) {
 		int count = 0;
 		try {
@@ -1061,6 +1095,23 @@ public class NodeDao {
 			ConnUtils.releaseConn(rs, pstmt, conn);
 		}
 		return false;
+	}
+	public boolean deleteDomain(int dId) {
+		boolean result = false;
+		try {
+			conn = ConnUtils.getConnection();
+			String deleteNode = "DELETE FROM Node WHERE dID= ?";
+			pstmt = conn.prepareStatement(deleteNode);
+			pstmt.setInt(1, dId);
+			ri = pstmt.executeUpdate();
+			if (ri > 0) {
+				result = true;
+			}} catch (SQLException e) {
+				result = false; // 
+			} finally {
+				ConnUtils.releaseConn(rs, pstmt, conn);
+			}
+			return result;
 	}
 }
 	

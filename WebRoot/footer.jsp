@@ -349,13 +349,14 @@
   		nodes.remove({id :node});
   	}
   	function deleteNode(){
-			var nid = document.getElementsByName('nid')[0].value;
-			var gid= document.getElementById('gid').value;
+			var nid = document.getElementById('nID').value;
+			var did= document.getElementById('dID').value;
+			var gid= document.getElementById('cID').value;
 			if (!nid){
 				nid = gid;
 			}
 			createXMLHttp() ;
-			xmlHttp.open("POST","deleteNode?nid="+nid) ;
+			xmlHttp.open("POST","deleteNode?nid="+nid+"&&did="+did) ;
 			xmlHttp.onreadystatechange = deleteNodeCallback;
 			xmlHttp.send() ;
   	}
@@ -368,11 +369,41 @@
 					if (typeof xml.getElementsByTagName("error")[0]  != "undefined") {
 						alert(xml.getElementsByTagName("error")[0].childNodes[0].nodeValue);
 					} else {
-						var obj=document.getElementsByName('nid')[0]; 
-						//index,要删除选项的序号，这里取当前选中选项的序号 
-						var index=obj.selectedIndex; 
-						obj.options.remove(index); 					
-						removeNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);
+						var nID =document.getElementById('nID'); 
+						var cID = document.getElementById('cID');
+						var dID = document.getElementById('dID');
+						var index1=nID.selectedIndex; 
+						var index2=cID.selectedIndex;
+						var index3=dID.selectedIndex;
+						if (index1 == 0){ 
+							removeNode(cID.options[index2].text);
+							cID.options.remove(index2);
+							if (cID.options.length==1){
+							removeNode(dID.options[index3].text);
+							dID.options.remove(index3);
+							$(document).ready(function() {
+									var dNode = $('#dID').val();
+								    var data={"dNode": dNode};
+									var mydata=JSON.stringify(data);
+									$.ajax({
+								        type : "POST",
+								        url : "showCforD",
+								        data: mydata,
+								        contentType: 'application/json;charset=UTF-8',
+								        success: function(result){
+								        	var obj=JSON.parse(result);
+								        	var belongC=obj['belongC'];
+								        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
+								        	for(var i=0;i<belongC.length;i++){
+								        	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
+								        	}}
+								        });
+								});
+							}
+						}else{
+							nID.options.remove(index1); 		
+							removeNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);
+						}
   						for (var i = 0; i < xml.getElementsByTagName("addEdge1").length; i++) {
   						addEdge(xml.getElementsByTagName("addEdge0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("addEdge1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("addEdge2")[i].childNodes[0].nodeValue, "NN");
@@ -536,6 +567,80 @@ update:function() {
   				}
   		}
 }
+  	function addDD(){
+  		var d1 = $('#dID1').val();
+		var d2 = $('#dID2').val();
+		var type="DD";
+		var data={"type":type,"node1":d1,"node2":d2};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "addEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+	        	if (a==-1){
+	        		alert("The edge has existed!");
+	        	}else {
+        			edges.add({id: a, from :d1, to :d2,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
+	        	}
+	        }
+    	});
+  	}
+	function addCC(){
+		var c1 = $('#cID1').val();
+		var c2 = $('#cID2').val();
+		var type="CC";
+		var data={"type":type,"node1":c1,"node2":c2};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "addEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+	        	if (a==-1){
+	        		alert("The edge has existed!");
+	        	}else {
+        			edges.add({id: a, from :c1, to :c2,smooth:false,length : EDGE_LENGTH_MAIN});
+	        	}
+	        }
+    	});
+  	}
+	function addCN(){
+		var cNode = $('#cID').val();
+		var nNode = $('#nID').val();
+		var type="CN";
+		var data={"type":type,"node1":cNode,"node2":nNode};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "addEdge",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+	        	if (a!=-1 && a != -2 ){
+	        		edges.add({id: a, from :cNode, to :nNode,smooth:false,length : EDGE_LENGTH_SUB});
+	        	}else if (a == -1){
+	        		alert("The edge has existed!");
+	        	}else if (a== -2){
+	        		alert("The number of edges in one pattern can't over 3!");
+	        	}
+	        }
+    	});
+  	}
  	function deleteDD(){
 		var d1 = $('#dID1').val();
 		var d2 = $('#dID2').val();

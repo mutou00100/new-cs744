@@ -98,6 +98,10 @@ body {
 		function show(id) {
 			if (id == "addNode") {
 				$('#show').load('addNode.jsp');
+			} else if (id == "checkUsers") {
+				$('#show').load('userList.jsp');
+			} else if (id == "addUser") {
+				$('#show').load('addUser.jsp');
 			} else if (id == "addPattern") {
 				$('#show').load('addConnector.jsp');
 			} else if (id == "deleteNode") {
