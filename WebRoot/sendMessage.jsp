@@ -1,10 +1,9 @@
 <%@ include file="realhead.jsp"%>
 <script type="text/javascript">
-function check() {
+	function check() {
 	var message = document.getElementById("message").value;
 	var ori = document.getElementById("ori").value;
-	var dest = document.getElementById("dest").value;
-	if (ori == null || dest == null) {
+	if ($('#ori').val()== null || $('#dest').val()== null) {
 		alert("Please chooose both sender and receiver node!");
 		return false;
 	}
@@ -19,7 +18,7 @@ function check() {
 	return true;
 }
 function sendMessageInMain() {
-	var message = document.getElementById("message").value;
+	var message =  document.getElementById("message").value;
 	var ori = document.getElementById("ori").value;
 	var dest = document.getElementById("dest").value;
 	sendMessage(ori, dest, message, ori);
