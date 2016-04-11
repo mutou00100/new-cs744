@@ -554,7 +554,7 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("Each domain must connect to at least one domain!")}	
+	        	alert("The network should be a connected graph at anytime!")};	
 	        }
     	});
 	}
@@ -576,7 +576,7 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("Each pattern must connect to at least one pattern!")}	
+	        	alert("The network should be a connected graph at anytime!")};	
 	        }
     	});
 	}

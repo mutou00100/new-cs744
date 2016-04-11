@@ -61,6 +61,10 @@ public class deleteNode extends HttpServlet {
 					sb.append("</node>");
 					nDao.deleteInNodeEdge(nid); // delete connections with other											// connectors
 					nDao.deletePattern(nid); // delete connections with other											// connectors
+				} else {
+					sb.append("<error>");
+					sb.append("The network should be a connected graph at anytime!");
+					sb.append("</error>");
 				}
 			}
 		} else {
@@ -73,7 +77,7 @@ public class deleteNode extends HttpServlet {
 			} else if (nDao.patternConnected(nid)
 					&& nDao.countConnector(nDao.whichPattern(nid)) == 1) {
 				sb.append("<error>");
-				sb.append("It should still be a ring after delete operation");
+				sb.append("Each pattern should still be a ring after delete operation");
 				sb.append("</error>");
 			} else {
 				ArrayList<Integer> effected = new ArrayList<Integer>();
