@@ -1,6 +1,7 @@
 <%@ include file="head_without_jsp.jsp"%>
 <%@ include file="head.jsp"%>
 <%@ include file="changeQuestion.jsp"%>
+<%@ include file="addUser.jsp"%>
 <head>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,7 +60,7 @@ body {
 			%>
 			<%
 				out.print("<button id=\"checkUsers\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\">Check users</button>");				
-				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
+				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
 				out.print("<button id=\"addSecurityQuestion\" type=\"button\" class=\"list-group-item\"data-toggle=\"modal\"data-target=\"#myModal2 \">Add Security Question</button>");
 				}
 			%>
@@ -106,8 +107,6 @@ body {
 				$('#show').load('addNode.jsp');
 			} else if (id == "checkUsers") {
 				$('#show').load('userList.jsp');
-			} else if (id == "addUser") {
-				$('#show').load('addUser.jsp');
 			} else if (id == "addPattern") {
 				$('#show').load('addConnector.jsp');
 			} else if (id == "deleteNode") {

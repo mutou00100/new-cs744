@@ -1,4 +1,3 @@
-<%@ include file="realhead.jsp"%>
 <script type="text/javascript">
 	function check() {
 		if (form2.uid.value == null || form2.uid.value == "") {
