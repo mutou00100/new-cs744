@@ -33,11 +33,11 @@ $('#cID').change(function(){
 	var mydata=JSON.stringify(data);
 	$.ajax({
 	        type : "POST",
-	        url : "searchNonconnectedForPattern",
+	        url : "searchNonConnectedNode",
 	        data: mydata,
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
- 	        	var nonconnectedN=obj['nonconnected'];
+ 	        	var nonconnectedN=obj['neighbour'];
  	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
  	        	for(i=0;i<nonconnectedN.length;i++){
  	        	$("#nID").append("<option value='" +nonconnectedN[i] + "'>" + nonconnectedN[i] + "</option>");

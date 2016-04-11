@@ -16,7 +16,7 @@
 .list-group {
 	margin-left: 1%;
 	min-width: 40px;
-	width: 15%;
+	width: 18%;
 	float: left;
 	vertical-align: middle;
 }
@@ -32,6 +32,9 @@ div#one {
 
 div#two {
 	margin-left: 20%;
+}
+body {
+	font-size: 12px
 }
 </style>
 <body>

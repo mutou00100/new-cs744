@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import org.json.JSONObject;
 
 import com.dao.NodeDao;
 
-public class searchNonconnectedForPattern extends HttpServlet {
+public class searchNonConnectedNode extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
     }
@@ -30,16 +31,49 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
         json = br.readLine();
     }
     JSONObject jsonObj = new JSONObject();
-    String node="";
+    String type="";
+    int node=-1;
+    int domain=-1;
     try {
 		jsonObj = new JSONObject(json);
-		node = (String) jsonObj.get("node");
+		node = Integer.parseInt((String) jsonObj.get("node"));
+		type = (String) jsonObj.get("type");
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    int n=Integer.parseInt(node);
-    ArrayList<Integer> res=nDao.getNonConectedForPattern(n);   
+    ArrayList<Integer> res=new ArrayList<Integer>();
+    ArrayList<Integer> domains = nDao.getAllD();
+    if(type.equals("DD")){
+    	HashSet<Integer> temp=new HashSet<Integer>(nDao.searchNeighborNode(node));
+    	for (int i = 0; i < domains.size();i++){
+    		int cur = domains.get(i);
+    		if (!temp.contains(cur) && cur != node) {
+    			res.add(cur);
+    		}
+    	}
+    
+    }
+    if(type.equals("CC")){
+    	 try {
+    			domain = Integer.parseInt((String) jsonObj.get("domain"));
+    		} catch (JSONException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	HashSet<Integer> temp=new HashSet<Integer>(nDao.searchNeighborNode(node));
+    	ArrayList<Integer> patterns = nDao.getAllCforDomain(domain);
+    	for (int i = 0; i < patterns.size();i++){
+    		int cur = patterns.get(i);
+    		if (!temp.contains(cur) && cur != node) {
+    			res.add(cur);
+    		}
+    	}
+    	
+    }
+    if(type.equals("CN")){
+    	 res=nDao.getNonConectedForPattern(node);   
+    }
 	PrintWriter out = response.getWriter();
     response.setContentType("text/html");
     response.setHeader("Cache-control", "no-cache, no-store");
@@ -52,12 +86,11 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
     response.setHeader("Access-Control-Max-Age", "86400");
     JSONObject result = new JSONObject();
     try {
-		result.put("nonconnected", new JSONArray(res));
+		result.put("neighbour", new JSONArray(res));
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
     out.println(result);
     out.close();
-}
-}
+}}

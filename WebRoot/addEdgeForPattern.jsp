@@ -29,16 +29,24 @@ $('#dID').change(function() {
 });
 $('#cID1').change(function(){
 	var node = $('#cID1').val();
-	var selection = belongC;
-	var index = selection.indexOf(parseInt(node));
-       	if (index > -1) {
-       	    selection.splice(index, 1);
-       	}
-       	$("#cID2").html("<option disabled selected value> -- select an Pattern -- </option>");
-       	for(i=0;i<selection.length;i++){
-       	$("#cID2").append("<option value='" + selection[i] + "'>" + selection[i] + "</option>");
-        }
+    var type="CC";
+    var domaintemp = $('#dID').val();
+    var data={"type":type,"node":node, "domain":domaintemp};
+	var mydata=JSON.stringify(data)
+	$.ajax({
+        type : "POST",
+        url : "searchNonConnectedNode",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var cNeighbour=obj['neighbour'];
+        	$("#cID2").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	for(i=0;i<cNeighbour.length;i++){
+        	$("#cID2").append("<option value='" + cNeighbour[i] + "'>" + cNeighbour[i] + "</option>");
+        }}
 	});
+  	    });
 });
 </script>
 			<div class="span12" id="datacontent">
