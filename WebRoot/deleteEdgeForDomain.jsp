@@ -31,13 +31,9 @@ $('#dID1').change(function() {
 }); 
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Delete Connection Between Domain</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Delete Connection Between Domain</th>
-	</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td><select name="dID1" id= "dID1" class="span1">

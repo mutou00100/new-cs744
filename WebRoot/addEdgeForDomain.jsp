@@ -34,13 +34,8 @@
 					});
 </script>
 <div class="span12" id="datacontent">
-
+<p><b>Add Connection Between Domain</p>
 	<table class="table">
-		<thead>
-			<tr>
-				<th colspan="5">Add Connection Between Domain</th>
-			</tr>
-		</thead>
 		<tbody>
 			<tr>
 				<td>Domain:</td>

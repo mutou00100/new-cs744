@@ -75,13 +75,8 @@ $('#nID1').change(function(){
 });
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Add Non-connector Node</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Add Non-connector Node</th>
-							</tr>
-						</thead>
 						<tbody>
 							<tr>
 								<td><select name="dID" id= "dID" class="span1">

@@ -66,13 +66,9 @@
 					});
 </script>
 <div class="span12" id="datacontent">
-
+<p><b>Add Connection Between Patterns</p>
 	<table class="table">
-		<thead>
-			<tr>
-				<th colspan="5">Add Connection Between Patterns</th>
-			</tr>
-		</thead>
+		
 		<tbody>
 			<tr>
 				<td>Domain:</td>

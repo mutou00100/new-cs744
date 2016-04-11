@@ -23,12 +23,9 @@ box.appendChild(document.createTextNode(newValue));
 }
 </script>
 <div class="span14" id="datacontent">
+<p><b>Add Domain</p>
 		<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Add Domain</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td id = "containerForConnector"class="span10"><% 

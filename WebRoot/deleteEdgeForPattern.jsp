@@ -48,13 +48,9 @@ $('#cID1').change(function(){
 });
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Delete Connection Between Pattern</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Delete Connection Between Pattern</th>
-							</tr>
-						</thead>
+
 						<tbody>
 							<tr>
 

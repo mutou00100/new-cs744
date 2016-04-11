@@ -46,12 +46,9 @@ $('#cID').change(function(){
 });
 </script>
 			<div class="span12" id="datacontent">
+			<p><b>Delete Node</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Delete Node</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td>Domain:</td>

@@ -32,10 +32,11 @@
     font-size: 16px
 }
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 0px;}
+    padding: 0px;
+    text-align:center}
     
 td .btn {
-    padding: 3px 3px;
+    padding: 0px 0px;
    }
 
 div#one {
@@ -49,10 +50,17 @@ div#two {
 body {
 	font-size: 12px
 }
+.list-group-item {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+p {
+    margin: -15 0 0 20px;
+    font-size: 18px;
+}
 </style>
-<body>
-
-	<div id="show"></div>
+<body style="padding-bottom: 0px;">
+	<div id="show" style="width: 98.5%;"></div>
 	<section>
 		<div class="list-group">
 			<%
@@ -327,6 +335,4 @@ for(var i=0;i<L.length;i++){
       
     </div>
   </div>
-  
-  
 </body>

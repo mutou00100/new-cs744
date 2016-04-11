@@ -47,13 +47,9 @@ $('#cID').change(function(){
 });
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Delete Connection Between Connector node and Non-Connector node</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Delete Connection Between Connector node and Non-Connector node</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td>Domain:</td>

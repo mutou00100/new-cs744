@@ -44,12 +44,9 @@ $('#domainIdforPattern').change(function() {
 });
 </script>
 <div class="span14" id="datacontent">
+<p><b>Add Pattern</p>
 		<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Add Pattern</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 							<td><select name="dID" id= "domainIdforPattern" class="span1">

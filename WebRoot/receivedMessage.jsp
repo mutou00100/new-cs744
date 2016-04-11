@@ -52,13 +52,9 @@ $('#messageTemp').click(function() {
 }});
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Search By Receiver Node</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Search By Receiver Node</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td><select name="dID" id= "dID" class="span1">

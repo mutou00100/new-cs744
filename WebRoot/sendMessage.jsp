@@ -25,13 +25,9 @@ function sendMessageInMain() {
 }
 </script>
 <div class="span10" id="datacontent">
-					
+	<p><b>Send Message</p>				
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Send Message</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td class="span2"><select name="ori" id= "ori">
