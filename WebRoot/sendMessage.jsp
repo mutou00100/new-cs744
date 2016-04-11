@@ -42,6 +42,7 @@ function sendMessageInMain() {
 											}
 										%>
 								</select>
+								</td>
 								<td class="span2"><select name="dest" id= "dest">
 										<option disabled selected value> -- receiver -- </option>
 										<%
@@ -54,6 +55,7 @@ function sendMessageInMain() {
 											}
 										%>
 								</select>
+								</td>
 								<td>message:</td>
 								<td class="input"><input class="input-small" id= "message" name="message"
 									size="10" type="text" value="" maxlength="50"></input></td>

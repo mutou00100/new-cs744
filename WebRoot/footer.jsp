@@ -1,7 +1,7 @@
 
 <%@ include file="realhead.jsp"%>      
 <body onload="draw();"> 
-<div id="mynetwork" style="width: 99.5%;height: 90%;"></div>
+<div id="mynetwork" style="width: 99.5%;height: 89.5%;"></div>
 
 <script type="text/javascript">
     var blockedlist = [];
