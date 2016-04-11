@@ -151,6 +151,10 @@
     <servlet-name>addEdge</servlet-name>
     <servlet-class>com.servlet.addEdge</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>searchNonConnectedNode</servlet-name>
+    <servlet-class>com.servlet.searchNonConnectedNode</servlet-class>
+  </servlet>
 
 
 
@@ -274,5 +278,9 @@
   <servlet-mapping>
     <servlet-name>addEdge</servlet-name>
     <url-pattern>/addEdge</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>searchNonConnectedNode</servlet-name>
+    <url-pattern>/searchNonConnectedNode</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -42,7 +42,8 @@ public class MessageDao {
 			sb.append("\""+res.get(i).getContent()+"\"");
 			sb.append("],");
 		}
-		sb.deleteCharAt(sb.length() - 1);
+		if (sb.charAt(sb.length()- 1) == ','){
+		sb.deleteCharAt(sb.length() - 1);}
 		sb.append("]");
 		return sb.toString();
 

@@ -1,15 +1,5 @@
- <class="brand"><h1><center></>Concentric Ring Network</center></h1>
-	<div class="navbar navbar-inverse">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<div class="nav-collapse navbar-responsive-collapse collapse">
-					<ul class="nav pull-right">
-						<li><a ><%=request.getSession().getAttribute("firstname")%></a></li>
-						<li><a href="Logout"  target="_parent">log out</a></li>
-						
-					</ul>
-				</div>
-
-			</div>
-		</div>
+ <class="brand"><h2><center></>Concentric Ring Network</center></h2>
+ <div align="right" style="margin-right:30px"  >
+  Current User : <%=request.getSession().getAttribute("firstname")%>
+ <a href="Logout"  target="_parent">Log Out</a>
 	</div>

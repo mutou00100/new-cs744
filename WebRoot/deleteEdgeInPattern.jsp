@@ -1,5 +1,4 @@
 <%@ include file="realhead.jsp"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script type="text/javascript" >
 function check() {
 	if ($('#dID').val()== null ||$('#cID').val()== null||$('#nID').val()== null) {
@@ -52,7 +51,7 @@ $('#cID').change(function(){
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Delete Edge Between Connector node and Non-Connector node</th>
+								<th colspan="5">Delete Connection Between Connector node and Non-Connector node</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -70,7 +69,7 @@ $('#cID').change(function(){
 											}
 										%>
 								</select></td>
-								<td>Pattern:</td>
+					<td>Pattern:</td>
 								<td class="input"><select id="cID">  
                 <option disabled selected value> -- select an Pattern -- </option>
             </select></td>

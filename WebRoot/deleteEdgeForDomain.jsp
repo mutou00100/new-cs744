@@ -1,5 +1,4 @@
 <%@ include file="realhead.jsp"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"> </script>
 <script type="text/javascript" >
 function check() {
 	if ($('#dID1').val()== null ||$('#dID2').val()== null) {
@@ -36,8 +35,8 @@ $('#dID1').change(function() {
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Delete Edge Between Domain</th>
-							</tr>
+								<th colspan="5">Delete Connection Between Domain</th>
+	</tr>
 						</thead>
 						<tbody>
 							<tr>

@@ -9,9 +9,13 @@
 	<property name="dialect">
 		org.hibernate.dialect.MySQLDialect
 	</property>
+<<<<<<< HEAD
 	<property name="connection.url">
 		jdbc:mysql://localhost:3306/cs744
 	</property>
+=======
+	<property name="connection.url">jdbc:mysql://localhost:3306/Concentric_ring</property>
+>>>>>>> origin/master
 	<property name="connection.username">root</property>
 	<property name="connection.password">root</property>
 	<property name="connection.driver_class">

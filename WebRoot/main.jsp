@@ -16,7 +16,7 @@
 .list-group {
 	margin-left: 1%;
 	min-width: 40px;
-	width: 15%;
+	width: 18%;
 	float: left;
 	vertical-align: middle;
 }
@@ -33,6 +33,9 @@ div#one {
 div#two {
 	margin-left: 20%;
 }
+body {
+	font-size: 12px
+}
 </style>
 <body>
 
@@ -45,6 +48,14 @@ div#two {
 			<%
 				out.print("<button id=\"checkUsers\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\">Check users</button>");				
 				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
+				out.print("<button id=\"addSecurityQuestion\" type=\"button\" class=\"list-group-item\"onClick=\"add()\" data-toggle=\"modal\" data-target=\"#myModal2\">Add Security Question</button>");
+				}
+			%>
+			<%
+				if (request.getSession().getAttribute("firstname") != "admin"){
+			%>
+			<%
+				out.print("<button id=\"changeSecurityQuestion\" type=\"button\" class=\"list-group-item\"onClick=\"add()\" data-toggle=\"modal\" data-target=\"#myModal2\">Change Security Question</button>");
 				}
 			%>
 			<button id="addDomain" type="button" class="list-group-item"
@@ -54,26 +65,24 @@ div#two {
 			<button id="addNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Add Non-Connector Node</button>
 			<button id="addEdgeForDomain" type="button" class="list-group-item"
-				onClick="show(this.id)">Add Edge Between Domain</button>
+				onClick="show(this.id)">Add Connection Between Domain</button>
 			<button id="addEdgeForPattern" type="button" class="list-group-item"
-				onClick="show(this.id)">Add Edge Between Pattern</button>
+				onClick="show(this.id)">Add Connection Between Pattern</button>
 			<button id="addEdgeInPattern" type="button" class="list-group-item"
-				onClick="show(this.id)">Add Edge In Pattern</button>
+				onClick="show(this.id)">Add Connection In Pattern</button>
 			<button id="deleteNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Delete Node</button>
 			<button id="deleteEdgeForDomain" type="button" class="list-group-item"
-				onClick="show(this.id)">Delete Edge Between Domain</button>
+				onClick="show(this.id)">Delete Connection Between Domain</button>
 			<button id="deleteEdgeForPattern" type="button" class="list-group-item"
-				onClick="show(this.id)">Delete Edge Between Pattern</button>
+				onClick="show(this.id)">Delete Connection Between Pattern</button>
 			<button id="deleteEdgeInPattern" type="button" class="list-group-item"
-				onClick="show(this.id)">Delete Edge In Pattern</button>
+				onClick="show(this.id)">Delete Connection In Pattern</button>
 			<button id="sendMessage" type="button" class="list-group-item"
 				onClick="show(this.id)">Send Message</button>
 			<button id="activateNode" type="button" class="list-group-item" onClick="show(this.id)">Activate Node</button>
 			<button id="inactivateNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Inactivate Node</button>
-			<button id="addSecurityQuestion" type="button" class="list-group-item"
-				onClick="add()" data-toggle="modal" data-target="#myModal2">Add Security Question</button>
 			<button id = "Recieved Message" type="button" class="list-group-item" onclick="show(this.id)" >Recieved Message</button>
 		<button id = "blockedMessage" type="button" class="list-group-item" onclick="createTbody()" data-toggle="modal" data-target="#myModal">Blocked Message</button>
 		</div>
@@ -298,4 +307,77 @@ for(var i=0;i<L.length;i++){
       
     </div>
   </div>
+  
+  <!-- Modal -->
+	<div id="myModal4" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Change Security Question</h4>
+				</div>
+				<div class="modal-body">
+					<div class="control-group">
+						<div class="controls">
+										<div class="content">
+			<select class="input username" id="ques1" name="ques1">
+				<%
+					//to get from the database
+								if (questions != null && questions.size() != 0) {
+									for (int i = 0; i < questions.size(); i++) {
+								Question question = questions.get(i);
+								int id = question.getId();
+								String content = question.getContent();
+								out.println("<option value = "+id+">"+content+"</option>");
+									}
+								}
+				%>
+			</select> <input type="text" name="ans1" class="input username"> <span id="msg"></span> <br />
+
+			<select class="input username" id="ques2" name="ques2">
+				<%
+					//to get from the database
+								if (questions != null && questions.size() != 0) {
+									for (int i = 0; i < questions.size(); i++) {
+								Question question = questions.get(i);
+								int id = question.getId();
+								String content = question.getContent();
+								out.println("<option value = "+id+">"+content+"</option>");
+									}
+								}
+				%>
+			</select> <input type="text" name="ans2" class="input username"> <span id="msg"></span> <br />
+			<select id="ques3" name="ques3" class="input username">
+				<%
+					//to get from the database
+								if (questions != null && questions.size() != 0) {
+									for (int i = 0; i < questions.size(); i++) {
+										Question question = questions.get(i);
+										int id = question.getId();
+										String content = question.getContent();
+										out.println("<option value = "+id+">"+content+"</option>");
+									}
+								}
+				%>
+			</select> <input type="text" name="ans3" class="input username"> <span id="msg"></span> <br />
+			</div>
+			<div class="footer">
+			<input type="submit" name="submit" value="submit" class="button">
+			</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input class="btn btn-primary" onClick="addQuestion();"
+						value="submit" />
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
 </body>
