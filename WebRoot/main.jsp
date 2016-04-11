@@ -26,7 +26,8 @@
 	background-color: #FFFFFF;
 }
 .table {
-    margin-bottom: 0px;
+    margin-bottom: 2px;
+    margin-left: 1%;
     font-size: 16px
 }
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
@@ -59,7 +60,7 @@ body {
 			<%
 				out.print("<button id=\"checkUsers\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\">Check users</button>");				
 				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
-				out.print("<button id=\"addSecurityQuestion\" type=\"button\" class=\"list-group-item\"onClick=\"show(this.id)\"data-toggle=\"modal\">Add Security Question</button>");
+				out.print("<button id=\"addSecurityQuestion\" type=\"button\" class=\"list-group-item\"data-toggle=\"modal\"data-target=\"#myModal2 \">Add Security Question</button>");
 				}
 			%>
 			<%
@@ -222,11 +223,11 @@ function resend(){
 	}}
 }
 function updateBlockedlist(destnode){
-	for (var i = 0; i < stack.length; i++) {
-		if (stack[i][0] == destnode||stack[i][2]) {
-			var index = stack.indexOf(stack[i]);
+	for (var i = 0; i < blockedlist.length; i++) {
+		if (blockedlist[i][0] == destnode||blockedlist[i][2]) {
+			var index = blockedlist.indexOf(blockedlist[i]);
 			if (index > -1) {
-    		stack.splice(index, 1);
+    		blockedlist.splice(index, 1);
 		}
 	}
 }}

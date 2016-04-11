@@ -347,6 +347,7 @@
   	}}
   	function removeNode(node) {
   		nodes.remove({id :node});
+  		updateBlockedlist(node);
   	}
   	function deleteNode(){
 			var nid = document.getElementById('nID').value;

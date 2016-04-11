@@ -68,22 +68,21 @@ $('#changeQuestion').click(function() {
 				</div>
 				<div class="modal-body">
 					<div class="control-group">
-						<div class="controls">
-										<div class="content">
-			<select class="input username" id="ques1" name="ques1">
-			</select> <br />
-			<input type="text" id="ans1" class="input username"> <br />
-			<select class="input username" id="ques2" name="ques2">
-			</select> <br />
-			<input type="text" id="ans2" class="input username"> <br />
-			<select class="input username" id="ques3" name="ques3" class="input username">
-			</select> <br />
-			<input type="text" id="ans3" class="input username"> <br />
+					
+					<select class="input username" id="ques1" name="ques1"> </select> <br /><br />
+					<input type="text" id="ans1" class="form-control"> <br />
+					
+				
+					<select class="input username" id="ques2" name="ques2"> </select> <br /><br />
+					<input type="text" id="ans2" class="form-control"> <br />
+					
+					
+					<select class="input username" id="ques3" name="ques3" class="input username"> </select> <br /><br />
+					<input type="text" id="ans3" class="form-control"> <br />
+					
 			</div>
 			<div class="footer">
 			</div>
-						</div>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -95,3 +94,5 @@ $('#changeQuestion').click(function() {
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	
+	

@@ -38,7 +38,7 @@ $('#cID').change(function(){
 	       	success: function(result){obj=JSON.parse(result);
   	        	var belongN=obj['belongN'];
   	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
-  	        	$("#nID").append("<option value='" + cNode + "'>" + cNode + "</option>");
+  	        	$("#nID").append("<option value='" + cNode + "'>select connector node </option>");
   	        	for(i=0;i<belongN.length;i++){
   	        	$("#nID").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
   	        	}}
