@@ -33,7 +33,6 @@ public class deleteNode extends HttpServlet {
 			sb.append("</error>");
 		} else if (nDao.whetherC(nid)) {
 			if (nDao.countD(dId) > 1) {
-				
 					ArrayList<Edge> neighbors = nDao.searchNeighbors(nid);
 					ArrayList<Integer> patterns = new ArrayList<Integer>();
 					for (int i = 0; i < neighbors.size(); i++) {
@@ -53,17 +52,31 @@ public class deleteNode extends HttpServlet {
 							bad++;
 						}
 					}
-					if (bad == 0) {
+					if (bad == 0 || patterns.size() == 1) {
 						sb.append("<node>");
 						sb.append("" + nid);
 						sb.append("</node>");
-						nDao.deleteInNodeEdge(nid); // delete connections with
-													// other connectors
+						nDao.deleteInNodeEdge(nid); // delete connections with													// other connectors
 						nDao.deletePattern(nid); // delete connections with
 													// other connectors
+					}else {
+						sb.append("<error>");
+						sb.append("No pattern can be isolated!");
+						sb.append("</error>");
 					}
 			} else {
 					ArrayList<Edge> neighbors = nDao.searchNeighbors(dId);
+					ArrayList<Integer> domains = new ArrayList<Integer>();
+					for (int i = 0; i < neighbors.size(); i++) {
+						int node1 = neighbors.get(i).getNode1();
+						int node2 = neighbors.get(i).getNode2();
+						if (node1 != nid) {
+							domains.add(node1);
+						}
+						if (node2 != nid) {
+							domains.add(node2);
+						}
+					}
 					if (neighbors.size()==1){
 						sb.append("<node>");
 						sb.append("" + nid);
@@ -71,6 +84,23 @@ public class deleteNode extends HttpServlet {
 						nDao.deleteInNodeEdge(dId); // delete connections with other domains.
 						nDao.deletePattern(nid);	// Delete the only one pattern.
 						nDao.deleteDomain(dId);		// Delete the only one domain.
+					} else {
+						int bad = 0;
+						// get all the patterns that would be effected
+						for (int i = 0; i < domains.size(); i++) {
+							if (nDao.countN(domains.get(i)) == 1) {
+								bad++;
+							}
+						}
+						if (bad == 0 || domains.size() == 1) {
+							nDao.deleteInNodeEdge(dId); // delete connections with other domains.
+							nDao.deletePattern(nid);	// Delete the only one pattern.
+							nDao.deleteDomain(dId);	
+						}else {
+							sb.append("<error>");
+							sb.append("No pattern can be isolated!");
+							sb.append("</error>");
+						}
 					}
 				}
 		} else {

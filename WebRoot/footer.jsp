@@ -381,6 +381,24 @@
 							if (cID.options.length==1){
 							removeNode(dID.options[index3].text);
 							dID.options.remove(index3);
+							$(document).ready(function() {
+									var dNode = $('#dID').val();
+								    var data={"dNode": dNode};
+									var mydata=JSON.stringify(data);
+									$.ajax({
+								        type : "POST",
+								        url : "showCforD",
+								        data: mydata,
+								        contentType: 'application/json;charset=UTF-8',
+								        success: function(result){
+								        	var obj=JSON.parse(result);
+								        	var belongC=obj['belongC'];
+								        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
+								        	for(var i=0;i<belongC.length;i++){
+								        	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
+								        	}}
+								        });
+								});
 							}
 						}else{
 							nID.options.remove(index1); 		

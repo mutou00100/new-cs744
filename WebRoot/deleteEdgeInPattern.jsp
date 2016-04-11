@@ -57,6 +57,7 @@ $('#cID').change(function(){
 						</thead>
 						<tbody>
 							<tr>
+								<td>Domain:</td>
 								<td class="input"><select name="dID" id= "dID" class="span1">
 										<%
 											if (res1 != null && res1.size() != 0) {
@@ -69,9 +70,11 @@ $('#cID').change(function(){
 											}
 										%>
 								</select></td>
+								<td>Pattern:</td>
 								<td class="input"><select id="cID">  
                 <option disabled selected value> -- select an Pattern -- </option>
             </select></td>
+            					<td>Node:</td>
 								<td class="input"><select id="nID">  
                 <option disabled selected value> -- select an Non-connector node -- </option>
             </select></td>
