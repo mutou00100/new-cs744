@@ -56,7 +56,7 @@
 							}
 						%>
 				</select></td>
-				<td>Pattern:</td>
+				<td>Domain:</td>
 				<td id="ctd"><select id="dID2">
 						<option disabled selected value>-- select an Domain --</option>
 				</select></td>

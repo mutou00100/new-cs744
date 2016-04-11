@@ -8,9 +8,9 @@ import java.sql.Statement;
 
 public class ConnUtils {
 
-	private static String url = "jdbc:mysql://localhost:3306/cs744"; 
+	private static String url = "jdbc:mysql://localhost:3306/Concentric_ring"; 
 	private static String user = "root"; 
-	private static String password = "root"; 
+	private static String password = "9332"; 
 	private static Connection conn = null; 
 	
 	static {

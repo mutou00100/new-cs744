@@ -52,7 +52,7 @@ $('#cID1').change(function(){
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="5">Delete Connection Between Domain</th>
+								<th colspan="5">Delete Connection Between Pattern</th>
 							</tr>
 						</thead>
 						<tbody>
