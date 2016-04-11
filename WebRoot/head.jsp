@@ -2,4 +2,7 @@
  <div align="right" style="margin-right:30px"  >
   Current User : <%=request.getSession().getAttribute("firstname")%>
  <a href="Logout"  target="_parent">Log Out</a>
-	</div>
+ </div>
+ <script>
+ var uid = "<%=request.getSession().getAttribute("uid")%>";
+ </script>

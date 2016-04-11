@@ -23,7 +23,30 @@ public class QuestionDao {
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	private int ri, row, rc;
-
+	
+	public ArrayList<String> getQuestAndAnsById(String uid) {
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			conn = ConnUtils.getConnection();//
+			pstmt = conn.prepareStatement("SELECT * FROM user WHERE uid = ?");
+			pstmt.setString(1, uid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result.add(rs.getInt("qID1")+"");
+				result.add(rs.getInt("qID2")+"");
+				result.add(rs.getInt("qID3")+"");
+				result.add(rs.getString("ans1"));
+				result.add(rs.getString("ans2"));
+				result.add(rs.getString("ans3"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnUtils.releaseConn(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
 	public ArrayList<Question> getQuestions() {
 		ArrayList<Question> result = new ArrayList<Question>();
 		try {
