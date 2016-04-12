@@ -58,7 +58,15 @@ function sendMessageInMain() {
 								</td>
 								<td>message:</td>
 								<td class="input"><input class="input-small" id= "message" name="message"
-									size="10" type="text" value="" maxlength="50"></input></td>
+									size="10" type="text" value="" maxlength="50" style="padding-top: 0px;padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    width: 100%;
+"></input></td>
 								<td>
 									<button class="btn btn-primary" type="submit"
 									 onclick = "if(check()){sendMessageInMain();}">Send</button>

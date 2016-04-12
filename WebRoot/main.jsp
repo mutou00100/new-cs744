@@ -18,7 +18,7 @@
 .list-group {
 	margin-left: 1%;
 	min-width: 40px;
-	width: 18%;
+	width: 15%;
 	float: left;
 	vertical-align: middle;
 }
@@ -27,12 +27,12 @@
 	background-color: #FFFFFF;
 }
 .table {
-    margin-bottom: 2px;
+    margin-bottom: 5px;
     margin-left: 1%;
     font-size: 16px
 }
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-    padding: 0px;
+    padding: 1px;
     text-align:center}
     
 td .btn {
@@ -45,7 +45,7 @@ div#one {
 }
 
 div#two {
-	margin-left: 20%;
+	margin-left: 18%;
 }
 body {
 	font-size: 12px
@@ -55,7 +55,7 @@ body {
     padding-bottom: 7px;
 }
 p {
-    margin: -15 0 0 20px;
+    margin: 0 0 0 20px;
     font-size: 18px;
 }
 </style>
