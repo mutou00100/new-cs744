@@ -58,9 +58,9 @@ $('#messageTemp').click(function() {
 						<tbody>
 							<tr>
 								<td><select name="dID" id= "dID" class="span1">
+								<option disabled selected value> -- select an Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain

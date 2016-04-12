@@ -79,7 +79,7 @@
 		};
 		var options ={
 		layout:{randomSeed:1},
-		nodes: {color: 'royalblue'},
+		nodes: {color: 'royalblue',value: 18},
 		edges: {color: 'royalblue'}};
 		network = new vis.Network(container, data, options);
 		<% if((String) session.getAttribute("blockedlist")!=null)
@@ -353,13 +353,24 @@
 			var nid = document.getElementById('nID').value;
 			var did= document.getElementById('dID').value;
 			var gid= document.getElementById('cID').value;
-			if (!nid){
-				nid = gid;
+			var nID =document.getElementById('nID'); 
+			var cID = document.getElementById('cID');
+			var dID = document.getElementById('dID');
+			if (cID.options.length>1 && !gid){
+				alert("You can't delete domain if it has patterns!");
+			}else {
+				if (nID.options.length>1 && !nid){
+					alert("You can't delete pattern if it has nodes!");
+				}else {
+					if (!nid && nID.options.length == 1){
+						nid = gid;
+					}
+					createXMLHttp() ;
+					xmlHttp.open("POST","deleteNode?nid="+nid+"&&did="+did) ;
+					xmlHttp.onreadystatechange = deleteNodeCallback;
+					xmlHttp.send() ;
+				}
 			}
-			createXMLHttp() ;
-			xmlHttp.open("POST","deleteNode?nid="+nid+"&&did="+did) ;
-			xmlHttp.onreadystatechange = deleteNodeCallback;
-			xmlHttp.send() ;
   	}
   	function deleteNodeCallback(){
   	if(xmlHttp.readyState == 4){

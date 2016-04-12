@@ -3,7 +3,10 @@
 function check() {
 	var len = document.querySelectorAll('input[type="checkbox"]:checked').length;
 	var x = <%=res%>.length;
-	if (x != 0 && len == 0 ) {
+	if ($('#domainIdforPattern').val()== null) {
+		alert("Please chooose a domain!");
+		return false;
+	} else if (x != 0 && len == 0 ) {
 		alert("You must select at least one pattern!");
 		return false;
 	}
@@ -50,9 +53,9 @@ $('#domainIdforPattern').change(function() {
 						<tbody>
 							<tr>
 							<td><select name="dID" id= "domainIdforPattern" class="span1">
+							<option disabled selected value> -- select a Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain

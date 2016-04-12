@@ -1,11 +1,4 @@
 <%@ include file="realhead.jsp"%>
-<% 
-if (allnodes.size() == 0){%>
-   <script>
-    alert("Please add a pattern first");
-   </script>
-   <% }
-%>
 <script type="text/javascript" >
 function check() {
 	if ($('#dID').val()== null ||$('#cID').val()== null) {
@@ -80,9 +73,9 @@ $('#nID1').change(function(){
 						<tbody>
 							<tr>
 								<td><select name="dID" id= "dID" class="span1">
+								<option disabled selected value> -- select a Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain

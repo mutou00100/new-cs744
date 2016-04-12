@@ -5,6 +5,17 @@ function check() {
 		alert("Please select one node!");
 		return false;
 	}
+	if ($('#nID').val() != null){
+		if (confirm("Are you sure you want to delete node " + $('#nID').val()+"?")) {
+			return true;
+		}
+		return false;
+	}else if ($('#cID').val() != null && $('#nID').val() == null){
+		if (confirm("Are you sure you want to delete pattern " + $('#cID').val()+"?")) {
+			return true;
+		}
+		return false;
+	}
 	return true;
 }
 $(document).ready(function() {
@@ -53,9 +64,9 @@ $('#cID').change(function(){
 							<tr>
 								<td>Domain:</td>
 								<td class="input"><select name="dID" id= "dID" class="span1">
+								<option disabled selected value> -- select an Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain
