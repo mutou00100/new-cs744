@@ -70,12 +70,12 @@ $('#cID1').change(function(){
 								<td>Pattern:</td>
 								<td class="span2">
 								<select id="cID1">  
-                <option disabled selected value> -- select an Pattern -- </option>
+                <option disabled selected value> -- select a Pattern -- </option>
             </select>
 								</td>
-								<td>Node:</td>
+								<td>Pattern:</td>
 								<td class="span2"><select id="cID2">  
-                <option disabled selected value> -- select an Pattern -- </option>
+                <option disabled selected value> -- select a Pattern -- </option>
             </select>
 								</td>
 								<td>

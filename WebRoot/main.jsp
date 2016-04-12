@@ -215,7 +215,6 @@ function resend(){
 	if(stack!=undefined){
 		if(stack.length!=0){
 		var L=stack.pop();
-		alert(L[0]);
 		cur=L[0];
 		dest=L[2];
 		msg=L[4];

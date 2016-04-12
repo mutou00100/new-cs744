@@ -86,11 +86,11 @@
 				</select></td>
 				<td>Pattern:</td>
 				<td class="span2"><select id="cID1">
-						<option disabled selected value>-- select an Pattern --</option>
+						<option disabled selected value>-- select a Pattern --</option>
 				</select></td>
-				<td>Node:</td>
+				<td>Pattern:</td>
 				<td class="span2"><select id="cID2">
-						<option disabled selected value>-- select an Pattern --</option>
+						<option disabled selected value>-- select a Pattern --</option>
 				</select></td>
 				<td><button class="btn btn-primary" type="submit"
 					onclick="if(check()){addCC();}">Add
