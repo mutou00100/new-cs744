@@ -671,7 +671,11 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("The network should be a connected graph at anytime!")};	
+	        	alert("The network should be a connected graph at anytime!")
+	        	}
+	        else{
+	        	$("#dID2 option:selected").remove();
+	        	}
 	        }
     	});
 	}
@@ -693,8 +697,10 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("The network should be a connected graph at anytime!")};	
-	        }
+	        	alert("The network should be a connected graph at anytime!")	
+	        }else{
+	        	$("#cID2 option:selected").remove();}
+        	}
     	});
 	}
  	function deleteCN(){
