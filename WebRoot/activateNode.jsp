@@ -11,12 +11,8 @@ function check() {
 }
 </script>
 			<div class="span10" id="datacontent">
+			<p><b>Activate Node</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Activate Node</th>
-							</tr>
-						</thead>
 						<tbody>
 							<tr>
 								<td class="span2">Node:</td>

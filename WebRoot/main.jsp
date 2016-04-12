@@ -1,9 +1,15 @@
 <%@ include file="head_without_jsp.jsp"%>
 <%@ include file="head.jsp"%>
+<%@ include file="changeQuestion.jsp"%>
+<%@ include file="addUser.jsp"%>
 <head>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
+$('#checkUsers').click(function() {
+	//userlist();
+	document.getElementById('checkUsers').setAttribute("data-target","#myModal5");
+});
 	function add() {
 		document.getElementById('myModal2').style.display = 'block';
 	}
@@ -16,7 +22,7 @@
 .list-group {
 	margin-left: 1%;
 	min-width: 40px;
-	width: 18%;
+	width: 15%;
 	float: left;
 	vertical-align: middle;
 }
@@ -24,6 +30,18 @@
 .list-group button {
 	background-color: #FFFFFF;
 }
+.table {
+    margin-bottom: 5px;
+    margin-left: 1%;
+    font-size: 16px
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 1px;
+    text-align:center}
+    
+td .btn {
+    padding: 0px 0px;
+   }
 
 div#one {
 	float: left;
@@ -31,31 +49,38 @@ div#one {
 }
 
 div#two {
-	margin-left: 20%;
+	margin-left: 16.5%;
 }
 body {
 	font-size: 12px
 }
+.list-group-item {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+p {
+    margin: 0 0 0 20px;
+    font-size: 18px;
+}
 </style>
-<body>
-
-	<div id="show"></div>
+<body style="padding-bottom: 0px;">
+	<div id="show" style="width: 98.5%;"></div>
 	<section>
 		<div class="list-group">
 			<%
 				if (request.getSession().getAttribute("firstname") == "admin"){
 			%>
 			<%
-				out.print("<button id=\"checkUsers\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\">Check users</button>");				
-				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" onClick=\"show(this.id)\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
-				out.print("<button id=\"addSecurityQuestion\" type=\"button\" class=\"list-group-item\"onClick=\"add()\" data-toggle=\"modal\" data-target=\"#myModal2\">Add Security Question</button>");
+				out.print("<button id=\"checkUsers\" type=\"button\" onClick=\"userlist()\"class=\"list-group-item\" data-toggle=\"modal\" data-target=\"#myModal5 \">Check users</button>");				
+				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
+				out.print("<button id=\"addSecurityQuestion\" type=\"button\" class=\"list-group-item\"data-toggle=\"modal\"data-target=\"#myModal2 \">Add Security Question</button>");
 				}
 			%>
 			<%
 				if (request.getSession().getAttribute("firstname") != "admin"){
 			%>
 			<%
-				out.print("<button id=\"changeSecurityQuestion\" type=\"button\" class=\"list-group-item\"onClick=\"add()\" data-toggle=\"modal\" data-target=\"#myModal2\">Change Security Question</button>");
+				out.print("<button id=\"changeSecurityQuestion\" type=\"button\" class=\"list-group-item\" data-toggle=\"modal\" data-target=\"#myModal4\">Change Security Question</button>");
 				}
 			%>
 			<button id="addDomain" type="button" class="list-group-item"
@@ -94,8 +119,6 @@ body {
 				$('#show').load('addNode.jsp');
 			} else if (id == "checkUsers") {
 				$('#show').load('userList.jsp');
-			} else if (id == "addUser") {
-				$('#show').load('addUser.jsp');
 			} else if (id == "addPattern") {
 				$('#show').load('addConnector.jsp');
 			} else if (id == "deleteNode") {
@@ -196,7 +219,6 @@ function resend(){
 	if(stack!=undefined){
 		if(stack.length!=0){
 		var L=stack.pop();
-		alert(L[0]);
 		cur=L[0];
 		dest=L[2];
 		msg=L[4];
@@ -210,6 +232,15 @@ function resend(){
 		}
 	}}
 }
+function updateBlockedlist(destnode){
+	for (var i = 0; i < blockedlist.length; i++) {
+		if (blockedlist[i][0] == destnode||blockedlist[i][2]) {
+			var index = blockedlist.indexOf(blockedlist[i]);
+			if (index > -1) {
+    		blockedlist.splice(index, 1);
+		}
+	}
+}}
 </script>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -239,14 +270,66 @@ function resend(){
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<input class="btn btn-primary" onClick="addQuestion();"
-						value="submit" />
+					<input class="btn btn-primary" onClick="addQuestion();"value="submit" />
 				</div>
 			</div>
 			<!-- /.modal-content -->
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	
+	<div class="modal fade" id="myModal5" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">User list
+          </h4>
+        </div>
+        <div class="modal-body"> 
+          <table id="example3" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First</th>
+                <th>Last Name</th>
+                <!-- <th>Option</th> -->
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <!-- <th>Option</th> -->
+            </tr>
+        </tfoot>
+        <tbody id="utbody">
+</tbody>
+    </table>
+             </div>
+<script>
+function createUTbody(list){
+	
+	 if (table!=undefined){
+         table.destroy();
+       }
+  	var L=list;
+  	var s="";
+  //var L = "[[137,142,'2016-04-01 14:09:16','123']]";
+	for(var i=0;i<L.length;i++){
+    s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td><input id="'+L[i][0]+'" class="btn btn-primary" onClick="deleteUser(this.id);"value="Delete" /></td></tr>';
+        }
+        document.getElementById('utbody').innerHTML=s; 
+        $("#myModal5").modal("show");
+      }
+</script>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div></div></div>
 	
 	
 	<!-- Modal -->
@@ -288,6 +371,7 @@ function createRTbody(){
          table.destroy();
        }
   var L=M;
+  alert(M);
   var  s="";
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>'
@@ -307,77 +391,4 @@ for(var i=0;i<L.length;i++){
       
     </div>
   </div>
-  
-  <!-- Modal -->
-	<div id="myModal4" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title">Change Security Question</h4>
-				</div>
-				<div class="modal-body">
-					<div class="control-group">
-						<div class="controls">
-										<div class="content">
-			<select class="input username" id="ques1" name="ques1">
-				<%
-					//to get from the database
-								if (questions != null && questions.size() != 0) {
-									for (int i = 0; i < questions.size(); i++) {
-								Question question = questions.get(i);
-								int id = question.getId();
-								String content = question.getContent();
-								out.println("<option value = "+id+">"+content+"</option>");
-									}
-								}
-				%>
-			</select> <input type="text" name="ans1" class="input username"> <span id="msg"></span> <br />
-
-			<select class="input username" id="ques2" name="ques2">
-				<%
-					//to get from the database
-								if (questions != null && questions.size() != 0) {
-									for (int i = 0; i < questions.size(); i++) {
-								Question question = questions.get(i);
-								int id = question.getId();
-								String content = question.getContent();
-								out.println("<option value = "+id+">"+content+"</option>");
-									}
-								}
-				%>
-			</select> <input type="text" name="ans2" class="input username"> <span id="msg"></span> <br />
-			<select id="ques3" name="ques3" class="input username">
-				<%
-					//to get from the database
-								if (questions != null && questions.size() != 0) {
-									for (int i = 0; i < questions.size(); i++) {
-										Question question = questions.get(i);
-										int id = question.getId();
-										String content = question.getContent();
-										out.println("<option value = "+id+">"+content+"</option>");
-									}
-								}
-				%>
-			</select> <input type="text" name="ans3" class="input username"> <span id="msg"></span> <br />
-			</div>
-			<div class="footer">
-			<input type="submit" name="submit" value="submit" class="button">
-			</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<input class="btn btn-primary" onClick="addQuestion();"
-						value="submit" />
-				</div>
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
 </body>

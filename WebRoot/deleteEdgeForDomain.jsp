@@ -21,7 +21,7 @@ $('#dID1').change(function() {
         success: function(result){
         	var obj=JSON.parse(result);
         	var dNeighbour=obj['neighbour'];
-        	$("#dID2").html("<option disabled selected value> -- select an Domain -- </option>");
+        	$("#dID2").html("<option disabled selected value> -- select a Domain -- </option>");
         	for(i=0;i<dNeighbour.length;i++){
         	$("#dID2").append("<option value='" + dNeighbour[i] + "'>" + dNeighbour[i] + "</option>");
         	}
@@ -31,19 +31,15 @@ $('#dID1').change(function() {
 }); 
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Delete Connection Between Domain</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Delete Connection Between Domain</th>
-	</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td><select name="dID1" id= "dID1" class="span1">
+								<option disabled selected value> -- select a Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain
@@ -53,7 +49,7 @@ $('#dID1').change(function() {
 										%>
 								</select></td>
 								<td id="ctd"><select id="dID2">  
-                <option disabled selected value> -- select an Domain -- </option>
+                <option disabled selected value> -- select a Domain -- </option>
             </select> 
             </td>
             <td><a class="btn btn-primary"  onclick = "if(check()){deleteDD();}" type="submit">Delete</a></td>

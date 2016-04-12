@@ -35,6 +35,7 @@
                 <th>ID</th>
                 <th>First</th>
                 <th>Last Name</th>
+                <th>Option</th>
             </tr>
         </thead>
         <tfoot>
@@ -42,6 +43,7 @@
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Option</th>
             </tr>
         </tfoot>
         <tbody id="rtbody">

@@ -31,7 +31,7 @@
 															var belongC = obj['belongC'];
 															$("#cID")
 																	.html(
-																			"<option disabled selected value> -- select an Pattern -- </option>");
+																			"<option disabled selected value> -- select a Pattern -- </option>");
 															for (var i = 0; i < belongC.length; i++) {
 																$("#cID")
 																		.append(
@@ -65,7 +65,7 @@
 															var nonconnectedN = obj['nonconnected'];
 															$("#nID")
 																	.html(
-																			"<option disabled selected value> -- select an Node -- </option>");
+																			"<option disabled selected value> -- select a Node -- </option>");
 															for (i = 0; i < nonconnectedN.length; i++) {
 																$("#nID")
 																		.append(
@@ -80,20 +80,15 @@
 </script>
 <div class="span12" id="datacontent">
 
+<p><b>Add Connection Between Connector node and Non-Connector node</p>
 	<table class="table">
-		<thead>
-			<tr>
-				<th colspan="5">Add Connection Between Connector node and
-					Non-Connector node</th>
-			</tr>
-		</thead>
 		<tbody>
 			<tr>
 				<td>Domain:</td>
 				<td class="input"><select name="dID" id="dID" class="span1">
+				<option disabled selected value> -- select a Domain -- </option>
 						<%
 							if (res1 != null && res1.size() != 0) {
-								out.println("<option disabled selected value> -- select an Domain -- </option>");
 								for (int i = 0; i < res1.size(); i++) {
 									int domain = res1.get(i);
 									out.println("<option value = " + domain + ">" + domain
@@ -104,11 +99,11 @@
 				</select></td>
 				<td>Pattern:</td>
 				<td class="input"><select id="cID">
-						<option disabled selected value>-- select an Pattern --</option>
+						<option disabled selected value>-- select a Pattern --</option>
 				</select></td>
 				<td>Node:</td>
 				<td class="input"><select id="nID">
-						<option disabled selected value>-- select an
+						<option disabled selected value>-- select a
 							Non-connector node --</option>
 				</select></td>
 				<td><button class="btn btn-primary" type="submit"

@@ -1,7 +1,7 @@
 
 <%@ include file="realhead.jsp"%>      
 <body onload="draw();"> 
-<div id="mynetwork" ></div>
+<div id="mynetwork" style="width: 99.5%;height: 88%;"></div>
 
 <script type="text/javascript">
     var blockedlist = [];
@@ -79,7 +79,7 @@
 		};
 		var options ={
 		layout:{randomSeed:1},
-		nodes: {color: 'royalblue'},
+		nodes: {color: 'royalblue',value: 18},
 		edges: {color: 'royalblue'}};
 		network = new vis.Network(container, data, options);
 		<% if((String) session.getAttribute("blockedlist")!=null)
@@ -186,7 +186,6 @@
 						updateSession.update();
 						process =-1;
 						setTimeout(function() { alert("A message is blocked at node" + path[i]);
-						alert(stack);
 						resend();}
 						,1000);
 					} else {
@@ -347,18 +346,30 @@
   	}}
   	function removeNode(node) {
   		nodes.remove({id :node});
+  		updateBlockedlist(node);
   	}
   	function deleteNode(){
 			var nid = document.getElementById('nID').value;
 			var did= document.getElementById('dID').value;
 			var gid= document.getElementById('cID').value;
-			if (!nid){
-				nid = gid;
+			var nID =document.getElementById('nID'); 
+			var cID = document.getElementById('cID');
+			var dID = document.getElementById('dID');
+			if (cID.options.length>1 && !gid){
+				alert("You can't delete domain if it has patterns!");
+			}else {
+				if (nID.options.length>1 && !nid){
+					alert("You can't delete pattern if it has nodes!");
+				}else {
+					if (!nid && nID.options.length == 1){
+						nid = gid;
+					}
+					createXMLHttp() ;
+					xmlHttp.open("POST","deleteNode?nid="+nid+"&&did="+did) ;
+					xmlHttp.onreadystatechange = deleteNodeCallback;
+					xmlHttp.send() ;
+				}
 			}
-			createXMLHttp() ;
-			xmlHttp.open("POST","deleteNode?nid="+nid+"&&did="+did) ;
-			xmlHttp.onreadystatechange = deleteNodeCallback;
-			xmlHttp.send() ;
   	}
   	function deleteNodeCallback(){
   	if(xmlHttp.readyState == 4){
@@ -551,8 +562,21 @@ update:function() {
 			xmlHttp.open("POST","storeMessage?ori="+ori+ "&&dest=" +dest +"&&message=" + message) ;
 			xmlHttp.send() ;
   	}  
+  	function userlist(){
+		createXMLHttp() ;
+		xmlHttp.open("POST","showAllUser") ;
+		xmlHttp.onreadystatechange = showUsersCallback;
+		xmlHttp.send() ;
+	}
+	function showUsersCallback(){
+	if(xmlHttp.readyState == 4){
+			if(xmlHttp.status == 200){
+				var text = xmlHttp.responseText;
+				createUTbody(JSON.parse(text));
+				}
+		}
+	}
  	function receivedMessage(){
- 			var x= document.getElementById('nID');
   			var nid= document.getElementById('nID').value;
 			createXMLHttp() ;
 			xmlHttp.open("POST","receivedMessage?nid="+nid) ;
@@ -586,7 +610,40 @@ update:function() {
 	        	if (a==-1){
 	        		alert("The edge has existed!");
 	        	}else {
-        			edges.add({id: a, from :d1, to :d2,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
+        			edges.add({id: a, from :d1, to :d2,smooth:false,length : EDGE_LENGTH_DD});
+	        	}
+	        }
+    	});
+  	}
+  	function addUser(){
+		var uid = $('#uID').val();
+		var firstname = $('#firstName').val();
+		var lastname = $('#lastName').val();
+		var password= $('#password').val();
+		var data={"uid":uid,"firstname":firstname,"lastname":lastname,"password":password};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "addUser",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var result=obj['eid'];
+	        	var b = String(result);
+	        	var a = parseInt(b);
+	        	if (a==0){
+	        		alert("Add Successfully!");
+	        	}else if (a==1){
+	        		alert("The first character of user ID can't be number!");
+	        	}else if (a==2){
+	        		alert("The password can't contain the invalid character!");
+	        	}else if (a==3){
+	        		alert("This user ID has existed!");
+	        	}else if (a==4){
+	        		alert("The length of user ID must be at least 6 characters!");
+	        	}else if (a==5){
+	        		alert("The length of password must be at least 6 characters!");
 	        	}
 	        }
     	});
@@ -632,7 +689,7 @@ update:function() {
 	        	var b = String(eid);
 	        	var a = parseInt(b);
 	        	if (a!=-1 && a != -2 ){
-	        		edges.add({id: a, from :cNode, to :nNode,smooth:false,length : EDGE_LENGTH_SUB});
+	        		edges.add({id: a, from :cNode, to :nNode,smooth:false,length : EDGE_LENGTH_SUB,dashes:true});
 	        	}else if (a == -1){
 	        		alert("The edge has existed!");
 	        	}else if (a== -2){
@@ -659,16 +716,40 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("The network should be a connected graph at anytime!")};	
+	        	alert("The network should be a connected graph at anytime!")
+	        	}
+	        else{
+	        	$("#dID2 option:selected").remove();
+	        	}
+	        }
+    	});
+	}
+ 	function deleteUser(user){
+		var u=user;
+		var data={"uid":u};
+		var mydata=JSON.stringify(data);
+		$.ajax({
+	        type : "POST",
+	        url : "deleteUser",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	        success: function(result){
+	        	var obj=JSON.parse(result);
+	        	var eid=obj['eid'];
+	        	var b = String(eid);
+	        	var a = parseInt(b);
+	        	if (a==0){
+	        		userlist();
+	        	}
 	        }
     	});
 	}
  	function deleteCC(){
 		var c1 = $('#cID1').val();
 		var c2 = $('#cID2').val();
-		var type="CC"
-		var data={"type":type,"node1":c1,"node2":c2}
-		var mydata=JSON.stringify(data)
+		var type="CC";
+		var data={"type":type,"node1":c1,"node2":c2};
+		var mydata=JSON.stringify(data);
 		$.ajax({
 	        type : "POST",
 	        url : "deleteEdge",
@@ -681,16 +762,18 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("The network should be a connected graph at anytime!")};	
-	        }
+	        	alert("The network should be a connected graph at anytime!");	
+	        }else{
+	        	$("#cID2 option:selected").remove();}
+        	}
     	});
 	}
  	function deleteCN(){
 		var cNode = $('#cID').val();
 		var nNode = $('#nID').val();
-		var type="CN"
-		var data={"type":type,"node1":cNode,"node2":nNode}
-		var mydata=JSON.stringify(data)
+		var type="CN";
+		var data={"type":type,"node1":cNode,"node2":nNode};
+		var mydata=JSON.stringify(data);
 		$.ajax({
 	        type : "POST",
 	        url : "deleteEdge",
@@ -703,7 +786,7 @@ update:function() {
 	        	var a = parseInt(b);
         		edges.remove(a);
 	        	if(a==-1){
-	        	alert("Each pattern must have at least one non-conector node connect to connector node if the pattern is not empty!")	
+	        	alert("Each pattern must have at least one non-conector node connect to connector node if the pattern is not empty!");	
 	        	}else{
 	        		$("#nID option:selected").remove();
 	        	}

@@ -25,13 +25,9 @@ function sendMessageInMain() {
 }
 </script>
 <div class="span10" id="datacontent">
-					
+	<p><b>Send Message</p>				
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Send Message</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td class="span2"><select name="ori" id= "ori">
@@ -46,6 +42,7 @@ function sendMessageInMain() {
 											}
 										%>
 								</select>
+								</td>
 								<td class="span2"><select name="dest" id= "dest">
 										<option disabled selected value> -- receiver -- </option>
 										<%
@@ -58,9 +55,18 @@ function sendMessageInMain() {
 											}
 										%>
 								</select>
+								</td>
 								<td>message:</td>
 								<td class="input"><input class="input-small" id= "message" name="message"
-									size="10" type="text" value="" maxlength="50"></input></td>
+									size="10" type="text" value="" maxlength="50" style="padding-top: 0px;padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    width: 100%;
+"></input></td>
 								<td>
 									<button class="btn btn-primary" type="submit"
 									 onclick = "if(check()){sendMessageInMain();}">Send</button>

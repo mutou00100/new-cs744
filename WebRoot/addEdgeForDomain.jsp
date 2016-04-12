@@ -23,7 +23,7 @@
 											}
 											$("#dID2")
 													.html(
-															"<option disabled selected value> -- select an Domain -- </option>");
+															"<option disabled selected value> -- select a Domain -- </option>");
 											for (var i = 0; i < selection.length; i++) {
 												$("#dID2").append(
 														"<option value='" + selection[i] + "'>"
@@ -34,18 +34,13 @@
 					});
 </script>
 <div class="span12" id="datacontent">
-
+<p><b>Add Connection Between Domain</p>
 	<table class="table">
-		<thead>
-			<tr>
-				<th colspan="5">Add Connection Between Domain</th>
-			</tr>
-		</thead>
 		<tbody>
 			<tr>
 				<td>Domain:</td>
 				<td><select name="dID1" id="dID1" class="span1">
-						<option disabled selected value>-- select an Domain --</option>
+						<option disabled selected value>-- select a Domain --</option>
 						<%
 							if (res1 != null && res1.size() != 0) {
 								for (int i = 0; i < res1.size(); i++) {
@@ -56,9 +51,9 @@
 							}
 						%>
 				</select></td>
-				<td>Pattern:</td>
+				<td>Domain:</td>
 				<td id="ctd"><select id="dID2">
-						<option disabled selected value>-- select an Domain --</option>
+						<option disabled selected value>-- select a Domain --</option>
 				</select></td>
 				<td><a class="btn btn-primary" onclick="if (check()){addDD();}"
 					type="submit">Add</a></td>

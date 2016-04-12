@@ -20,7 +20,7 @@ $('#dID').change(function() {
         success: function(result){
         	obj=JSON.parse(result);
         	belongC=obj['belongC'];
-        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	$("#cID").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<belongC.length;i++){
         	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}
@@ -37,8 +37,8 @@ $('#cID').change(function(){
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
   	        	var belongN=obj['belongN'];
-  	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
-  	        	$("#nID").append("<option value='" + cNode + "'>" + cNode + "</option>");
+  	        	$("#nID").html("<option disabled selected value> -- select a Node -- </option>");
+  	        	$("#nID").append("<option value='" + cNode + "'>select connector node </option>");
   	        	for(i=0;i<belongN.length;i++){
   	        	$("#nID").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
   	        	}}
@@ -49,22 +49,21 @@ $('#messageTemp').click(function() {
 	if (check())
 	{receivedMessage();
 	document.getElementById('messageTemp').setAttribute("data-target","#myModal3");
+} else {
+	document.getElementById('messageTemp').setAttribute("data-target","");
+	
 }});
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Search By Receiver Node</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Search By Receiver Node</th>
-							</tr>
-						</thead>
+						
 						<tbody>
 							<tr>
 								<td><select name="dID" id= "dID" class="span1">
+								<option disabled selected value> -- select a Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain
@@ -74,11 +73,11 @@ $('#messageTemp').click(function() {
 										%>
 								</select></td>
 								<td id="ctd"><select id="cID">  
-                <option disabled selected value> -- select an Pattern -- </option>
+                <option disabled selected value> -- select a Pattern -- </option>
             </select> 
             </td>
 								<td id="ntd"><select id="nID">  
-                <option disabled selected value> -- select an Node -- </option> 
+                <option disabled selected value> -- select a Node -- </option> 
             </select>  </td>
             <td>
            <button class="btn btn-primary" id = "messageTemp"type="button" data-toggle="modal" >Recieved Message</button>

@@ -20,7 +20,7 @@ $('#dID').change(function() {
         success: function(result){
         	var obj=JSON.parse(result);
         	var belongC=obj['belongC'];
-        	$("#cID1").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	$("#cID1").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<belongC.length;i++){
         	$("#cID1").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}
@@ -39,7 +39,7 @@ $('#cID1').change(function(){
         success: function(result){
         	var obj=JSON.parse(result);
         	var cNeighbour=obj['neighbour'];
-        	$("#cID2").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	$("#cID2").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<cNeighbour.length;i++){
         	$("#cID2").append("<option value='" + cNeighbour[i] + "'>" + cNeighbour[i] + "</option>");
         }}
@@ -48,21 +48,17 @@ $('#cID1').change(function(){
 });
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Delete Connection Between Pattern</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Delete Connection Between Domain</th>
-							</tr>
-						</thead>
+
 						<tbody>
 							<tr>
 
 								<td>Domain:</td>
 								<td class="input"><select name="dID" id= "dID" class="span1">
+								<option disabled selected value> -- select a Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain
@@ -74,12 +70,12 @@ $('#cID1').change(function(){
 								<td>Pattern:</td>
 								<td class="span2">
 								<select id="cID1">  
-                <option disabled selected value> -- select an Pattern -- </option>
+                <option disabled selected value> -- select a Pattern -- </option>
             </select>
 								</td>
-								<td>Node:</td>
+								<td>Pattern:</td>
 								<td class="span2"><select id="cID2">  
-                <option disabled selected value> -- select an Pattern -- </option>
+                <option disabled selected value> -- select a Pattern -- </option>
             </select>
 								</td>
 								<td>

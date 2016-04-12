@@ -96,7 +96,7 @@ public class addEdge extends HttpServlet {
 					eid = -2;
 				}else {
 					nDao.updateCNedge(node2);;
-					eid = node2*1000+1;
+					eid = node2*1000;
 				}
 			}
 		}

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>cs744</display-name>
-  <filter>
-    <filter-name>struts2</filter-name>
-    <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>struts2</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
   <servlet>
     <servlet-name>SetQuestion</servlet-name>
     <servlet-class>com.servlet.SetQuestion</servlet-class>
@@ -155,6 +147,34 @@
     <servlet-name>searchNonConnectedNode</servlet-name>
     <servlet-class>com.servlet.searchNonConnectedNode</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>showQuesAndAns</servlet-name>
+    <servlet-class>com.servlet.showQuesAndAns</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>addUser</servlet-name>
+    <servlet-class>com.servlet.addUser</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>showAllUser</servlet-name>
+    <servlet-class>com.servlet.showAllUser</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>deleteUser</servlet-name>
+    <servlet-class>com.servlet.deleteUser</servlet-class>
+  </servlet>
+
+
+
+
 
 
 
@@ -282,5 +302,21 @@
   <servlet-mapping>
     <servlet-name>searchNonConnectedNode</servlet-name>
     <url-pattern>/searchNonConnectedNode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>showQuesAndAns</servlet-name>
+    <url-pattern>/showQuesAndAns</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addUser</servlet-name>
+    <url-pattern>/addUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>showAllUser</servlet-name>
+    <url-pattern>/showAllUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>deleteUser</servlet-name>
+    <url-pattern>/deleteUser</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -1,11 +1,4 @@
 <%@ include file="realhead.jsp"%>
-<% 
-if (allnodes.size() == 0){%>
-   <script>
-    alert("Please add a pattern first");
-   </script>
-   <% }
-%>
 <script type="text/javascript" >
 function check() {
 	if ($('#dID').val()== null ||$('#cID').val()== null) {
@@ -27,7 +20,7 @@ $('#dID').change(function() {
         success: function(result){
         	obj=JSON.parse(result);
         	belongC=obj['belongC'];
-        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	$("#cID").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<belongC.length;i++){
         	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}
@@ -44,7 +37,7 @@ $('#cID').change(function(){
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
   	        	var belongN=obj['belongN'];
-  	        	$("#nID1").html("<option disabled selected value> -- select an Node -- </option>");
+  	        	$("#nID1").html("<option disabled selected value> -- select a Node -- </option>");
   	        	for(i=0;i<belongN.length;i++){
   	        	$("#nID1").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
   	        	}}
@@ -66,7 +59,7 @@ $('#nID1').change(function(){
 	        	if (index > -1) {
 	        	    belongN.splice(index, 1);
 	        	}
-	        	$("#nID2").html("<option disabled selected value> -- select an Node -- </option>");
+	        	$("#nID2").html("<option disabled selected value> -- select a Node -- </option>");
 	        	for(i=0;i<belongN.length;i++){
 	        	$("#nID2").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
 	        	}}
@@ -75,19 +68,14 @@ $('#nID1').change(function(){
 });
 </script>
 			<div class="span12" id="datacontent">
-
+<p><b>Add Non-connector Node</p>
 					<table class="table">
-						<thead>
-							<tr>
-								<th colspan="5">Add Non-connector Node</th>
-							</tr>
-						</thead>
 						<tbody>
 							<tr>
 								<td><select name="dID" id= "dID" class="span1">
+								<option disabled selected value> -- select a Domain -- </option>
 										<%
 											if (res1 != null && res1.size() != 0) {
-												out.println("<option disabled selected value> -- select an Domain -- </option>");
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
 													out.println("<option value = " +  domain + ">" +  domain
@@ -97,14 +85,14 @@ $('#nID1').change(function(){
 										%>
 								</select></td>
 								<td id="ctd"><select id="cID">  
-                <option disabled selected value> -- select an Pattern -- </option>
+                <option disabled selected value> -- select a Pattern -- </option>
             </select> 
             </td>
 								<td id="ntd"><select id="nID1">  
-                <option disabled selected value> -- select an Node -- </option> 
+                <option disabled selected value> -- select a Node -- </option> 
             </select>  </td>
             <td id="ntd"><select id="nID2">  
-                <option disabled selected value> -- select an Node -- </option> 
+                <option disabled selected value> -- select a Node -- </option> 
             </select>  </td>
             <td><input type="checkbox" name="connectToC" value="yes">Connect To Connector Node</td>
             <td><a class="btn btn-primary"  onclick = "if (check()){addNonNode();}" type="submit">Generate Node</a></td>

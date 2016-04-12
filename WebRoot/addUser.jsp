@@ -1,20 +1,29 @@
-<%@ include file="realhead.jsp"%>
 <script type="text/javascript">
 	function check() {
-		if (form2.uid.value == null || form2.uid.value == "") {
+		var ref = /^[a-zA-Z]+$/;
+		var reg = /^\w*$/;
+		if ($('#uID').val() == null || $('#uID').val() == "") {
 			alert("The ID of user can't be null!");
 			return false;
 		}
-		if (form2.password.value == null || form2.password.value == "") {
-			alert("The password can't be null!!");
+		if ($('#firstName').val() == null || $('#firstName').val() == "") {
+			alert("The first name can't be null!!");
 			return false;
 		}
-		if (form2.firstname.value == null || form2.firstname.value == "") {
-			alert("The first name of user can't be null!");
-			return false;
-		}
-		if (form2.lastname.value == null || form2.lastname.value == "") {
+		if ($('#lastName').val() == null || $('#lastName').val() == "") {
 			alert("The last name of user can't be null!");
+			return false;
+		}
+		if ($('#password').val() == null || $('#password').val() == "") {
+			alert("The password of user can't be null!");
+			return false;
+		}
+		if (!ref.test($('#lastName').val()) || !ref.test($('#firstName').val())) {
+			alert("The first name or last name of user can't contain any number or special character!");
+			return false;
+		}
+		if (!reg.test($('#uID').val())) {
+			alert("The user ID can't contain the special character!");
 			return false;
 		}
 		return true;

@@ -32,7 +32,7 @@
 															belongC = obj['belongC'];
 															$("#cID1")
 																	.html(
-																			"<option disabled selected value> -- select an Pattern -- </option>");
+																			"<option disabled selected value> -- select a Pattern -- </option>");
 															for (var i = 0; i < belongC.length; i++) {
 																$("#cID1")
 																		.append(
@@ -55,7 +55,7 @@
 											}
 											$("#cID2")
 													.html(
-															"<option disabled selected value> -- select an Pattern -- </option>");
+															"<option disabled selected value> -- select a Pattern -- </option>");
 											for (var i = 0; i < selection.length; i++) {
 												$("#cID2").append(
 														"<option value='" + selection[i] + "'>"
@@ -66,13 +66,9 @@
 					});
 </script>
 <div class="span12" id="datacontent">
-
+<p><b>Add Connection Between Patterns</p>
 	<table class="table">
-		<thead>
-			<tr>
-				<th colspan="5">Add Connection Between Patterns</th>
-			</tr>
-		</thead>
+		
 		<tbody>
 			<tr>
 				<td>Domain:</td>
@@ -90,11 +86,11 @@
 				</select></td>
 				<td>Pattern:</td>
 				<td class="span2"><select id="cID1">
-						<option disabled selected value>-- select an Pattern --</option>
+						<option disabled selected value>-- select a Pattern --</option>
 				</select></td>
-				<td>Node:</td>
+				<td>Pattern:</td>
 				<td class="span2"><select id="cID2">
-						<option disabled selected value>-- select an Pattern --</option>
+						<option disabled selected value>-- select a Pattern --</option>
 				</select></td>
 				<td><button class="btn btn-primary" type="submit"
 					onclick="if(check()){addCC();}">Add
