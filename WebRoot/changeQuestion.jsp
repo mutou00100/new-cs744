@@ -85,7 +85,6 @@ $('#changeQuestion').click(function() {
 			</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<input class="btn btn-primary" id = "changeQuestion"
 						value="submit" />
 				</div>

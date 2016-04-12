@@ -45,7 +45,7 @@ div#one {
 }
 
 div#two {
-	margin-left: 18%;
+	margin-left: 16.5%;
 }
 body {
 	font-size: 12px
