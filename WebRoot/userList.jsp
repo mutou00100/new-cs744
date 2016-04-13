@@ -29,7 +29,7 @@
           </h4>
         </div>
         <div class="modal-body"> 
-          <table id="example1" class="display" cellspacing="0" width="100%">
+          <table id="example5" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>ID</th>
@@ -46,12 +46,12 @@
                 <th>Option</th>
             </tr>
         </tfoot>
-        <tbody id="rtbody">
+        <tbody id="utbody">
 </tbody>
     </table>
              </div>
 <script>
-function createRTbody(L){
+function createUTbody(L){
 	 if (table!=undefined){
          table.destroy();
        }
@@ -60,12 +60,13 @@ function createRTbody(L){
 for(var i=0;i<L.length;i++){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td>'+L[i][3]+'</td></tr>';
         }
-        document.getElementById('rtbody').innerHTML=s;
-       
-        table = $('#example1').DataTable( {
+        document.getElementById('utbody').innerHTML=s;//111
+        
+        table = $('#example5').DataTable( {
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
-    } );$("#myModal5").modal("show");
+    } );
+        $("#myModal5").modal("show");
       }
 </script>
         <div class="modal-footer">

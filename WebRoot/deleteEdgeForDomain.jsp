@@ -35,7 +35,7 @@ $('#dID1').change(function() {
 					<table class="table">
 						
 						<tbody>
-							<tr>
+							<tr><td>Domain:</td>
 								<td><select name="dID1" id= "dID1" class="span1">
 								<option disabled selected value> -- select a Domain -- </option>
 										<%
@@ -48,6 +48,7 @@ $('#dID1').change(function() {
 											}
 										%>
 								</select></td>
+								<td>Domain:</td>
 								<td id="ctd"><select id="dID2">  
                 <option disabled selected value> -- select a Domain -- </option>
             </select> 

@@ -295,7 +295,7 @@ function updateBlockedlist(destnode){
                 <th>ID</th>
                 <th>First</th>
                 <th>Last Name</th>
-                <!-- <th>Option</th> -->
+                <th>Option</th>
             </tr>
         </thead>
         <tfoot>
@@ -303,7 +303,7 @@ function updateBlockedlist(destnode){
                 <th>ID</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <!-- <th>Option</th> -->
+                <th>Option</th>
             </tr>
         </tfoot>
         <tbody id="utbody">
@@ -312,7 +312,6 @@ function updateBlockedlist(destnode){
              </div>
 <script>
 function createUTbody(list){
-	
 	 if (table!=undefined){
          table.destroy();
        }
@@ -323,6 +322,10 @@ function createUTbody(list){
     s+='<tr><td>'+L[i][0]+'</td><td>'+L[i][1]+'</td><td>'+L[i][2]+'</td><td><input id="'+L[i][0]+'" class="btn btn-primary" onClick="deleteUser(this.id);"value="Delete" /></td></tr>';
         }
         document.getElementById('utbody').innerHTML=s; 
+        table = $('#example3').DataTable( {
+            "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+            "order": [[ 3, "desc" ]]
+        } );
         $("#myModal5").modal("show");
       }
 </script>
