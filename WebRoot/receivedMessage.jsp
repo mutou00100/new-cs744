@@ -1,8 +1,12 @@
 <%@ include file="realhead.jsp"%>
 <script type="text/javascript" >
 function check() {
-	if ($('#dID').val()== null ||$('#cID').val()== null||$('#nID').val()== null) {
-		alert("Please chooose a node!");
+	if ($('#dID').val()== null) {
+		alert("You must choose a node !");
+		return false;
+	}
+	if ($('#cID').val()== null) {
+		alert("There is no message in a domain node !");
 		return false;
 	}
 	return true;
@@ -37,8 +41,7 @@ $('#cID').change(function(){
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
   	        	var belongN=obj['belongN'];
-  	        	$("#nID").html("<option disabled selected value> -- select a Node -- </option>");
-  	        	$("#nID").append("<option value='" + cNode + "'>select connector node </option>");
+  	        	$("#nID").html("<option selected value='" + cNode + "'> -- select a Node -- </option>");
   	        	for(i=0;i<belongN.length;i++){
   	        	$("#nID").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
   	        	}}
