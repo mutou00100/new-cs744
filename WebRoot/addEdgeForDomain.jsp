@@ -1,37 +1,32 @@
 <%@ include file="realhead.jsp"%>
-
-<script type="text/javascript">
-	function check() {
-		if ($('#dID1').val() == null || $('#dID2').val() == null) {
-			alert("Please chooose two nodes to connect!");
-			return false;
-		}
-		return true;
+<script type="text/javascript" > 
+function check() {
+	if ($('#dID1').val()== null ||$('#dID2').val()== null) {
+		alert("Please chooose two nodes to connect!");
+		return false;
 	}
-	$(document)
-			.ready(
-					function() {
-						$('#dID1')
-								.change(
-										function() {
-											var selection =<%=res1%>;
-											var node = $('#dID1').val();
-											var index = selection
-													.indexOf(parseInt(node));
-											if (index > -1) {
-												selection.splice(index, 1);
-											}
-											$("#dID2")
-													.html(
-															"<option disabled selected value> -- select a Domain -- </option>");
-											for (var i = 0; i < selection.length; i++) {
-												$("#dID2").append(
-														"<option value='" + selection[i] + "'>"
-																+ selection[i]
-																+ "</option>");
-											}
-										});
-					});
+	return true;
+}
+$('#dID1').change(function() {
+    var node = $('#dID1').val();
+    var type="DD";
+    var data={"type":type,"node":node}
+	var mydata=JSON.stringify(data)
+	$.ajax({
+        type : "POST",
+        url : "searchNonConnectedNode",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var dNeighbour=obj['neighbour'];
+        	$("#dID2").html("<option disabled selected value> -- select an Domain -- </option>");
+        	for(i=0;i<dNeighbour.length;i++){
+        	$("#dID2").append("<option value='" + dNeighbour[i] + "'>" + dNeighbour[i] + "</option>");
+        	}
+        }
+	});
+});
 </script>
 <div class="span12" id="datacontent">
 <p><b>Add Connection Between Domain</p>
@@ -55,8 +50,7 @@
 				<td id="ctd"><select id="dID2">
 						<option disabled selected value>-- select a Domain --</option>
 				</select></td>
-				<td><a class="btn btn-primary" onclick="if (check()){addDD();}"
-					type="submit">Add</a></td>
+				<td><a class="btn btn-primary" onclick="if (check()){addDD();}"  type="submit">Add</a></td>
 			</tr>
 		</tbody>
 	</table>

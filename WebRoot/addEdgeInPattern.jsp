@@ -8,75 +8,44 @@
 		}
 		return true;
 	}
-	$(document)
-			.ready(
-					function() {
-						$('#dID')
-								.change(
-										function() {
-											var dNode = $('#dID').val();
-											var data = {
-												"dNode" : dNode
-											};
-											var mydata = JSON.stringify(data);
-											$.ajax({
-														type : "POST",
-														url : "showCforD",
-														data : mydata,
-														contentType : 'application/json;charset=UTF-8',
-														success : function(
-																result) {
-															var obj = JSON
-																	.parse(result);
-															var belongC = obj['belongC'];
-															$("#cID")
-																	.html(
-																			"<option disabled selected value> -- select a Pattern -- </option>");
-															for (var i = 0; i < belongC.length; i++) {
-																$("#cID")
-																		.append(
-																				"<option value='" + belongC[i] + "'>"
-																						+ belongC[i]
-																						+ "</option>");
-															}
-														}
-													});
-										});
-						$('#cID')
-								.change(
-										function() {
-											var cNode = $('#cID').val();
-											var type = "CN";
-											var data = {
-												"node" : cNode,
-												"type" : type
-											};
-											var mydata = JSON.stringify(data);
-											$
-													.ajax({
-														type : "POST",
-														url : "searchNonconnectedForPattern",
-														data : mydata,
-														contentType : 'application/json;charset=UTF-8',
-														success : function(
-																result) {
-															obj = JSON
-																	.parse(result);
-															var nonconnectedN = obj['nonconnected'];
-															$("#nID")
-																	.html(
-																			"<option disabled selected value> -- select a Node -- </option>");
-															for (i = 0; i < nonconnectedN.length; i++) {
-																$("#nID")
-																		.append(
-																				"<option value='" +nonconnectedN[i] + "'>"
-																						+ nonconnectedN[i]
-																						+ "</option>");
-															}
-														}
-													});
-										});
-					});
+$(document).ready(function() {
+$('#dID').change(function() {
+    var dNode = $('#dID').val();
+    var data={"dNode":dNode}
+	var mydata=JSON.stringify(data)
+	$.ajax({
+        type : "POST",
+        url : "showCforD",
+        data: mydata,
+        contentType: 'application/json;charset=UTF-8',
+        success: function(result){
+        	var obj=JSON.parse(result);
+        	var belongC=obj['belongC'];
+        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	for(i=0;i<belongC.length;i++){
+        	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
+        	}}
+        });
+});
+$('#cID').change(function(){
+	 var cNode = $('#cID').val();
+	 var type="CN";
+ 	  var data={"node":cNode,"type":type};
+	var mydata=JSON.stringify(data);
+	$.ajax({
+	        type : "POST",
+	        url : "searchNonConnectedNode",
+	        data: mydata,
+	        contentType: 'application/json;charset=UTF-8',
+	       	success: function(result){obj=JSON.parse(result);
+ 	        	var nonconnectedN=obj['neighbour'];
+ 	        	$("#nID").html("<option disabled selected value> -- select an Node -- </option>");
+ 	        	for(i=0;i<nonconnectedN.length;i++){
+ 	        	$("#nID").append("<option value='" +nonconnectedN[i] + "'>" + nonconnectedN[i] + "</option>");
+ 	        	}}
+ 	        });
+ 	    });
+});
 </script>
 <div class="span12" id="datacontent">
 

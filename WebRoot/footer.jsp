@@ -611,6 +611,7 @@ update:function() {
 	        		alert("The edge has existed!");
 	        	}else {
         			edges.add({id: a, from :d1, to :d2,smooth:false,length : EDGE_LENGTH_DD});
+        			$("#dID2 option:selected").remove();
 	        	}
 	        }
     	});
@@ -668,6 +669,7 @@ update:function() {
 	        		alert("The edge has existed!");
 	        	}else {
         			edges.add({id: a, from :c1, to :c2,smooth:false,length : EDGE_LENGTH_MAIN});
+        			$("#cID2 option:selected").remove();
 	        	}
 	        }
     	});
@@ -690,6 +692,7 @@ update:function() {
 	        	var a = parseInt(b);
 	        	if (a!=-1 && a != -2 ){
 	        		edges.add({id: a, from :cNode, to :nNode,smooth:false,length : EDGE_LENGTH_SUB,dashes:true});
+	        		$("#nID option:selected").remove();
 	        	}else if (a == -1){
 	        		alert("The edge has existed!");
 	        	}else if (a== -2){
