@@ -6,10 +6,6 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-$('#checkUsers').click(function() {
-	//userlist();
-	document.getElementById('checkUsers').setAttribute("data-target","#myModal5");
-});
 	function add() {
 		document.getElementById('myModal2').style.display = 'block';
 	}
@@ -71,7 +67,7 @@ p {
 				if (request.getSession().getAttribute("firstname") == "admin"){
 			%>
 			<%
-				out.print("<button id=\"checkUsers\" type=\"button\" onClick=\"userlist()\"class=\"list-group-item\" data-toggle=\"modal\" data-target=\"#myModal5 \">Check users</button>");				
+				out.print("<button id=\"checkUsers\" type=\"button\" onClick=\"userlist()\"class=\"list-group-item\" data-toggle=\"modal\">Check users</button>");				
 				out.print("<button id=\"addUser\" type=\"button\" class=\"list-group-item\" data-toggle=\"modal\" data-target=\"#userModal\">Add User</button>");
 				out.print("<button id=\"addSecurityQuestion\" type=\"button\" class=\"list-group-item\"data-toggle=\"modal\"data-target=\"#myModal2 \">Add Security Question</button>");
 				}
@@ -202,7 +198,6 @@ for(var i=0;i<L.length;i++){
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
     } );
-        $("#myModal").modal("show");
         
       }
 
@@ -384,7 +379,7 @@ for(var i=0;i<L.length;i++){
         table = $('#example1').DataTable( {
         "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         "order": [[ 3, "desc" ]]
-    } );$("#myModal3").modal("show");
+    } );
       }
 </script>
         <div class="modal-footer">
