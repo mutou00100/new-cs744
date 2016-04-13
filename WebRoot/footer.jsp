@@ -707,6 +707,8 @@ update:function() {
 		var type="DD"
 		var data={"type":type,"node1":d1,"node2":d2}
 		var mydata=JSON.stringify(data)
+		if (confirm("Are you sure you want to delete connection between domain " + d1 + 
+				"and domain " + d2 + "?")) {
 		$.ajax({
 	        type : "POST",
 	        url : "deleteEdge",
@@ -726,6 +728,7 @@ update:function() {
 	        	}
 	        }
     	});
+		}
 	}
  	function deleteUser(user){
 		var u=user;
@@ -753,6 +756,8 @@ update:function() {
 		var type="CC";
 		var data={"type":type,"node1":c1,"node2":c2};
 		var mydata=JSON.stringify(data);
+		if (confirm("Are you sure you want to delete connection between pattern " + c1 + 
+				"and pattern " + c2 + "?")) {
 		$.ajax({
 	        type : "POST",
 	        url : "deleteEdge",
@@ -770,6 +775,7 @@ update:function() {
 	        	$("#cID2 option:selected").remove();}
         	}
     	});
+		}
 	}
  	function deleteCN(){
 		var cNode = $('#cID').val();
@@ -777,6 +783,8 @@ update:function() {
 		var type="CN";
 		var data={"type":type,"node1":cNode,"node2":nNode};
 		var mydata=JSON.stringify(data);
+		if (confirm("Are you sure you want to delete connection between connector node " + cNode + 
+				"and non-connector node " + cNode + "?")) {
 		$.ajax({
 	        type : "POST",
 	        url : "deleteEdge",
@@ -795,5 +803,6 @@ update:function() {
 	        	}
 	        }
     	});
+		}
 	}
 		</script>
