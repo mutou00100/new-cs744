@@ -223,7 +223,7 @@ function resend(){
 		dest=L[2];
 		msg=L[4];
 		ori=L[1];
-		sendMessage(cur,dest,msg,ori);
+		sendMessage(cur,dest,msg,ori,-1);
 		//sendMessage(cur, dest, message, ori)
 		var index = blockedlist.indexOf(L);
 		if (index > -1) {

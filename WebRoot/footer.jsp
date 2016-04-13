@@ -79,7 +79,7 @@
 		};
 		var options ={
 		layout:{randomSeed:1},
-		nodes: {color: 'royalblue',value: 18},
+		nodes: {color: 'royalblue',size: 18},
 		edges: {color: 'royalblue'}};
 		network = new vis.Network(container, data, options);
 		<% if((String) session.getAttribute("blockedlist")!=null)
@@ -104,7 +104,7 @@
 				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP") ;
 			}
 		}
-	function sendMessage(cur, dest, message, ori){
+	function sendMessage(cur, dest, message, ori, res){
 			createXMLHttp() ;
 			xmlHttp.open("POST","sendMessage?ori="+cur+ "&&dest=" +dest +"&&message=" + message) ;
 			xmlHttp.onreadystatechange = function(){
@@ -120,7 +120,7 @@
 					if (oriThisTIme == parseInt(ori)){
 						path.push(parseInt(ori));
 					}
-					if (txt3.length == 2) {
+					if (txt3.length == 2||res == -1) {
 						path.push(parseInt(cur));
 					}
 					for(var j=0;j<txt3.length-2;j++){
@@ -222,7 +222,7 @@
 						if (text == "false") {
 							startWalking(dest, message,path,ori,-1, i);
 						}else {
-						 	sendMessage(path[i],dest, message,ori);
+						 	sendMessage(path[i],dest, message,ori,0);
 						}
 		  			}
 	  			}
@@ -245,13 +245,13 @@
   	function addNode(node, type) {
   		if (type == 'c'){
   		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
-		color: 'royalblue'
+		color: 'royalblue',size: 18
 		});} else if (type == 'd'){
   		nodes.add({id :node, label : 'Domain'+node,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage',
-		color: 'royalblue'
+		color: 'royalblue',value: 18
 		});} else {
 			nodes.add({id :node, label : 'Node'+node,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',
-		color: 'royalblue'
+		color: 'royalblue',value: 18
 		});
 		}
   	}
