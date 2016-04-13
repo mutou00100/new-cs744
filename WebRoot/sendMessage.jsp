@@ -30,6 +30,7 @@ function sendMessageInMain() {
 						
 						<tbody>
 							<tr>
+							<td>Sender:</td>
 								<td class="span2"><select name="ori" id= "ori">
 										<option disabled selected value> -- sender -- </option>
 										<%
@@ -43,6 +44,7 @@ function sendMessageInMain() {
 										%>
 								</select>
 								</td>
+								<td>Receiver:</td>
 								<td class="span2"><select name="dest" id= "dest">
 										<option disabled selected value> -- receiver -- </option>
 										<%

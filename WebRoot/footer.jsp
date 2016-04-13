@@ -245,13 +245,13 @@
   	function addNode(node, type) {
   		if (type == 'c'){
   		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
-		color: 'royalblue',size: 18
+		color: 'royalblue', size:18
 		});} else if (type == 'd'){
   		nodes.add({id :node, label : 'Domain'+node,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage',
-		color: 'royalblue',value: 18
+		color: 'royalblue', size:18
 		});} else {
 			nodes.add({id :node, label : 'Node'+node,image : DIR + 'Hardware-My-Computer-3-icon.png',shape : 'circularImage',
-		color: 'royalblue',value: 18
+		color: 'royalblue', size:18
 		});
 		}
   	}
@@ -734,6 +734,7 @@ update:function() {
 		var u=user;
 		var data={"uid":u};
 		var mydata=JSON.stringify(data);
+		if (confirm("Are you sure you want to delete user:" + u + "?")) {
 		$.ajax({
 	        type : "POST",
 	        url : "deleteUser",
@@ -749,6 +750,7 @@ update:function() {
 	        	}
 	        }
     	});
+		}
 	}
  	function deleteCC(){
 		var c1 = $('#cID1').val();

@@ -14,7 +14,6 @@
 <script type="text/javascript" src="js/vis.js"></script>
 <link href="js/vis.css" rel="stylesheet" type="text/css" />
 <script src="js/googleAnalytics.js"></script>
-<script type="text/javascript" src="js/jquery-1.9.1.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/modernizr.js"></script>
  
  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +21,5 @@
   <link href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
    <script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
   
