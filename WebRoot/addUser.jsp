@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	function check() {
+	function checkUser() {
 		var ref = /^[a-zA-Z]+$/;
 		var reg = /^\w*$/;
 		if ($('#uID').val() == null || $('#uID').val() == "") {
@@ -61,7 +61,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" onClick="if(check()){addUser();}">Submit</button>
+				<button type="button" class="btn btn-primary" onClick="if(checkUser()){addUser();}">Submit</button>
 			</div>
 		</div>
 	</div>
