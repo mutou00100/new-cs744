@@ -598,7 +598,8 @@ update:function() {
 	        		alert("The edge has existed!");
 	        	}else {
 	        		addEdge(a, d1, d2, "DD");
-        			$("#dID2 option:selected").remove();
+	        		$("#dID1").prop("selectedIndex", 0);
+	        		$("#dID2").prop("selectedIndex", 0);
 	        	}
 	        }
     	});
@@ -656,7 +657,9 @@ update:function() {
 	        		alert("The edge has existed!");
 	        	}else {
         			addEdge(a, c1, c2, "CC");
-        			$("#cID2 option:selected").remove();
+        			$("#dID").prop("selectedIndex", 0);
+        			$("#cID1").prop("selectedIndex", 0);
+        			$("#cID2").prop("selectedIndex", 0);
 	        	}
 	        }
     	});
@@ -679,7 +682,9 @@ update:function() {
 	        	var a = parseInt(b);
 	        	if (a!=-1 && a != -2 ){
 	        		addEdge(a, cNode, nNode, "CN");
-	        		$("#nID option:selected").remove();
+	        		$("#dID").prop("selectedIndex", 0);
+	        		$("#cID").prop("selectedIndex", 0);
+	        		$("#nID").prop("selectedIndex", 0);
 	        	}else if (a == -1){
 	        		alert("The edge has existed!");
 	        	}else if (a== -2){
@@ -711,7 +716,8 @@ update:function() {
 	        	alert("The network should be a connected graph at anytime!")
 	        	}
 	        else{
-	        	$("#dID2 option:selected").remove();
+	        	$("#dID1").prop("selectedIndex", 0);
+	        	$("#dID2").prop("selectedIndex", 0);
 	        	}
 	        }
     	});
@@ -761,7 +767,9 @@ update:function() {
 	        	if(a==-1){
 	        	alert("The network should be a connected graph at anytime!");	
 	        }else{
-	        	$("#cID2 option:selected").remove();}
+	        	$("#dID").prop("selectedIndex", 0);
+	        	$("#cID1").prop("selectedIndex", 0);
+	        	$("#cID2").prop("selectedIndex", 0);}
         	}
     	});
 		}
@@ -788,7 +796,9 @@ update:function() {
 	        	if(a==-1){
 	        	alert("Each pattern must have at least one non-conector node connect to connector node if the pattern is not empty!");	
 	        	}else{
-	        		$("#nID option:selected").remove();
+		        	$("#dID").prop("selectedIndex", 0);
+		        	$("#cID").prop("selectedIndex", 0);
+		        	$("#nID").prop("selectedIndex", 0);
 	        	}
 	        }
     	});
