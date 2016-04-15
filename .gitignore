@@ -6,3 +6,4 @@ WebRoot/WEB-INF/classes/com/utils/ConnUtils.class
 *.class
 *.class
 *.java
+*.class

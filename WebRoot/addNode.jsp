@@ -21,6 +21,8 @@ $('#dID').change(function() {
         	obj=JSON.parse(result);
         	belongC=obj['belongC'];
         	$("#cID").html("<option disabled selected value> -- select a Pattern -- </option>");
+        	$("#nID1").html("<option disabled selected value> -- select a Node -- </option>");
+        	$("#nID2").html("<option disabled selected value> -- select a Node -- </option>");
         	for(i=0;i<belongC.length;i++){
         	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}
@@ -38,6 +40,7 @@ $('#cID').change(function(){
 	       	success: function(result){obj=JSON.parse(result);
   	        	var belongN=obj['belongN'];
   	        	$("#nID1").html("<option disabled selected value> -- select a Node -- </option>");
+  	        	$("#nID2").html("<option disabled selected value> -- select a Node -- </option>");
   	        	for(i=0;i<belongN.length;i++){
   	        	$("#nID1").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
   	        	}}

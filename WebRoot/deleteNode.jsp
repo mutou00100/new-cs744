@@ -1,7 +1,7 @@
 <%@ include file="realhead.jsp"%>
 <script type="text/javascript" >
 function check() {
-	if ($('#dID').val()== null && $('#cID').val()== null && $('#nID').val()== null) {
+	if ($('#dID').val()== null || $('#cID').val()== null || $('#nID').val()== null) {
 		alert("Please select one node!");
 		return false;
 	}
@@ -32,6 +32,7 @@ $('#dID').change(function() {
         	var obj=JSON.parse(result);
         	var belongC=obj['belongC'];
         	$("#cID").html("<option disabled selected value> -- select a Pattern -- </option>");
+        	$("#nID").html("<option disabled selected value> -- select a Node -- </option>");
         	for(var i=0;i<belongC.length;i++){
         	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}
@@ -39,6 +40,7 @@ $('#dID').change(function() {
 });
 $('#cID').change(function(){
 	 var cNode = $('#cID').val();
+	 var dNode = $('#dID').val();
  	  var data={"cNode":cNode};
 	var mydata=JSON.stringify(data);
 	$.ajax({
@@ -48,7 +50,7 @@ $('#cID').change(function(){
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
  	        	var belongN=obj['belongN'];
- 	        	$("#nID").html("<option disabled selected value> -- select a Node -- </option>");
+ 	        	$("#nID").html("<option disabled selected value> -- select a Node -- </option><option value="+ cNode + ">Connector: " + cNode + "</option>");
  	        	for(var i=0;i<belongN.length;i++){
  	        	$("#nID").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
  	        	}}

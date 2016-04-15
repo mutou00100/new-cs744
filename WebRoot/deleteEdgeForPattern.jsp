@@ -21,6 +21,7 @@ $('#dID').change(function() {
         	var obj=JSON.parse(result);
         	var belongC=obj['belongC'];
         	$("#cID1").html("<option disabled selected value> -- select a Pattern -- </option>");
+        	$("#cID2").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<belongC.length;i++){
         	$("#cID1").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}

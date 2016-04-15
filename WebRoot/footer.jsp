@@ -358,12 +358,9 @@
 			if (cID.options.length>1 && !gid){
 				alert("You can't delete domain if it has patterns!");
 			}else {
-				if (nID.options.length>1 && !nid){
+				if (nID.options.length>2 && nid==gid){
 					alert("You can't delete pattern if it has nodes!");
 				}else {
-					if (!nid && nID.options.length == 1){
-						nid = gid;
-					}
 					createXMLHttp() ;
 					xmlHttp.open("POST","deleteNode?nid="+nid+"&&did="+did) ;
 					xmlHttp.onreadystatechange = deleteNodeCallback;
