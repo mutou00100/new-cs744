@@ -33,37 +33,12 @@ public class deleteNode extends HttpServlet {
 			sb.append("</error>");
 		} else if (nDao.whetherC(nid)) {
 			if (nDao.countD(dId) > 1) {
-					ArrayList<Edge> neighbors = nDao.searchNeighbors(nid);
-					ArrayList<Integer> patterns = new ArrayList<Integer>();
-					for (int i = 0; i < neighbors.size(); i++) {
-						int node1 = neighbors.get(i).getNode1();
-						int node2 = neighbors.get(i).getNode2();
-						if (node1 != nid) {
-							patterns.add(node1);
-						}
-						if (node2 != nid) {
-							patterns.add(node2);
-						}
-					}
-					int bad = 0;
-					// get all the patterns that would be effected
-					for (int i = 0; i < patterns.size(); i++) {
-						if (nDao.countN(patterns.get(i)) == 1) {
-							bad++;
-						}
-					}
-					if (bad == 0 || patterns.size() == 1) {
 						sb.append("<node>");
 						sb.append("" + nid);
 						sb.append("</node>");
 						nDao.deleteInNodeEdge(nid); // delete connections with													// other connectors
 						nDao.deletePattern(nid); // delete connections with
-													// other connectors
-					}else {
-						sb.append("<error>");
-						sb.append("No pattern can be isolated!");
-						sb.append("</error>");
-					}
+								
 			} else {
 					ArrayList<Edge> neighbors = nDao.searchNeighbors(dId);
 					ArrayList<Integer> domains = new ArrayList<Integer>();
@@ -98,7 +73,7 @@ public class deleteNode extends HttpServlet {
 							nDao.deleteDomain(dId);	
 						}else {
 							sb.append("<error>");
-							sb.append("No pattern can be isolated!");
+							sb.append("No Domains can be isolated!");
 							sb.append("</error>");
 						}
 					}

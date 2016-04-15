@@ -389,19 +389,17 @@
 							$("#cID option:selected").remove();
 							$("#nID option:selected").remove();
 							if (cID.options.length==1){
-							removeNode(did);
-							
-							$("#dID option:selected").remove();
-							$('select option:first-child').attr("selected", "selected");
-							//dID.options.remove(did);
-							
+							removeNode(did);							
+							$("#dID option:selected").remove();			
 							}
 						}else{
 							//nID.options.remove(index1); 		
 							removeNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);
 							$("#nID option:selected").remove();
-							$('select option:first-child').attr("selected", "selected");
 						}
+						$('#dID option:first-child').prop('selected', true);
+						$('#cID option:first-child').prop('selected', true);
+						$('#nID option:first-child').prop('selected', true);
   						for (var i = 0; i < xml.getElementsByTagName("addEdge1").length; i++) {
   						addEdge(xml.getElementsByTagName("addEdge0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("addEdge1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("addEdge2")[i].childNodes[0].nodeValue, "NN");

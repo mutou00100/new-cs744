@@ -6,9 +6,6 @@ function check() {
 	if ($('#domainIdforPattern').val()== null) {
 		alert("Please chooose a domain!");
 		return false;
-	} else if (x != 0 && len == 0 ) {
-		alert("You must select at least one pattern!");
-		return false;
 	}
 	return true;
 }
