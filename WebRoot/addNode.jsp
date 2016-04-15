@@ -39,8 +39,8 @@ $('#cID').change(function(){
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
   	        	var belongN=obj['belongN'];
-  	        	$("#nID1").html("<option disabled selected value> -- select a Node -- </option>");
-  	        	$("#nID2").html("<option disabled selected value> -- select a Node -- </option>");
+  	        	$("#nID1").html("<option disabled selected value>- select Neighbor Node 1 -</option>");
+  	        	$("#nID2").html("<option disabled selected value>- select Neighbor Node 2 -</option>");
   	        	for(i=0;i<belongN.length;i++){
   	        	$("#nID1").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
   	        	}}
@@ -62,7 +62,7 @@ $('#nID1').change(function(){
 	        	if (index > -1) {
 	        	    belongN.splice(index, 1);
 	        	}
-	        	$("#nID2").html("<option disabled selected value> -- select a Node -- </option>");
+	        	$("#nID2").html("<option disabled selected value>- select Neighbor Node 2 -</option>");
 	        	for(i=0;i<belongN.length;i++){
 	        	$("#nID2").append("<option value='" + belongN[i] + "'>" + belongN[i] + "</option>");
 	        	}}
@@ -92,10 +92,10 @@ $('#nID1').change(function(){
             </select> 
             </td>
 								<td id="ntd"><select id="nID1">  
-                <option disabled selected value> -- select a Node -- </option> 
+                <option disabled selected value> - select Neighbor Node 1 - </option> 
             </select>  </td>
             <td id="ntd"><select id="nID2">  
-                <option disabled selected value> -- select a Node -- </option> 
+                <option disabled selected value> - select Neighbor Node 2 - </option> 
             </select>  </td>
             <td><input type="checkbox" name="connectToC" value="yes">Connect To Connector Node</td>
             <td><a class="btn btn-primary"  onclick = "if (check()){addNonNode();}" type="submit">Generate Node</a></td>
