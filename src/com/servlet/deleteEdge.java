@@ -63,12 +63,7 @@ public void doPost(HttpServletRequest request, HttpServletResponse response)
 		if(eid==-1){
 			eid = nDao.searchEdge(node2, node1);
 		}
-		if((nDao.validDeleteDD(node1, eid))&&(nDao.validDeleteDD(node2, eid))){
-			nDao.deleteEdgeById(eid);
-		}
-		else{
-			eid=-1;
-		}
+		nDao.deleteEdgeById(eid);
 	}
 	if(type.equals("CN")){
 		ArrayList<Integer> L=nDao.getAllNforPattern(node1);

@@ -23,7 +23,7 @@
   		if(allnodes != null) { 
   			for (int i=0;i<allnodes.size();i++){%>
 				<%if(allnodes.get(i).getType().equals("c")){%>
-				nodes.add({id :<%=allnodes.get(i).getnID()%>, label : 'Pattern' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
+				nodes.add({id :<%=allnodes.get(i).getnID()%>, label : 'Connector' +<%=allnodes.get(i).getnID()%>,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
 				});			
 				<%}
 				if (allnodes.get(i).getType().equals("n")){%>
@@ -244,7 +244,7 @@
   	}
   	function addNode(node, type) {
   		if (type == 'c'){
-  		nodes.add({id :node, label : 'Pattern'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
+  		nodes.add({id :node, label : 'Connector'+node,image : DIR + 'Network-Pipe-icon.png',shape : 'circularImage',
 		color: 'royalblue', size:18
 		});} else if (type == 'd'){
   		nodes.add({id :node, label : 'Domain'+node,image : DIR + 'Network-Domain-icon.png',shape : 'circularImage',
