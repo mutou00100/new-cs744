@@ -43,7 +43,7 @@ $('#cID1').change(function(){
         success: function(result){
         	var obj=JSON.parse(result);
         	var cNeighbour=obj['neighbour'];
-        	$("#cID2").html("<option disabled selected value> -- select an Pattern -- </option>");
+        	$("#cID2").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<cNeighbour.length;i++){
         	$("#cID2").append("<option value='" + cNeighbour[i] + "'>" + cNeighbour[i] + "</option>");
         }}
@@ -59,7 +59,7 @@ $('#cID1').change(function(){
 			<tr>
 				<td>Domain:</td>
 				<td class="input"><select name="dID" id="dID" class="span1">
-						<option disabled selected value>-- select an Domain --</option>
+						<option disabled selected value>-- select a Domain --</option>
 						<%
 							if (res1 != null && res1.size() != 0) {
 								for (int i = 0; i < res1.size(); i++) {

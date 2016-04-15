@@ -22,7 +22,7 @@ $('#dID').change(function() {
         	var obj=JSON.parse(result);
         	var belongC=obj['belongC'];
         	$("#cID").html("<option disabled selected value> -- select a Pattern -- </option>");
-        	$("#nID").html("<option disabled selected value> -- select a Node -- </option>");
+        	$("#nID").html("<option disabled selected value> -- select a Non-connector node -- </option>");
         	for(i=0;i<belongC.length;i++){
         	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
         	}}
@@ -40,7 +40,7 @@ $('#cID').change(function(){
 	        contentType: 'application/json;charset=UTF-8',
 	       	success: function(result){obj=JSON.parse(result);
  	        	var nonconnectedN=obj['neighbour'];
- 	        	$("#nID").html("<option disabled selected value> -- select a Node -- </option>");
+ 	        	$("#nID").html("<option disabled selected value> -- select a Non-connector node -- </option>");
  	        	for(i=0;i<nonconnectedN.length;i++){
  	        	$("#nID").append("<option value='" +nonconnectedN[i] + "'>" + nonconnectedN[i] + "</option>");
  	        	}}
