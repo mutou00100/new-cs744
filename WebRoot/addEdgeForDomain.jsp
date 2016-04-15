@@ -22,7 +22,7 @@ $('#dID1').change(function() {
         	var dNeighbour=obj['neighbour'];
         	$("#dID2").html("<option disabled selected value> -- select an Domain -- </option>");
         	for(i=0;i<dNeighbour.length;i++){
-        	$("#dID2").append("<option value='" + dNeighbour[i] + "'>" + dNeighbour[i] + "</option>");
+        	$("#dID2").append("<option value='" + dNeighbour[i] + "'>Domain: " + dNeighbour[i] + "</option>");
         	}
         }
 	});
@@ -40,7 +40,7 @@ $('#dID1').change(function() {
 							if (res1 != null && res1.size() != 0) {
 								for (int i = 0; i < res1.size(); i++) {
 									int domain = res1.get(i);
-									out.println("<option value = " + domain + ">" + domain
+									out.println("<option value = " + domain + ">Domain: " + domain
 											+ "</option>");
 								}
 							}

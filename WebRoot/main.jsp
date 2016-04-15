@@ -101,10 +101,10 @@ p {
 				onClick="show(this.id)">Delete Connection In Pattern</button>
 			<button id="sendMessage" type="button" class="list-group-item"
 				onClick="show(this.id)">Send Message</button>
+			<button id = "Recieved Message" type="button" class="list-group-item" onclick="show(this.id)" >Recieved Message</button>
 			<button id="activateNode" type="button" class="list-group-item" onClick="show(this.id)">Activate Node</button>
 			<button id="inactivateNode" type="button" class="list-group-item"
 				onClick="show(this.id)">Inactivate Node</button>
-			<button id = "Recieved Message" type="button" class="list-group-item" onclick="show(this.id)" >Recieved Message</button>
 		<button id = "blockedMessage" type="button" class="list-group-item" onclick="createTbody()" data-toggle="modal" data-target="#myModal">Blocked Message</button>
 		</div>
 		<div id="two"><%@ include file="footer.jsp"%></div>

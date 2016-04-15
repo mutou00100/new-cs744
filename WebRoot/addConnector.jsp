@@ -39,7 +39,7 @@ $('#domainIdforPattern').change(function() {
         	belongC=obj['belongC'];
         	var s =''
         	for(i=0;i<belongC.length;i++){
-        		s+='<input type="checkbox" id = "checkedC" name= "checkedC" value=' + belongC[i] +'>'+belongC[i]
+        		s+='<input type="checkbox" id = "checkedC" name= "checkedC" value=' + belongC[i] +'> Connector: '+belongC[i]
         	}
             document.getElementById('containerForConnector').innerHTML=s
         	}
@@ -58,7 +58,7 @@ $('#domainIdforPattern').change(function() {
 											if (res1 != null && res1.size() != 0) {
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
-													out.println("<option value = " +  domain + ">" +  domain
+													out.println("<option value = " +  domain + ">Domain: " +  domain
 															+ "</option>");
 												}
 											}

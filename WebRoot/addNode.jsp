@@ -24,7 +24,7 @@ $('#dID').change(function() {
         	$("#nID1").html("<option disabled selected value>- select Neighbor Node 1 -</option>");
 	        $("#nID2").html("<option disabled selected value>- select Neighbor Node 2 -</option>");
         	for(i=0;i<belongC.length;i++){
-        	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
+        	$("#cID").append("<option value='" + belongC[i] + "'>Connector: " + belongC[i] + "</option>");
         	}}
         });
 });
@@ -81,7 +81,7 @@ $('#nID1').change(function(){
 											if (res1 != null && res1.size() != 0) {
 												for (int i = 0; i < res1.size(); i++) {
 													int domain = res1.get(i);
-													out.println("<option value = " +  domain + ">" +  domain
+													out.println("<option value = " +  domain + ">Domain: " +  domain
 															+ "</option>");
 												}
 											}

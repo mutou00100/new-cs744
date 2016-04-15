@@ -32,7 +32,7 @@ box.appendChild(document.createTextNode(newValue));
     	if (resD.size() != 0) {
     	 out.println("Please choose the neighbor domains");}
     	for (int i = 0; i < resD.size(); i++) {
-    		out.print("<input type=\"checkbox\" id = \"checkedC\" name= \"checkedC\" value= "+resD.get(i)+">" + resD.get(i));
+    		out.print("<input type=\"checkbox\" id = \"checkedC\" name= \"checkedC\" value= "+resD.get(i)+">Domain: " + resD.get(i));
     	} %></td>
 						
 								<td class="span3">

@@ -25,7 +25,7 @@ $('#dID').change(function() {
         	$("#cID1").html("<option disabled selected value> -- select a Pattern -- </option>");
         	$("#cID2").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<belongC.length;i++){
-        	$("#cID1").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
+        	$("#cID1").append("<option value='" + belongC[i] + "'>Connector: " + belongC[i] + "</option>");
         	}}
         });
 });
@@ -45,7 +45,7 @@ $('#cID1').change(function(){
         	var cNeighbour=obj['neighbour'];
         	$("#cID2").html("<option disabled selected value> -- select a Pattern -- </option>");
         	for(i=0;i<cNeighbour.length;i++){
-        	$("#cID2").append("<option value='" + cNeighbour[i] + "'>" + cNeighbour[i] + "</option>");
+        	$("#cID2").append("<option value='" + cNeighbour[i] + "'>Connector: " + cNeighbour[i] + "</option>");
         }}
 	});
   	    });
@@ -64,7 +64,7 @@ $('#cID1').change(function(){
 							if (res1 != null && res1.size() != 0) {
 								for (int i = 0; i < res1.size(); i++) {
 									int domain = res1.get(i);
-									out.println("<option value = " + domain + ">" + domain
+									out.println("<option value = " + domain + ">Domain: " + domain
 											+ "</option>");
 								}
 							}
