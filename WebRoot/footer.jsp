@@ -380,45 +380,35 @@
 						var nID =document.getElementById('nID'); 
 						var cID = document.getElementById('cID');
 						var dID = document.getElementById('dID');
-						var index1=nID.selectedIndex; 
-						var index2=cID.selectedIndex;
-						var index3=dID.selectedIndex;
-						if (index1 == 0){ 
-							removeNode(cID.options[index2].text);
-							cID.options.remove(index2);
+						var cid=cID.value; 
+						var nid=nID.value;
+						var did=dID.value;
+						if (cid == nid){ 
+							removeNode(cid);
+							//cID.options.remove(cid);
+							$("#cID option:selected").remove();
+							$("#nID option:selected").remove();
 							if (cID.options.length==1){
-							removeNode(dID.options[index3].text);
-							dID.options.remove(index3);
-							$(document).ready(function() {
-									var dNode = $('#dID').val();
-								    var data={"dNode": dNode};
-									var mydata=JSON.stringify(data);
-									$.ajax({
-								        type : "POST",
-								        url : "showCforD",
-								        data: mydata,
-								        contentType: 'application/json;charset=UTF-8',
-								        success: function(result){
-								        	var obj=JSON.parse(result);
-								        	var belongC=obj['belongC'];
-								        	$("#cID").html("<option disabled selected value> -- select an Pattern -- </option>");
-								        	for(var i=0;i<belongC.length;i++){
-								        	$("#cID").append("<option value='" + belongC[i] + "'>" + belongC[i] + "</option>");
-								        	}}
-								        });
-								});
+							removeNode(did);
+							
+							$("#dID option:selected").remove();
+							$('select option:first-child').attr("selected", "selected");
+							//dID.options.remove(did);
+							
 							}
 						}else{
-							nID.options.remove(index1); 		
+							//nID.options.remove(index1); 		
 							removeNode(xml.getElementsByTagName("node")[0].childNodes[0].nodeValue);
+							$("#nID option:selected").remove();
+							$('select option:first-child').attr("selected", "selected");
 						}
   						for (var i = 0; i < xml.getElementsByTagName("addEdge1").length; i++) {
   						addEdge(xml.getElementsByTagName("addEdge0")[i].childNodes[0].nodeValue,xml.getElementsByTagName("addEdge1")[i].childNodes[0].nodeValue,
   						xml.getElementsByTagName("addEdge2")[i].childNodes[0].nodeValue, "NN");
   						}		
-					}
+					
 				}
-  	}}
+  	}}}
   	function addNonNode(){
   		var n1 = $('#nID1').val();
   		var n2 = $('#nID2').val();
