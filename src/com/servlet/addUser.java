@@ -114,9 +114,10 @@ public class addUser extends HttpServlet {
 		if ( password.length()<6){
 			//this.addFieldError("addUserError","This user ID has existed!");
 			eid = 5;
+		}else {
+			user.setPassword(encrypt(password));
+			userDAO.save(user);
 		}
-	    user.setPassword(encrypt(password));
-	    userDAO.save(user);
 	    PrintWriter out = response.getWriter();
 	    response.setContentType("text/html");
 	    response.setHeader("Cache-control", "no-cache, no-store");

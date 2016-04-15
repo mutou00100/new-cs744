@@ -10,7 +10,7 @@
     var DIR = 'img/';
 	EDGE_LENGTH_MAIN = 400;
 	EDGE_LENGTH_SUB = 100; 
-	EDGE_LENGTH_DD = 400; 
+	EDGE_LENGTH_DD = 700; 
 	EDGE_LENGTH_CD = 200; 
 	process = 0;
 	var stack = [];
@@ -55,7 +55,7 @@
   		if(edge != null) { //
   			for (int i=0;i<edgeCC.size();i++){
   			%>
-			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth:false,length : EDGE_LENGTH_MAIN});
+			edges.add({id: <%=edgeCC.get(i).geteID()%>, from :<%=edgeCC.get(i).getNode1()%>, to :<%=edgeCC.get(i).getNode2()%>,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
 			<%}
 			for (int i=0;i<edgeCN.size();i++){
   			%>	
@@ -231,11 +231,11 @@
 	}    	
   	function addEdge(node0, node1, node2, type){
   		if (type == "DD") {
-  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_DD});
+  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_DD,dashes:true});
   		} else if (type == "CD") {
   			edges.add({from :node1, to :node2,smooth:false,length : EDGE_LENGTH_CD, dashes:true});
   		} else if (type == "CC"){
-  			edges.add({id: node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_MAIN});
+  			edges.add({id: node0, from :node1, to :node2,smooth: {type: 'dynamic'},length : EDGE_LENGTH_MAIN});
   		} else if (type == "CN"){
   			edges.add({id:node0, from :node1, to :node2,smooth:false,length : EDGE_LENGTH_SUB, dashes:true});
   		} else {
@@ -610,7 +610,7 @@ update:function() {
 	        	if (a==-1){
 	        		alert("The edge has existed!");
 	        	}else {
-        			edges.add({id: a, from :d1, to :d2,smooth:false,length : EDGE_LENGTH_DD});
+	        		addEdge(a, d1, d2, "DD");
         			$("#dID2 option:selected").remove();
 	        	}
 	        }
@@ -668,7 +668,7 @@ update:function() {
 	        	if (a==-1){
 	        		alert("The edge has existed!");
 	        	}else {
-        			edges.add({id: a, from :c1, to :c2,smooth:false,length : EDGE_LENGTH_MAIN});
+        			addEdge(a, c1, c2, "CC");
         			$("#cID2 option:selected").remove();
 	        	}
 	        }
@@ -691,7 +691,7 @@ update:function() {
 	        	var b = String(eid);
 	        	var a = parseInt(b);
 	        	if (a!=-1 && a != -2 ){
-	        		edges.add({id: a, from :cNode, to :nNode,smooth:false,length : EDGE_LENGTH_SUB,dashes:true});
+	        		addEdge(a, cNode, nNode, "CN");
 	        		$("#nID option:selected").remove();
 	        	}else if (a == -1){
 	        		alert("The edge has existed!");
