@@ -4,20 +4,17 @@ function check() {
 	if ($('#dID').val()== null || $('#cID').val()== null || $('#nID').val()== null) {
 		alert("Please select one node!");
 		return false;
-	}
-	if ($('#nID').val() != null){
-		if (confirm("Are you sure you want to delete node " + $('#nID').val()+"?")) {
+	} else {
+		var length = $('#nID').children('option').length;
+		if (length > 2 && $('#nID').val()==$('#cID').val()) {
+			alert("You can't delete a connector node when the pattern has non-connecotor node");
+			return false;
+		} else if (confirm("Are you sure you want to delete node " + $('#nID').val()+"?")) {
 			return true;
-		}
-		return false;
-	}else if ($('#cID').val() != null && $('#nID').val() == null){
-		if (confirm("Are you sure you want to delete pattern " + $('#cID').val()+"?")) {
-			return true;
-		}
-		return false;
+		} 
 	}
-	return true;
-}
+	return false;}
+
 $(document).ready(function() {
 $('#dID').change(function() {
     var dNode = $('#dID').val();
@@ -83,7 +80,7 @@ $('#cID').change(function(){
             </select></td>
             <td>Node:</td>
 								<td class="input"><select id="nID">  
-                <option disabled selected value> -- select a Non-connector node -- </option>
+                <option disabled selected value> -- select a Node -- </option>
             </select></td>
 								<td>
 									<a class="btn btn-primary" type="submit" onclick="if (check()){deleteNode();}">Delete</a>
