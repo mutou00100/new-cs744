@@ -19,7 +19,7 @@ checkbox.value = newValue;
 checkbox.id = "checkedC";
 
 box.appendChild(checkbox);
-box.appendChild(document.createTextNode(newValue));
+box.appendChild(document.createTextNode("Domain:"+newValue));
 }
 </script>
 <div class="span14" id="datacontent">

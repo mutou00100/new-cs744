@@ -18,9 +18,8 @@ checkbox.type = "checkbox";
 checkbox.name = "checkedC";
 checkbox.value = newValue;
 checkbox.id = "checkedC";
-
 box.appendChild(checkbox);
-box.appendChild(document.createTextNode(newValue));
+box.appendChild(document.createTextNode("Connector:"+newValue));
 }
 $('#domainIdforPattern').change(function() {
     var dNode = $('#domainIdforPattern').val();
