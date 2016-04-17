@@ -455,7 +455,7 @@
   	}}}}
   	
   	function activateNode(){
-  			var nid= document.getElementById('nid').value;
+  			var nid= document.getElementById('nID').value;
 			createXMLHttp() ;
 			xmlHttp.open("POST","activateNode?nid="+nid) ;
 			xmlHttp.onreadystatechange = activateNodeCallback;

@@ -81,7 +81,6 @@ $('#cID').change(function(){
 								<td id="ntd"><select id="nID">  
                 <option disabled selected value> -- select a Node -- </option> 
             </select>  </td>
-            <td>
 								<td class="span4">
 									<button class="btn btn-primary" onclick = "if (check()){activateNode();}" type="submit">Activate</button>
 								</td>
