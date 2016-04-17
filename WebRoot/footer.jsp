@@ -68,7 +68,7 @@
 			edges.add({from :<%=edgeCD.get(i).getNode1()%>, to :<%=edgeCD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_CD,dashes:true});
 			<%}
 			for (int i=0;i<edgeDD.size();i++){	%>
-			edges.add({from :<%=edgeDD.get(i).getNode1()%>, to :<%=edgeDD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
+			edges.add({id: <%=edgeDD.get(i).geteID()%>, from :<%=edgeDD.get(i).getNode1()%>, to :<%=edgeDD.get(i).getNode2()%>,smooth:false,length :EDGE_LENGTH_DD,dashes:true});
 			<%}}
   		%>
 	// create a network
@@ -201,7 +201,7 @@
 							//startWalking(cur, dest, message,path,ori,arrival, i){ 	
 							checkMessage(dest, message,path, ori, i+1);
 						}
-						nodes.update({id: path[i],color: 'green'});
+						nodes.update({id: path[i],color: 'red'});
 						setTimeout(function() {
 						nodes.update({id: path[i],color: 'royalblue'});}
 					,1000);
